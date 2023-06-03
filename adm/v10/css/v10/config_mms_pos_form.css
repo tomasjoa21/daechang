@@ -1,0 +1,52 @@
+@charset "utf-8";
+*{
+    box-sizing:border-box;/*W3C*/
+    -o-box-sizing:border-box;/*Opera*/
+    -ms-box-sizing:border-box;/*Internet Explorer*/
+    -moz-box-sizing:border-box;/*firefox*/
+    -webkit-box-sizing:border-box;/*Safari & Chrome*/ 
+}
+.box{
+    height:600px;
+}
+.drag_box {
+    position:relative;
+    padding: 10px;
+    border: 2px solid #F90;
+    height: 100%;
+    background-image:linear-gradient(#555555 1px, transparent 1px),linear-gradient(90deg, #555555 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: left top;
+}
+
+.drag {
+    position:absolute;
+    touch-action:none;
+    width: 50px;
+    height: 30px;
+    white-space: nowrap;
+    overflow:hidden;
+    background-color: #5959a4;
+    border-radius: 3px;
+    margin: 0 10px 10px 0;
+    float: left;
+    font-size:0.8em;
+    padding-top:5px;
+    padding-left:3px;
+    cursor:pointer;
+}
+.drag.focus{animation: color-change 1s ease-in-out infinite;}
+.drag.ing{animation: ing-color-change 1s ease-in-out infinite;}
+
+@keyframes color-change {
+    0% { background-color: #5959a4; }
+    50% { background-color: #de0e0e; }
+    100% { background-color: #5959a4; }
+}
+
+/*gradient animation infinite*/
+@keyframes ing-color-change {
+    0% { background-color: #5959a4; }
+    50% { background-color: #937a0f; }
+    100% { background-color: #5959a4; }
+}

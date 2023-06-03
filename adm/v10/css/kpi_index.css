@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* KPI report index */
+
+
+/* kpi report uppder area */
+.title01 {padding:10px;font-size: 1.5em;color: #0889a5;}
+.title01 .text01 {margin-left:20px;font-size:0.8em;}
+.form01 {border: solid 1px #dfdfdf;border-radius: 10px;background-color: #fafafa;padding:15px;}
+.form01 .frm_input
+,.form01 .text01
+,.form01 .text02
+,.form01 .btn_submit {vertical-align:top;}
+.form01 .text01 {height:42px;line-height:42px;margin-left:-5px;}
+.form01 .text02 {padding:0 5px;height:42px;line-height:42px;margin-left:-5px;border:solid 1px #ddd;border-radius:5px;background:#f1f1f1;cursor:pointer;}
+.form01 .frm_input {width:95px;text-align:center;height:42px;line-height:42px;border:solid 1px #ddd;border-radius:5px;font-size:1.1em;margin-right:5px;}
+.form01:after {display:block;visibility:hidden;clear:both;content:'';}
+.form01 > div {display:inline-block;margin-right:5px;}
+.form01 .btn_submit {border:none;border-radius:5px;background:#989cb8;padding:11px 30px 12px;}
+.tab_wrapper .content_wrapper{margin-top:-4px;}
+
+/* iframe area */
+.tab_content {min-height:400px;}
+.tab_content iframe {width:100%;}
+

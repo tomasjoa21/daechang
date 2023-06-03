@@ -1,0 +1,70 @@
+@charset "utf-8";
+* { box-sizing: border-box; }
+/* force scrollbar */
+html { overflow-y: scroll; }
+body { font-family: sans-serif; }
+/* ---- grid ---- */
+.grid {
+  max-width: 1600px;
+  background: #DDD;
+}
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+/* ---- .grid-item ---- */
+.grid-sizer,
+.grid-item {
+  width: 25%;
+}
+
+.grid-item {
+  padding-bottom: 25%; /* hack for proportional sizing */
+  float: left;
+  background-position: center center;
+  background-size: cover;
+  position:relative;
+}
+
+.grid-item-w30 {width: 30%;}
+.grid-item-w35 {width: 35%;}
+.grid-item-w40 {width: 40%;}
+.grid-item-w45 {width: 45%;}
+.grid-item-w50 {width: 50%;}
+.grid-item-w55 {width: 55%;}
+.grid-item-w60 {width: 60%;}
+.grid-item-w65 {width: 65%;}
+.grid-item-w70 {width: 70%;}
+.grid-item-w75 {width: 75%;}
+.grid-item-w80 {width: 80%;}
+.grid-item-w85 {width: 85%;}
+.grid-item-w90 {width: 90%;}
+.grid-item-w95 {width: 95%;}
+.grid-item-w100 {width: 100%;}
+
+.grid-item--large {
+  width: 50%;
+  padding-bottom: 50%;
+}
+
+.grid-btn{
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:1;
+  width:50px;
+  height:50px;
+  background:#000;
+}
+
+.packery-drop-placeholder {
+  border: 3px dotted #333;
+  background: hsla(0, 0%, 0%, 0.3);
+}
+
+.grid-item.is-dragging,
+.grid-item.is-positioning-post-drag {
+  z-index: 2;
+}

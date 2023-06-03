@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+#fsearch{position:relative;}
+#fsearch ul.view_type{position:absolute;bottom:0;right:10px;}
+#fsearch ul.view_type:after{display:block;visibility:hidden;clear:both;content:'';}
+#fsearch ul.view_type li{float:left;border:1px solid #504f4f;margin-left:-1px;}
+#fsearch ul.view_type li a{display:block;padding:5px 10px;}
+#fsearch ul.view_type li a.focus{background:#222270;color:#fff;font-weight:700;}
+
+.td_moi_idx{}
+.td_com_name{text-align:left !important;}
+.td_bom_name{text-align:left !important;}
+.td_moi_count{width:100px;}
+.td_moi_count .moi_count{text-align:right;}
+.td_moi_cnt{width:100px;}
+.td_input_cnt{text-align:right !important;}
+.td_no_input_cnt{text-align:right !important;}
+.td_mto_type{width:60px;}
+.td_mto_location{width:60px;}
+.td_mb_id{width:100px;}
+.td_sum_price{text-align:right !important;}
+.td_mto_price{text-align:right !important;width:120px;}
+.td_moi_input_date{width:100px;}
+.td_mto_input_date{width:100px;}
+.td_mto_memo{text-align:left !important;position:relative;}
+.td_moi_memo{text-align:left !important;position:relative;}
+.td_moi_memo pre,.td_mto_memo pre{display:none;}
+.td_moi_memo pre.focus,.td_mto_memo pre.focus{display:block;position:absolute;left:100%;bottom:-13px;z-index:100;background:#000;border:1px solid #888;overflow:hidden;padding:5px;border-radius:5px;}
+.td_moi_status{width:90px;}
+.td_mto_status{width:90px;}
+.td_mng{width:60px;}

@@ -1,0 +1,67 @@
+
+  @charset "utf-8";
+  * { box-sizing: border-box; }
+
+  /* force scrollbar */
+  html { overflow-y: scroll; }
+
+  body { font-family: sans-serif; }
+
+  /* ---- pkr ---- */
+
+  .pkr {
+    max-width: 100%;
+    background: #DDD;
+  }
+
+  /* clear fix */
+  .pkr:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  /* ---- .pkr-item ---- */
+
+  .pkr-sizer,
+  .pkr-item {
+    width: 25%;
+  }
+
+  .pkr-item {
+    padding-bottom: 25%; /* hack for proportional sizing */
+    float: left;
+    background-position: center center;
+    background-size: cover;
+    position:relative;
+  }
+
+  .pkr-item-w1 { width: 25%; }
+  .pkr-item-w2 { width: 50%; }
+  .pkr-item-w3 { width: 75%; }
+  .pkr-item-w4 { width: 100%; }
+
+  .pkr-item-h1 { padding-bottom: 25%; }
+  .pkr-item-h2 { padding-bottom: 50%; }
+  .pkr-item-h3 { padding-bottom: 75%; }
+  .pkr-item-h4 { padding-bottom: 100%; }
+
+  .pkr-btn{
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    width:50px;
+    height:50px;
+    background:#000;
+  }
+
+  .packery-drop-placeholder {
+    border: 3px dotted #333;
+    background: hsla(0, 0%, 0%, 0.3);
+  }
+
+  .pkr-item.is-dragging,
+  .pkr-item.is-positioning-post-drag {
+    z-index: 2;
+  }

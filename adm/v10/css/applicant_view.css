@@ -1,0 +1,49 @@
+@charset "tf-8";
+
+.tbl_wrap {padding:10px;}
+
+.tbl_wrap .title {padding:5px;border-bottom:solid 2px #444;font-size:2.2em;}
+.btn_fixed_top {top:10px;}
+
+.tbl_wrap .photo_info {margin:20px 0;}
+.tbl_wrap .photo_info:after {display:block;visibility:hidden;clear:both;content:"";}
+.tbl_wrap .photo_info .photo {float:left;}
+.tbl_wrap .photo_info .photo img {border:solid 1px #ddd;}
+.tbl_wrap .photo_info .info {float:left;margin-left:20px;}
+.tbl_wrap .photo_info .info .name_related {margin-bottom:10px;font-size:1.6em;}
+.tbl_wrap .photo_info .info div {margin-bottom:5px;}
+.tbl_wrap .photo_info .info div:first-child i {width:13px;}
+
+.title_name {font-weight:bold;}
+.title_name:after {content:"/";margin-left:5px;font-size:0.8em;}
+.title span {margin-right:5px;}
+
+
+.tbl_wrap .info_brief ul {position: relative;width: 100%;border: 1px solid #eaeaea;background: #f7f7f7;}
+.tbl_wrap .info_brief ul:after {display:block;visibility:hidden;clear:both;content:"";}
+.tbl_wrap .info_brief ul li {padding: 15px 0 15px;text-align: center;float:left;width:25%;}
+.tbl_wrap .info_brief ul li:after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: -24px;
+    width: 1px;
+    height: 48px;
+    background: #e3e3e3;
+}
+.tbl_wrap .info_brief ul li:first-child:after {background:transparent;}
+.tbl_wrap .info_brief ul li strong {font-size: 14px;font-weight: bold;}
+.tbl_wrap .info_brief ul li .txt {margin-top:5px;}
+
+.info_table {margin-top:30px;}
+.info_table .div_title {font-size:1.6em;padding:5px;font-weight:bold;}
+.info_table .div_title .span_shl_last_record {margin-left:10px;font-size:0.7em;font-weight:normal;}
+
+.td_crr_period {border-right:solid 1px #ddd;vertical-align:top;}
+.job_quit_why span {border:solid 1px #ddd;border-radius:10px; padding:1px 5px;;background:#f2f2f2;font-size:0.8em;margin-right:5px;}
+
+
+.div_profile {margin-bottom:100px;border:solid 1px #ddd;padding:20px 10px 30px;}
+
+.logo_watermark {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:none;}

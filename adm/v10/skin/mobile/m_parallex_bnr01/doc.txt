@@ -1,0 +1,338 @@
+bwg_add_css_file('slick',2);
+bwg_add_css_file('slick_theme',2);
+bwg_add_css_file('jquery_mb_ytplayer_min',2);
+bwg_add_css_file('animate',2);
+bwg_add_js_file('slick_min',2);
+bwg_add_js_file('jquery_mb_ytplayer_min',2);
+bwg_add_js_file('fittext',2);
+bwg_add_js_file('lettering',2);
+bwg_add_js_file('textillate',2);
+//bwg_add_js_file('slick',2);
+//bwg_add_js_file('jquery_mb_ytplayer',2);
+// add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
+//add_stylesheet('<link rel="stylesheet" href="'.$bwgs_skin_url.'/bpwg_style.css">', 3);
+
+$bwg_arr['config']
+$bwg_arr['option']
+$bwg_arr['content']
+$bwg_arr['onecont']
+$bwg_arr['onefile']
+
+//$bwg_arr['config']) -> bwgs
+	[bwgs_idx] => 6
+    [bwgs_cd] => main02
+    [bwgs_name] => 360도 회전배너
+    [bwgs_desc] => PC메인배너로 상품이미지가 360도로 회전합니다.
+    [bwgs_country] => ko_KR
+    [bwgs_db_category] => banner
+    [bwgs_db_table] => 
+    [bwgs_db_idx] => 
+    [bwgs_device] => pc
+    [bwgs_skin] => rotation360d01
+    [mb_id] => admin
+    [bwgs_ip] => 112.151.248.129
+    [bwgs_order] => 0
+    [bwgs_rank] => 0
+    [bwgs_status] => ok
+    [bwgs_begin_dt] => 0000-00-00 00:00:00
+    [bwgs_end_dt] => 0000-00-00 00:00:00
+    [bwgs_update_dt] => 2020-03-19 10:24:30
+    [bwgs_reg_dt] => 2020-01-29 11:06:11
+    [bwgs_subj1] => 
+    [bwgs_subj2] => 
+    [bwgs_subj3] => 
+    [bwgs_subj4] => 
+    [bwgs_subj5] => 
+    [bwgs_subj6] => 
+    [bwgs_subj7] => 
+    [bwgs_subj8] => 
+    [bwgs_subj9] => 
+    [bwgs_subj10] => 
+    [bwgs_1] => 
+    [bwgs_2] => 
+    [bwgs_3] => 
+    [bwgs_4] => 
+    [bwgs_5] => 
+    [bwgs_6] => 
+    [bwgs_7] => 
+    [bwgs_8] => 
+    [bwgs_9] => 
+    [bwgs_10] => 
+//$bwg_arr['option']) -> bwgo
+	[mbnr_default_wd] => 1080
+	[sld_wd] => 1920
+	[sld_ht] => 780
+	[rollimg_wd] => 500
+	[rollimg_ht] => 402
+	[rollimg_horizontal] => left
+	[rollimg_x_pos] => 10
+	[rollimg_y_pos] => 10
+	[text1_color] => #333333
+	[text1_font_size] => 50
+	[text1_ani_type] => 
+	[text2_color] => #333333
+	[text2_font_size] => 40
+	[text2_ani_type] => 
+	[text3_color] => #333333
+	[text3_font_size] => 30
+	[text3_ani_type] => 
+	[text4_color] => #333333
+	[text4_font_size] => 20
+	[text4_ani_type] => 
+	[it_id] => 1582713087
+	[rollimg_show] => show
+	[rollimg_autoplay] => auto
+	[rollimg_autoplay_direct] => cw
+	[rollimg_mouse_direct] => cw
+	[rollimg_speed] => 0.1
+	[rollimg_loading_time] => 1
+	[text_horizontal] => left
+	[text_x_pos] => 10
+	[text_y_pos] => 10
+	[text2_horizontal] => left
+	[text2_x_pos] => 10
+	[text2_y_pos] => 10
+	[text3_horizontal] => left
+	[text3_x_pos] => 10
+	[text3_y_pos] => 10
+	[text4_horizontal] => left
+	[text4_x_pos] => 10
+	[text4_y_pos] => 10
+	[blind_color] => rgba(51, 51, 51, 0.5)
+//$bwg_arr['content'][$i] -> bwgc(콘텐트 목록을 담는다.)
+	[bwgc_idx] => 13
+	[bwgs_idx] => 6
+	[bwgc_name] => 
+	[bwgc_name_en] => 
+	[bwgc_name_ex] => 
+	[bwgc_title] => 
+	[bo_table] => 
+	[wr_id] => 0
+	[co_id] => 
+	[mb_id] => 
+	[it_id] => 
+	[od_id] => 0
+	[bwgc_speed] => 0
+	[bwgc_key] => 
+	[bwgc_type] => 
+	[bwgc_ytb_url] => 
+	[bwgc_url] => 
+	[bwgc_url_target] => 
+	[bwgc_pay_type] => 
+	[bwgc_code] => 
+	[bwgc_tag] => 
+	[bwgc_local] => 
+	[bwgc_hp] => 
+	[bwgc_tel] => 
+	[bwgc_email] => 
+	[bwgc_zip1] => 
+	[bwgc_zip2] => 
+	[bwgc_addr1] => 
+	[bwgc_addr2] => 
+	[bwgc_addr3] => 
+	[bwgc_addr_jibeon] => 
+	[bwgc_password0] => 
+	[bwgc_password1] => 
+	[bwgc_parent_idx] => 0
+	[bwgc_depth] => 0
+	[bwgc_score] => 0
+	[bwgc_order] => 1
+	[bwgc_rank] => 0
+	[bwgc_point] => 0
+	[bwgc_price0] => 0
+	[bwgc_price1] => 0
+	[bwgc_level] => 0
+	[bwgc_zoom] => 0
+	[bwgc_lat] => 0
+	[bwgc_lng] => 0
+	[bwgc_polygon] => 
+	[bwgc_width] => 0
+	[bwgc_height] => 0
+	[bwgc_weight] => 0
+	[bwgc_temp] => 0
+	[bwgc_discount] => 0
+	[bwgc_discount_unit] => 
+	[bwgc_use] => 0
+	[bwgc_mobile_use] => 0
+	[bwgc_status] => ok
+	[bwgc_content] => 
+	[bwgc_file_maxlength] => 1
+	[bwgs_dt] => 0000-00-00
+	[bwgs_start_dt] => 0000-00-00
+	[bwgs_end_dt] => 0000-00-00
+	[bwgs_time] => 00:00:00
+	[bwgs_start_time] => 00:00:00
+	[bwgs_end_time] => 00:00:00
+	[bwgc_text0] => 
+	[bwgc_text1] => 
+	[bwgc_text2] => 
+	[bwgc_text3] => 
+	[bwgc_text4] => 
+	[bwgc_text5] => 
+	[bwgc_link0] => 
+	[bwgc_link1] => 
+	[bwgc_link2] => 
+	[bwgc_link3] => 
+	[bwgc_link4] => 
+	[bwgc_link5] => 
+	[bwgc_link0_target] => _self
+	[bwgc_link1_target] => _self
+	[bwgc_link2_target] => _self
+	[bwgc_link3_target] => _self
+	[bwgc_link4_target] => _self
+	[bwgc_link5_target] => 
+	[file]
+//$bwg_arr['onecont'] -> bwgc(한 개 콘텐트만 담는다.)
+	[bwgc_idx] => 13
+	[bwgs_idx] => 6
+	[bwgc_name] => 
+	[bwgc_name_en] => 
+	[bwgc_name_ex] => 
+	[bwgc_title] => 
+	[bo_table] => 
+	[wr_id] => 0
+	[co_id] => 
+	[mb_id] => 
+	[it_id] => 
+	[od_id] => 0
+	[bwgc_speed] => 0
+	[bwgc_key] => 
+	[bwgc_type] => 
+	[bwgc_ytb_url] => 
+	[bwgc_url] => 
+	[bwgc_url_target] => 
+	[bwgc_pay_type] => 
+	[bwgc_code] => 
+	[bwgc_tag] => 
+	[bwgc_local] => 
+	[bwgc_hp] => 
+	[bwgc_tel] => 
+	[bwgc_email] => 
+	[bwgc_zip1] => 
+	[bwgc_zip2] => 
+	[bwgc_addr1] => 
+	[bwgc_addr2] => 
+	[bwgc_addr3] => 
+	[bwgc_addr_jibeon] => 
+	[bwgc_password0] => 
+	[bwgc_password1] => 
+	[bwgc_parent_idx] => 0
+	[bwgc_depth] => 0
+	[bwgc_score] => 0
+	[bwgc_order] => 1
+	[bwgc_rank] => 0
+	[bwgc_point] => 0
+	[bwgc_price0] => 0
+	[bwgc_price1] => 0
+	[bwgc_level] => 0
+	[bwgc_zoom] => 0
+	[bwgc_lat] => 0
+	[bwgc_lng] => 0
+	[bwgc_polygon] => 
+	[bwgc_width] => 0
+	[bwgc_height] => 0
+	[bwgc_weight] => 0
+	[bwgc_temp] => 0
+	[bwgc_discount] => 0
+	[bwgc_discount_unit] => 
+	[bwgc_use] => 0
+	[bwgc_mobile_use] => 0
+	[bwgc_status] => ok
+	[bwgc_content] => 
+	[bwgc_file_maxlength] => 1
+	[bwgs_dt] => 0000-00-00
+	[bwgs_start_dt] => 0000-00-00
+	[bwgs_end_dt] => 0000-00-00
+	[bwgs_time] => 00:00:00
+	[bwgs_start_time] => 00:00:00
+	[bwgs_end_time] => 00:00:00
+	[bwgc_text0] => 
+	[bwgc_text1] => 
+	[bwgc_text2] => 
+	[bwgc_text3] => 
+	[bwgc_text4] => 
+	[bwgc_text5] => 
+	[bwgc_link0] => 
+	[bwgc_link1] => 
+	[bwgc_link2] => 
+	[bwgc_link3] => 
+	[bwgc_link4] => 
+	[bwgc_link5] => 
+	[bwgc_link0_target] => _self
+	[bwgc_link1_target] => _self
+	[bwgc_link2_target] => _self
+	[bwgc_link3_target] => _self
+	[bwgc_link4_target] => _self
+	[bwgc_link5_target] =>
+//$bwg_arr['onefile'] -> bwgc(한 개 콘텐트의 첨부파일만 담는다.)
+	[bwga_idx] => 31
+	[bwgs_idx] => 6
+	[bwgc_idx] => 13
+	[bwga_type] => content
+	[bwga_content_type] => 
+	[bwga_path] => /data/bpwidget/file/6/content
+	[bwga_array] => bwcfile
+	[bwga_title] => 
+	[bwga_name] => 1889007745_YM3TbIvK_c120f49a8fca9de3ba5157b4cf9b5a89e9ae3902.jpg
+	[bwga_name_orig] => main1.jpg
+	[bwga_content] => 
+	[bwga_width] => 1920
+	[bwga_height] => 780
+	[bwga_filesize] => 306756
+	[bwga_rank] => 999
+	[bwga_sort] => 999
+	[bwga_mime_type] => image/jpeg
+	[bwga_status] => ok
+	[bwga_reg_dt] => 2020-03-19 10:35:14
+
+if(count($bwg_arr['config'])){
+	foreach($bwg_arr['config'] as $key=>$val){
+		if($key == 'mb_id') ${'bwgs_mb_id'} = $val; //변수 충돌을 피하기 위해서
+		else ${$key} = $val;
+	}
+}
+
+$option_flag = (count($bwg_arr['option'])) ? true : false;
+if($option_flag){
+	foreach($bwg_arr['option'] as $key=>$val){
+		${$key} = $val;
+		if($key == 'file'){
+			foreach($file as $k=>$v){
+				${$k} = $v;
+			}
+		}
+	}
+	//관리자버튼에 할당할 id값
+	$adid = 'ad_'.$bid.bpwg_uniqid();
+	//위젯객체 id 할당(접두어:로고=lg,헤더=hd...등등)
+	$wid = 'qk_'.$bid.bpwg_uniqid();
+}
+
+/*
+//1개의 컨텐츠 필요할 경우 주석해제해서 사용
+if(count($bwg_arr['onecont'])){
+	foreach($bwg_arr['onecont'] as $key=>$val){
+		if($key == 'bo_table') ${'bwgc_bo_table'} = $val;
+		else if($key == 'wr_id') ${'bwgc_wr_id'} = $val;
+		else if($key == 'co_id') ${'bwgc_co_id'} = $val;
+		else if($key == 'mb_id') ${'bwgc_mb_id'} = $val;
+		else if($key == 'it_id') ${'bwgc_it_id'} = $val;
+		else if($key == 'od_id') ${'bwgc_od_id'} = $val;
+		else if($key == 'file') ${'bwgc_file'} = $val;
+		else ${$key} = $val;
+	}
+}
+//1개의 컨텐츠에 해당하는 첫번째 첨부파일이 필요할 경우 사용
+if(count($bwg_arr['oneconf'])){
+	foreach($bwg_arr['oneconf'] as $key=>$val){
+		${$key} = $val;
+	}
+}
+*/
+
+/* 스타일 및 스킨 파일은 php소스 하단에 배치해라
+include($bwgs_skin_path.'/bpwg_style.php');
+include_once($bwgs_skin_path.'/bpwg_style.head.php');
+include_once($bwgs_skin_path.'/bpwg_head.skin.php');
+include_once($bwgs_skin_path.'/bpwg_style.tail.php');
+*/

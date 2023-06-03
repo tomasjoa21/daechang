@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>오류안내 페이지 | 그누보드5</title>
+<link rel="stylesheet" href="http://ing.icmms.co.kr/php/hanjoo/adm/css/admin.css?ver=210618">
+<link rel="stylesheet" href="http://ing.icmms.co.kr/php/hanjoo/js/font-awesome/css/font-awesome.min.css?ver=210618">
+<link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<link rel="stylesheet" href="http://ing.icmms.co.kr/php/hanjoo/adm/v10/css/adm.css?ver=210618">
+<link rel="stylesheet" href="http://ing.icmms.co.kr/php/hanjoo/adm/v10/css/user.css?ver=210618">
+<!--[if lte IE 8]>
+<script src="http://ing.icmms.co.kr/php/hanjoo/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "http://ing.icmms.co.kr/php/hanjoo";
+var g5_bbs_url   = "http://ing.icmms.co.kr/php/hanjoo/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "";
+var g5_sca       = "";
+var g5_editor    = "";
+var g5_cookie_domain = "";
+var g5_shop_url = "http://ing.icmms.co.kr/php/hanjoo/shop";
+var g5_admin_url = "http://ing.icmms.co.kr/php/hanjoo/adm";
+</script>
+<script src="http://ing.icmms.co.kr/php/hanjoo/js/jquery-1.12.4.min.js?ver=210618"></script>
+<script src="http://ing.icmms.co.kr/php/hanjoo/js/jquery-migrate-1.4.1.min.js?ver=210618"></script>
+<script src="http://ing.icmms.co.kr/php/hanjoo/js/jquery.menu.js?ver=210618"></script>
+<script src="http://ing.icmms.co.kr/php/hanjoo/js/common.js?ver=210618"></script>
+<script src="http://ing.icmms.co.kr/php/hanjoo/js/wrest.js?ver=210618"></script>
+<script src="http://ing.icmms.co.kr/php/hanjoo/js/placeholders.min.js?ver=210618"></script>
+<script src="http://ing.icmms.co.kr/php/hanjoo/adm/v10/js/function.js?ver=210618"></script>
+<script src="http://ing.icmms.co.kr/php/hanjoo/adm/v10/js/common.js?ver=210618"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+
+<script>
+alert("승인된 회원만 접근 가능합니다.");
+document.location.replace("http://ing.icmms.co.kr/php/hanjoo");
+</script>
+
+<noscript>
+<div id="validation_check">
+    <h1>다음 항목에 오류가 있습니다.</h1>
+    <p class="cbg">
+        승인된 회원만 접근 가능합니다.    </p>
+        <div class="btn_confirm">
+        <a href="http://ing.icmms.co.kr/php/hanjoo">돌아가기</a>
+    </div>
+    
+</div>
+</noscript>
+
+
+
+<!-- ie6,7에서 사이드뷰가 게시판 목록에서 아래 사이드뷰에 가려지는 현상 수정 -->
+<!--[if lte IE 7]>
+<script>
+$(function() {
+    var $sv_use = $(".sv_use");
+    var count = $sv_use.length;
+
+    $sv_use.each(function() {
+        $(this).css("z-index", count);
+        $(this).css("position", "relative");
+        count = count - 1;
+    });
+});
+</script>
+<![endif]-->
+
+<script>
+var file_name = "mes_charge_in_sync";
+var dir_path = "/adm/v10/cubic";
+var mb_id = "";
+var mb_name = "";
+var mb_level = "1";
+var g5_community_use = "";
+var g5_user_admin_url = "http://ing.icmms.co.kr/php/hanjoo/adm/v10";
+var g5_user_admin_mobile_url = "http://ing.icmms.co.kr/php/hanjoo/adm/v10/mobile";
+var g5_print_version = "";
+var get_device_change_url = "http://ing.icmms.co.kr/php/hanjoo/adm/v10/cubic/mes_charge_in_sync.php?device=mobile"
+</script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+@charset "utf-8";
+.th_bom_name{width:400px !important;}
+.th_bom_part_no{width:60px !important;}
+.th_mms_idx{width:80px !important;}
+.th_mb_id{width:60px !important;}
+.th_pri_value{width:60px !important;}
+.th_pri_memo{}
+.th_pri_status{width:50px !important;}
+.th_one_sms{width:50px !important;}
+
+.td_bom_name{text-align:left !important;}
+.td_bom_part_no{text-align:left !important;}
+
+.td_pri_value input[type="text"]{text-align:right;}
+
+.btn_number{padding: 1px 5px 2px;margin-right: 10px;font-size: 0.7em;color: white;background-color: #354667;}
+
+.span_cst_name{margin-left:5px;}
+.span_bit_count{margin-left:10px;color:rgb(161, 143, 110);}
+.span_bit_count:before {content:'×';}

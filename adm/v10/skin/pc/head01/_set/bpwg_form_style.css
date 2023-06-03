@@ -1,0 +1,11 @@
+@charset "utf-8";
+.opt_td_logo_size input[type="text"]{text-align:right;}
+
+#bwg_skin_opt1{}
+#bwg_skin_opt1 > tbody{}
+#bwg_skin_opt1 > tbody > tr{}
+#bwg_skin_opt1 > tbody > tr > th{}
+#bwg_skin_opt1 > tbody > tr > th,
+#bwg_skin_opt1 > tbody > tr > td{}
+#bwg_skin_opt1 > tbody > tr > td{padding:0;}
+

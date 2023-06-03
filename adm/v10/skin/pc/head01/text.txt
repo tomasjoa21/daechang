@@ -1,0 +1,266 @@
+$bwg_arr['config'](
+	[bwgs_idx] => 3
+	[bwgs_cd] => head01
+	[bwgs_name] => 헤더스킨(head01)
+	[bwgs_desc] => 헤더영역의 스킨을 표시하는 위젯입니다.
+	[bwgs_country] => ko_KR
+	[bwgs_db_category] => section
+	[bwgs_db_table] => 
+	[bwgs_db_idx] => 
+	[bwgs_device] => pc
+	[bwgs_skin] => head01
+	[mb_id] => admin
+	[bwgs_ip] => 112.151.248.129
+	[bwgs_order] => 0
+	[bwgs_rank] => 0
+	[bwgs_status] => ok
+	[bwgs_begin_dt] => 0000-00-00 00:00:00
+	[bwgs_end_dt] => 0000-00-00 00:00:00
+	[bwgs_update_dt] => 2020-02-05 16:56:35
+	[bwgs_reg_dt] => 2020-01-29 11:06:11
+	[bwgs_subj1] => 
+	[bwgs_subj2] => 
+	[bwgs_subj3] => 
+	[bwgs_subj4] => 
+	[bwgs_subj5] => 
+	[bwgs_subj6] => 
+	[bwgs_subj7] => 
+	[bwgs_subj8] => 
+	[bwgs_subj9] => 
+	[bwgs_subj10] => 
+	[bwgs_1] => 
+	[bwgs_2] => 
+	[bwgs_3] => 
+	[bwgs_4] => 
+	[bwgs_5] => 
+	[bwgs_6] => 
+	[bwgs_7] => 
+	[bwgs_8] => 
+	[bwgs_9] => 
+	[bwgs_10] => 
+)
+
+$bwg_arr['option'](
+    [head_default_wd] => 1080
+    [head_shadow] => 
+    [head_shadow_x] => 1
+    [head_shadow_y] => 1
+    [head_shadow_size] => 5
+    [head_shadow_color] => #333333
+    [toppos_color] => rgba(51, 51, 51, 1)
+    [sclpos_color] => rgba(51, 51, 51, 1)
+	[toppos_line_color] => rgba(51, 51, 51, 1)
+    [sclpos_line_color] => rgba(51, 51, 51, 1)
+	
+    [toplink_top_color] => rgba(51, 51, 51, 1)
+    [toplinkfont_color] => #f2edf2
+    [toplink_low_color] => rgba(51, 51, 51, 1)
+    [toplink_line_color] => #ada8ad
+	
+    [sch_use] => 
+    [sch_shop] => 
+    [schbg_color] => rgba(51, 51, 51, 1)
+    [sch_color] => #333333
+    [schfont_color] => #e0d7e0
+	
+    [nav_bg_color] => rgba(51, 51, 51, 1)
+    [nav_align] => left
+    [menu1_first] => 
+    [menu1_first_font_color] => #333333
+    [menu1_first_hover_font_color] => #333333
+    [menu1_first_bg_color] => rgba(51, 51, 51, 1)
+    [menu1_first_hover_bg_color] => rgba(51, 51, 51, 1)
+    [menu1_wd] => 100
+    [menu1_ht] => 40
+    [menu1_gubun] => 
+    [menu1_gubun_ht] => 12
+    [menu1_gubun_color] => #333333
+    [menu1_font_size] => 14
+    [menu1_font_weight] => 600
+    [menu1_font_color] => #333333
+    [menu1_font_hover_color] => #333333
+    [menu1_bg_color] => rgba(51, 51, 51, 1)
+    [menu1_bg_hover_color] => rgba(51, 51, 51, 1)
+    [menu1_icon] => 
+    [menu1_icon_size] => 16
+    [menu1_icon_color] => #333333
+	
+    [menu2_sub] => 
+    [menu2_wd] => 100
+    [menu2_ht] => 40
+    [menu2_shadow] => 
+    [menu2_shadow_x] => 1
+    [menu2_shadow_y] => 1
+    [menu2_shadow_size] => 5
+    [menu2_shadow_color] => #333333
+    [menu2_font_size] => 12
+    [menu2_font_weight] => 400
+    [menu2_align] => left
+    [menu2_indent] => 10
+    [menu2_line_color] => rgba(51, 51, 51, 1)
+    [menu2_font_color] => #333333
+    [menu2_font_hover_color] => #333333
+    [menu2_bg_color] => rgba(51, 51, 51, 1)
+    [menu2_bg_hover_color] => rgba(51, 51, 51, 1)
+    [menu2_icon] => 
+    [menu2_icon_size] => 12
+    [menu2_icon_color] => #333333
+	
+    [menu3_wd] => 100
+    [menu3_ht] => 40
+    [menu3_shadow] => 
+    [menu3_shadow_x] => 1
+    [menu3_shadow_y] => 1
+    [menu3_shadow_size] => 5
+    [menu3_shadow_color] => #333333
+    [menu3_font_size] => 12
+    [menu3_font_weight] => 400
+    [menu3_align] => left
+    [menu3_line_color] => rgba(51, 51, 51, 1)
+    [menu3_font_color] => #333333
+    [menu3_font_hover_color] => #333333
+    [menu3_bg_color] => rgba(51, 51, 51, 1)
+    [menu3_bg_hover_color] => rgba(51, 51, 51, 1)
+    [logo_width] => 224
+    [logo_height] => 38
+    [logo_url] => 
+    [logo_show] => 1
+    [logo_new] => 
+    [path_anim] => 
+    [path_fill] => 
+    [path_time] => 2
+    [time_diff] => 0.3
+    [path_color] => rgba(51, 51, 51, 1)
+    [fill_speed] => 0.5
+    [fill_delay] => 4
+    [fill_color] => rgba(51, 51, 51, 1)
+	[class1] => logo_path1
+	[class1_color] =>  rgba(51, 51, 51, 1)
+	...
+    [file] => Array
+        (
+            [afile] => Array
+                (
+                    [0] => Array
+                        (
+                            [bwga_idx] => 1
+                            [bwgs_idx] => 3
+                            [bwgc_idx] => 0
+                            [bwga_type] => option
+                            [bwga_content_type] => 
+                            [bwga_path] => /data/bpwidget/file/3/option
+                            [bwga_array] => afile
+                            [bwga_title] => 
+                            [bwga_name] => 1889007745_XWu0oA3P_2a1e1b648c1f1bb9278164ff4bf95a52e5203372.svg
+                            [bwga_name_orig] => logo_text_onecolor.svg
+                            [bwga_content] => 
+                            [bwga_width] => 0
+                            [bwga_height] => 0
+                            [bwga_filesize] => 1851
+                            [bwga_rank] => 999
+                            [bwga_sort] => 999
+                            [bwga_mime_type] => image/svg+xml
+                            [bwga_status] => ok
+                            [bwga_reg_dt] => 2020-02-05 16:56:35
+                            [bwga_subj1] => 
+                            [bwga_subj2] => 
+                            [bwga_subj3] => 
+                            [bwga_subj4] => 
+                            [bwga_subj5] => 
+                            [bwga_subj6] => 
+                            [bwga_subj7] => 
+                            [bwga_subj8] => 
+                            [bwga_subj9] => 
+                            [bwga_subj10] => 
+                            [bwga_1] => 
+                            [bwga_2] => 
+                            [bwga_3] => 
+                            [bwga_4] => 
+                            [bwga_5] => 
+                            [bwga_6] => 
+                            [bwga_7] => 
+                            [bwga_8] => 
+                            [bwga_9] => 
+                            [bwga_10] => 
+                        )
+
+                )
+
+        )
+
+)
+
+
+##################### 메뉴 #####################
+[11] => Array
+	(
+		[me_id] => 1
+		[me_code] => 10
+		[me_name] => 자유게시판
+		[me_link] => /bbs/board.php?bo_table=free
+		[me_target] => self
+		[me_order] => 3
+		[me_use] => 1
+		[me_mobile_use] => 1
+		[me_sort] => 401000000
+		[me_2] => Array
+			(
+				[0] => Array
+					(
+						[me_id] => 7
+						[me_code] => 1030
+						[me_name] => 공지사항
+						[me_link] => /bbs/board.php?bo_table=notice
+						[me_target] => self
+						[me_order] => 0
+						[me_use] => 1
+						[me_mobile_use] => 1
+						[me_sort] => 401003000
+						[me_3] => Array
+							(
+							)
+
+					)
+
+				[1] => Array
+					(
+						[me_id] => 2
+						[me_code] => 1010
+						[me_name] => 자유게시판
+						[me_link] => /bbs/board.php?bo_table=free
+						[me_target] => self
+						[me_order] => 1
+						[me_use] => 1
+						[me_mobile_use] => 1
+						[me_sort] => 401101000
+						[me_3] => Array
+							(
+								[0] => Array
+									(
+										[me_id] => 4
+										[me_code] => 101020
+										[me_name] => 갤러리
+										[me_link] => /bbs/board.php?bo_table=gallery
+										[me_target] => self
+										[me_order] => 0
+										[me_use] => 1
+										[me_mobile_use] => 1
+										[me_sort] => 401101002
+									)
+
+								[1] => Array
+									(
+										[me_id] => 5
+										[me_code] => 101030
+										[me_name] => 공지사항
+										[me_link] => /bbs/board.php?bo_table=notice
+										[me_target] => self
+										[me_order] => 2
+										[me_use] => 1
+										[me_mobile_use] => 1
+										[me_sort] => 401101203
+									)
+
+							)
+
+					)

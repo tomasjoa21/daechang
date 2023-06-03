@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+.td_chk{}
+.td_plt_idx{}
+.td_bom{padding-top:0 !important;padding-bottom:0 !important;padding-left:5px !important;padding-right:5px !important;}
+.td_bom ul{}
+.td_bom ul li{margin-top:5px;}
+.td_bom ul li:first-child{margin-top:0px;}
+.td_bom ul li .ss{display:inline-block;width:}
+.td_bom ul li .ss_no{}
+.td_bom ul li .ss_name{}
+.td_bom ul li .ss_cnt{}
+.td_plt_reg_dt{width:200px;text-align:center;}
+.td_plt_in_cnt{width:90px;text-align:center;}
+.td_plt_reprint{width:80px;text-align:center;}

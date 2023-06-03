@@ -1,0 +1,10 @@
+#DDL
+
+CREATE DATABASE market
+
+#DML
+
+# CONTEXT-DATABASE: market
+
+tickers,ticker=AAPL company="APPLE INC",close=175.05,high=175.06,low=174.95,open=175.05,volume=261381 1511793000
+tickers,ticker=AAPL company="APPLE INC",close=174.6,high=175.05,low=174.6,open=175,volume=136420 1511793060

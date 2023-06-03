@@ -1,0 +1,89 @@
+// TimescaleDB 확장 설치!!
+Connect to PostgreSQL, using a superuser named postgres
+$ sudo su - postgres
+(ing@ingglobal*)
+$ psql
+
+postgres=# CREATE database daechang_www;
+
+Connect to the database
+postgres=# \c daechang_www
+
+Extend the database with TimescaleDB
+daechang_www=# CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
+daechang_www=# exit
+
+---------------------------------------------------------------------------------
+
+CREATE TABLE g5_1_socket (
+  sck_idx SERIAL,
+  sck_dt TIMESTAMPTZ NOT NULL,
+  sck_ip varchar(20) default '',
+  sck_port integer NOT NULL,
+  sck_value text
+);
+SELECT create_hypertable('g5_1_socket', 'sck_dt');
+CREATE INDEX g5_1_socket_idx_idx ON g5_1_socket (sck_idx);
+CREATE INDEX g5_1_socket_idx_ip ON g5_1_socket (sck_ip);
+CREATE INDEX g5_1_socket_idx_port ON g5_1_socket (sck_port);
+CREATE INDEX g5_1_socket_idx_ip_port ON g5_1_socket (sck_ip, sck_port);
+
+INSERT INTO "g5_1_socket" ("sck_idx", "sck_dt", "sck_ip", "sck_port", "sck_value")
+VALUES ('1',   '2023-04-17 12:12:12',       '172.17.0.2',    '30480',  'value1');
+INSERT INTO "g5_1_socket" ("sck_idx", "sck_dt", "sck_ip", "sck_port", "sck_value")
+VALUES ('2',   '2023-04-17 12:12:13',       '172.17.0.2',    '30480',  'value2');
+
+// auto_increment 생성
+// pgadmin 페이지에서 column 항목을 보고 Default 항목의 설명을 보면 정확한 이름이 나와있음
+ALTER SEQUENCE g5_1_socket_sck_idx_seq RESTART WITH 3;
+
+// auto_increment가 되는지 입력해 봄
+INSERT INTO "g5_1_socket" ("sck_dt", "sck_ip", "sck_port", "sck_value")
+VALUES ('2023-04-17 12:12:14',    '172.17.0.2',    '30480',  'value3');
+
+SELECT * FROM g5_1_socket ORDER BY sck_dt LIMIT 100;
+SELECT * FROM g5_1_socket ORDER BY sck_dt DESC LIMIT 100;
+SELECT * FROM g5_1_socket ORDER BY sck_idx DESC LIMIT 100;
+
+-- UTC time? Let's change to notimezone date. (??)
+ALTER TABLE g5_1_socket ALTER COLUMN sck_dt TYPE TIMESTAMP without time zone USING time_temp;
+
+---------------------------------------------------------------------------------
+
+SELECT CURRENT_SETTING('TIMEZONE'), NOW(), CURRENT_TIMESTAMP, clock_timestamp();
+SHOW timezone;
+SET TIME ZONE 'Asia/Seoul';
+SET TIME ZONE 'Asia/Seoul';
+SELECT CURRENT_SETTING('TIMEZONE'), NOW(), CURRENT_TIMESTAMP, clock_timestamp();
+
+
+$ sudo systemctl restart postgresql
+$ sudo systemctl status postgresql
+
+
+
+// 쿼리 초기화, 중지 ------------------------------------------------------------
+# sudo su - postgres
+(super@i**global*)
+# psql
+
+postgres=# SELECT pid,state,query_start,query FROM pg_stat_activity ORDER BY query_start ASC;
+여기서... query_start 을 확인해 보세요.
+확인 후 q 클릭해서 빠져나옴
+
+ 1846008 | active | 2023-05-08 12:57:50.500388+00 | DELETE FROM g5_1_socket WHERE sck_dt < '2023-05-01 00:00:00';
+  876913 | active | 2023-05-08 12:58:53.276509+00 | COMMIT
+
+
+
+SELECT pg_cancel_backend(29646);
+SELECT pg_cancel_backend(21373);
+SELECT pg_cancel_backend(20856);
+
+
+SELECT * FROM g5_1_socket WHERE sck_idx = '4758550';
+
+
+DELETE FROM g5_1_socket WHERE sck_dt < '2023-05-03 00:00:00';
+SELECT COUNT(sck_idx) AS sck_sul FROM g5_1_socket;
+

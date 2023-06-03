@@ -1,0 +1,68 @@
+<?php
+include_once('./_common.php');
+
+$res = array("ok" => true);
+
+if(!$mb_id_worker){
+    $res['ok'] = false;
+    $res['msg'] = '작업자 아이디가 넘어오지 않았습니다.';
+}
+
+if(!$mms_idx){
+    $res['ok'] = false;
+    $res['msg'] = '설비번호가 넘어오지 않았습니다.';
+}
+
+$boms = array();
+$bom_str_arr = explode(',',$boms_str);
+foreach($bom_str_arr as $bsa){
+    $bom_array = explode('=',$bsa);
+    $boms[$bom_array[0]] = $bom_array[1];
+}
+
+if(!count($boms)){
+    $res['ok'] = false;
+    $res['msg'] = '제품데이터가 넘어오지 않았습니다.';
+}
+// echo json_encode($res);
+// exit;
+//신규인쇄/발행
+if($w == ''){
+    //신규 plt_idx등록
+    $ins_sql = " INSERT INTO {$g5['pallet_table']} SET
+                   com_idx = '{$_SESSION['ss_com_idx']}'
+                   , mb_id_worker = '{$mb_id_worker}'
+                   , mms_idx = '{$mms_idx}'
+                   , plt_status = '{$plt_status}'
+                   , plt_reg_dt = '".G5_TIME_YMDHIS."'
+                   , plt_update_dt = '".G5_TIME_YMDHIS."'
+    ";
+    sql_query($ins_sql,1);
+    $plt_idx = sql_insert_id();
+
+    //완제품 자재에 갯수만큼 plt_idx정보 저장
+    foreach($boms as $bk => $bv){
+        $sql = " UPDATE {$g5['item_table']} SET
+                    plt_idx = '{$plt_idx}'
+                    , itm_update_dt = '".G5_TIME_YMDHIS."'
+                WHERE com_idx = '{$_SESSION['ss_com_idx']}'
+                    AND plt_idx = '0'
+                    AND bom_idx = '{$bk}'
+                    AND itm_status = 'finish'
+                ORDER BY itm_idx
+                LIMIT {$bv}
+        ";
+        sql_query($sql,1);
+    }
+
+    if($plt_idx){
+        $res['plt_idx'] = $plt_idx;
+        $res['print_dt'] = G5_TIME_YMDHIS;
+    }
+}
+//재인쇄
+else{
+
+}
+
+echo json_encode($res,true);

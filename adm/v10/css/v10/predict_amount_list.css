@@ -1,0 +1,11 @@
+@charset "utf-8";
+.td_bom_name{text-align:left !important;}
+.td_bom_name .sp_cat{color:orange;}
+.td_bom_type{}
+.td_snp{text-align:right !important;width:80px !important;}
+.td_safe_stock{text-align:right !important;width:80px !important;}
+.td_current_cnt{text-align:right !important;width:80px !important;}
+.td_day_cnt{text-align:right !important;width:80px !important;}
+.td_day_cnt span{color:skyblue;}
+.sp_warning{color:red !important;font-weight:700 !important;}
+.sp_past{color:#777;}

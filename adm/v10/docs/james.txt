@@ -1,0 +1,2602 @@
+// reset bom database.
+DELETE FROM g5_1_bom_item WHERE bom_idx >= 9;
+DELETE FROM g5_1_bom WHERE bom_idx >= 9;
+DELETE FROM g5_member WHERE mb_no >= 2;
+
+24810-US700
+SELECT MAX(SUBSTRING(bit_reply, 1, 1)) AS reply FROM g5_1_bom_item WHERE bit_num = '-7' AND bom_idx = '9' AND SUBSTRING(bit_reply, 1, 1) <> ''
+A
+
+
+
+INSERT INTO g5_1_bom_item SET bom_idx = '1842', bom_idx_child = '1875', bit_count = '1', bit_num = '-2', bit_reply = 'A\', bit_update_dt = '2023-01-20 16:56:20' , bit_reg_dt = '2023-01-20 16:56:20'
+1064 : You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2023-01-20 16:56:20' , bit_reg_dt = '2023-01-20 16:5...' at line 6
+error file : /adm/v10/bom_excel_form_update.php
+
+
+SELECT MAX(convert(bct_idx, decimal)) AS bct_max FROM g5_1_bom_category
+
+
+
+
+
+INSERT INTO g5_1_bom_category SET com_idx = '13' , bct_name = 'TR8' , bct_desc = '' , bct_order = '' , bct_update_dt = '2023-01-07 15:51:33' , bct_idx = '100' , bct_reg_dt = '2023-01-07 15:51:33'
+
+1062 : Duplicate entry '100-13' for key 'PRIMARY'
+
+error file : /adm/v10/bom_excel_form_update.php
+
+
+라즈베리파이 설치!!
+https://catalog.us-east-1.prod.workshops.aws/workshops/0b21ceb7-2108-4a82-9e76-4c56d4b52db5/ko-KR/1/4
+
+
+
+
+Warning: sizeof(): Parameter must be an array or an object that implements Countable in /home/daechang/www/adm/v10/bom_excel_form_update.php on line 273
+
+Warning: sizeof(): Parameter must be an array or an object that implements Countable in /home/daechang/www/adm/v10/bom_excel_form_update.php on line 273
+
+금강기계공업은 파이프관련 저희쪽으로 납품오는 자재 납품업체 입니다.
+(주)금강이랑 다른 없체입니다.
+
+
+
+CREATE TABLE `g5_1_mms_worker` (
+  `mmw_idx` bigint(20) NOT NULL COMMENT '업체/작업자idx' AUTO_INCREMENT,
+  `mb_id` varchar(50) DEFAULT '' COMMENT '작업자id',
+  `mms_idx` bigint(20) DEFAULT NULL COMMENT '설비idx',
+  `mmw_type` varchar(50) DEFAULT '' COMMENT '작업자타입',
+  `mmw_sort` varchar(50) DEFAULT '' COMMENT '정렬번호',
+  `mmw_memo` text DEFAULT NULL COMMENT '메모',
+  `mmw_status` varchar(50) DEFAULT '' COMMENT '상태',
+  `mmw_reg_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
+  `mmw_update_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
+  PRIMARY KEY (`mmw_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `g5_1_bom_mms_worker` (
+  `bmw_idx` bigint(20) NOT NULL COMMENT '업체/작업자idx' AUTO_INCREMENT,
+  `bom_idx` bigint(20) DEFAULT NULL COMMENT 'BOMidx',
+  `mms_idx` bigint(20) DEFAULT NULL COMMENT '설비idx',
+  `mb_id` varchar(50) DEFAULT '' COMMENT '작업자id',
+  `bmw_type` varchar(50) DEFAULT '' COMMENT '작업자타입',
+  `bmw_sort` varchar(50) DEFAULT '' COMMENT '정렬번호',
+  `bmw_memo` text DEFAULT NULL COMMENT '메모',
+  `bmw_status` varchar(50) DEFAULT '' COMMENT '상태',
+  `bmw_reg_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
+  `bmw_update_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
+  PRIMARY KEY (`bmw_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+UPDATE g5_1_customer SET com_idx = '13' , cst_name = '(주)금강' , cst_name_eng = '' , cst_names = '' , cst_homepage = '' , cst_tel = '' , cst_fax = '' , cst_email = '' , cst_type = 'customer' , cst_president = '' , cst_biz_no = '' , cst_biz_type1 = '' , cst_biz_type2 = '' , cst_zip1 = '' , cst_zip2 = '' , cst_addr1 = '' , cst_addr2 = '' , cst_addr3 = '' , cst_addr_jibeon = '' , cst_b_zip1 = '' , cst_b_zip2 = '' , cst_b_addr1 = '' , cst_b_addr2 = '' , cst_b_addr3 = '' , cst_b_addr_jibeon = '' , cst_latitude = '' , cst_longitude = '' , cst_send_type = '' , cst_kpi_menu = '' , cst_memo = '' , cst_keys = '' , cst_kosmolog_key = '' , cst_status = '' , cst_update_dt = '2023-01-20 15:52:38' WHERE cst_idx = '100'
+Warning: sizeof(): Parameter must be an array or an object that implements Countable in /home/daechang/www/adm/v10/bom_excel_form_update.php on line 291
+Warning: count(): Parameter must be an array or an object that implements Countable in /home/daechang/www/adm/v10/bom_excel_form_update.php on line 291
+
+CREATE TABLE `g5_1_shipment` (
+  `shp_idx` bigint(20) NOT NULL COMMENT '출하idx' AUTO_INCREMENT,
+  `com_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '업체번호',
+  `cst_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '거래처idx',
+  `cst_idx_shipto` bigint(20) NOT NULL DEFAULT 0 COMMENT '실출하처idx',
+  `shp_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '수주제품idx',
+  `shp_count` int(11) NOT NULL DEFAULT 0 COMMENT '출하수량',
+  `shp_dt_plan` date DEFAULT '0000-00-00' COMMENT '출하예정일',
+  `shp_dt` date DEFAULT '0000-00-00' COMMENT '실출하일',
+  `shp_memo` text DEFAULT NULL COMMENT '메모',
+  `shp_status` varchar(20) DEFAULT 'pending' COMMENT '상태',
+  `shp_reg_dt` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
+  `shp_update_dt` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
+  PRIMARY KEY (`shp_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `g5_1_delivery` (
+  `dlv_idx` bigint(20) NOT NULL COMMENT '배송idx' AUTO_INCREMENT,
+  `shp_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '출하idx',
+  `dlv_name` varchar(100) DEFAULT '' COMMENT '출하분할명',
+  `dlv_time` varchar(10) DEFAULT '' COMMENT '출하분할시간',
+  `dlv_count` int(11) DEFAULT NULL COMMENT '출하량',
+  `dlv_sort` int(11) DEFAULT NULL COMMENT '출하순서',
+  `dlv_memo` text DEFAULT NULL COMMENT '메모',
+  `dlv_status` varchar(50) DEFAULT '' COMMENT '상태',
+  `dlv_reg_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
+  `dlv_update_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
+  PRIMARY KEY (`dlv_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `g5_1_pallet` (
+  `plt_idx` bigint(20) NOT NULL COMMENT '빠레트idx' AUTO_INCREMENT,
+  `plt_idx_parent` bigint(20) NOT NULL DEFAULT 0 COMMENT '빠레트부모idx',
+  `com_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '업체번호',
+  `plt_barcode` varchar(100) DEFAULT '' COMMENT '바코드',
+  `plt_history` text DEFAULT NULL COMMENT '히스토리',
+  `plt_status` varchar(50) DEFAULT '' COMMENT '상태',
+  `plt_reg_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
+  `plt_update_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
+  PRIMARY KEY (`plt_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `g5_1_bom_part_no` (
+  `bpn_idx` bigint(20) NOT NULL COMMENT 'BOM파트번호이력idx' AUTO_INCREMENT,
+  `bom_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT 'BOMidx',
+  `bpn_part_no` varchar(50) DEFAULT NULL COMMENT '파트번호',
+  `bpn_start_date` date DEFAULT '0000-00-00' COMMENT '적용시작일',
+  `bpn_memo` text DEFAULT NULL COMMENT '메모',
+  `bpn_reg_dt` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
+  `bpn_update_dt` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
+  PRIMARY KEY (`bpn_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `g5_1_production` (
+  `prd_idx` bigint(20) NOT NULL COMMENT '생산idx' AUTO_INCREMENT,
+  `com_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '업체번호',
+  `shp_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '출하idx',
+  `shp_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '수주제품idx',
+  `mms_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '설비idx',
+  `shf_idx` bigint(20) NOT NULL DEFAULT 0 COMMENT '작업구간idx',
+  `mb_id` varchar(20) DEFAULT '' COMMENT '작업자id',
+  `prd_order_no` varchar(50) DEFAULT NULL COMMENT '지시번호',
+  `trm_idx_operation` int(11) NOT NULL DEFAULT 0 COMMENT '공정',
+  `trm_idx_line` int(11) NOT NULL DEFAULT 0 COMMENT '라인idx',
+  `prd_start_date` date DEFAULT '0000-00-00' COMMENT '생산시작일',
+  `prd_done_date` date DEFAULT '0000-00-00' COMMENT '생산완료일',
+  `prd_memo` text NOT NULL COMMENT '메모',
+  `prd_status` varchar(20) DEFAULT 'pending' COMMENT '상태',
+  `prd_reg_dt` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
+  `prd_update_dt` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
+  PRIMARY KEY (`prd_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+    [업체] => Array
+        (
+            [id] => %5EGM%3B
+            [type] => select
+            [select] => Array
+                (
+                    [id] => 2dbb834f-0cc4-4c56-9f30-a2a1d4af09da
+                    [name] => 대창공업
+                    [color] => yellow
+                )
+
+        )
+-------------------------------------
+    [properties] => Array
+        (
+            [구분] => Array
+                (
+                    [id] => 9dB%5E
+                    [type] => multi_select
+                    [multi_select] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [id] => dedca0be-6c06-436d-89f6-d0d63c6dd47c
+                                    [name] => 시정조치
+                                    [color] => green
+                                )
+
+                        )
+
+                )
+
+            [작성일] => Array
+                (
+                    [id] => %3ExiD
+                    [type] => created_time
+                    [created_time] => 2023-01-19T18:56:00.000Z
+                )
+
+            [진행율] => Array
+                (
+                    [id] => %3F%60De
+                    [type] => number
+                    [number] => 0.5
+                )
+
+            [사업명] => Array
+                (
+                    [id] => IGcw
+                    [type] => multi_select
+                    [multi_select] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [id] => ae183c67-53f2-4063-9298-c7206dffdb11
+                                    [name] => 건우금속고도화1
+                                    [color] => green
+                                )
+
+                        )
+
+                )
+
+            [ING담당자] => Array
+                (
+                    [id] => NtV_
+                    [type] => people
+                    [people] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [object] => user
+                                    [id] => 95705d0e-68cf-4c3f-ad8f-eacfb32a329f
+                                    [name] => 임채완
+                                    [avatar_url] => https://s3-us-west-2.amazonaws.com/public.notion-static.com/d35b0b16-7881-4823-8dbd-ff810388515c/20170717_204847_IMG_0022.jpg
+                                    [type] => person
+                                    [person] => Array
+                                        (
+                                            [email] => tomasjoa21@gmail.com
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [관련부서(팀)] => Array
+                (
+                    [id] => XlaA
+                    [type] => multi_select
+                    [multi_select] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [id] => 61d3f95a-92ed-4f6f-aa0e-f57ae5c3138a
+                                    [name] => 아이엔지
+                                    [color] => orange
+                                )
+
+                        )
+
+                )
+
+            [업체] => Array
+                (
+                    [id] => %5EGM%3B
+                    [type] => select
+                    [select] => Array
+                        (
+                            [id] => f85ef8bf-acf4-4976-bbca-ebb0b945509e
+                            [name] => 건우금속
+                            [color] => gray
+                        )
+
+                )
+
+            [일정] => Array
+                (
+                    [id] => _G%2Bl
+                    [type] => date
+                    [date] => Array
+                        (
+                            [start] => 2023-01-20
+                            [end] => 2023-01-31
+                            [time_zone] => 
+                        )
+
+                )
+
+            [고객사담당자] => Array
+                (
+                    [id] => lB%3Bz
+                    [type] => multi_select
+                    [multi_select] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [id] => 5bfbe59f-817f-4c1e-b738-5e3e3d114803
+                                    [name] => 이재호차장(건우)
+                                    [color] => orange
+                                )
+
+                        )
+
+                )
+
+            [알림관리일] => Array
+                (
+                    [id] => %7CyY~
+                    [type] => date
+                    [date] => Array
+                        (
+                            [start] => 2023-01-30
+                            [end] => 
+                            [time_zone] => 
+                        )
+
+                )
+
+            [회의] => Array
+                (
+                    [id] => title
+                    [type] => title
+                    [title] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [type] => text
+                                    [text] => Array
+                                        (
+                                            [content] => k1.166 건우최종검수 epcs시정조치
+                                            [link] => 
+                                        )
+
+                                    [annotations] => Array
+                                        (
+                                            [bold] => 
+                                            [italic] => 
+                                            [strikethrough] => 
+                                            [underline] => 
+                                            [code] => 
+                                            [color] => default
+                                        )
+
+                                    [plain_text] => k1.166 건우최종검수 epcs시정조치
+                                    [href] => 
+                                )
+
+                        )
+
+                )
+
+        )
+        
+{"page_size":10,"filter":{"property":"\uc5c5\uccb4","select":{"equals":"\ub300\ucc3d\uacf5\uc5c5"}}}
+{"page_size":10,"filter":{"property":{"\uc5c5\uccb4":{"select":{"equals":"\ub300\ucc3d\uacf5\uc5c5"}}}}}
+
+https://www.notion.so/15-1-ce2b69216ba64f49ae0a68277aa0eeea
+https://www.notion.so/d1-23-_-1_-1d8432e175714abe893dcb2f77ddbb30
+                    [id] => 1d8432e1-7571-4abe-893d-cb2f77ddbb30
+
+SELECT * FROM g5_5_ymd WHERE ymd_date >= '2022-05-10' AND ymd_date <= '2023-05-29';
+SELECT *, SUBSTRING(ymd_date,9,2) FROM g5_5_ymd WHERE ymd_date >= '2022-05-10' AND ymd_date <= '2023-05-29';
+SELECT * FROM g5_5_ymd WHERE ymd_date >= '2022-05-10' AND ymd_date <= '2023-05-29' AND SUBSTRING(ymd_date,9,2) IN ('05','10','15','20','25');
+
+거래처 수정
+
+
+공제신고서(커버지) - 이민희 작성?
+
+부양가족 자료제공 동의 - 홈텍스에서!!
+
+
+MariaDB [(none)]> select @@global.sql_mode;
++-------------------------------------------------------------------------------------------+
+| @@global.sql_mode                                                                         |
++-------------------------------------------------------------------------------------------+
+| STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++-------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+set @@global.sql_mode = 'ONLY_FULL_GROUP_BY,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+
+#sql_mode="ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+#sql_mode='ONLY_FULL_GROUP_BY,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+
+리스트 페이지 설명
+갯수 수정하기
+개별 추가하기
+엑셀 추가하기
+
+출하관리는 수주관리와 밀접하게 연결되어 있음
+출하정보가 없는 수주관리 리스트에서 [출하등록]으로 출하를 일단 생성
+출하가 분산되는 경우가 있음 - 복제하기 기능으로 간단하게 복제
+
+sudo tail -f /var/log/clamav/clamav.log
+systemctl stop clamav-freshclam.service
+systemctl start clamav-freshclam.service
+sudo freshclam
+
+
+sudo lsof /var/log/clamav/freshclam.log 
+sudo pkill -15 -x freshclam 
+sudo /etc/init.d/clamav-freshclam stop
+sudo freshclam 
+sudo /etc/init.d/clamav-freshclam start
+
+sudo clamscan -i -r --move=/home/virus /home/hanjoo/www/php/hanjoo/user
+sudo clamscan -i -r --move=/home/virus /home/hanjoo/www/php/hanjoo/user | grep FOUND >> /home/virus/result.txt
+sudo clamscan -i -r --move=/home/virus /home/hanjoo/www/php/hanjoo/user >> /home/virus/result.txt
+sudo clamscan -i -r --move=/home/virus /home/hanjoo/www/ | grep FOUND >> /home/virus/result.txt
+
+sudo grep clamav /var/log/syslog
+
+
+-1                      
+-1 A                    45
+-1     AA               22
+-1         AAA           3
+-1     AB
+-1         ABA
+-1         ABB
+-1     AC
+-1 B
+-1     BA
+-1     BB
+-1 C
+-1     CA
+-1 D
+-1     DA
+...
+-2 A
+-2     AA
+-2         AAA
+-2     AB
+-2         ABA
+-2         ABB
+-2     AC
+-2 B
+-2     BA
+-2     BB
+-2 C
+-2     CA
+-2 D
+-2     DA
+...
+-3 A
+-3     AA
+-3         AAA
+-3     AB
+-3         ABA
+-3         ABB
+-3     AC
+-3 B
+-3     BA
+-3     BB
+-3 C
+-3     CA
+-3 D
+-3     DA
+...
+
+
+// 소켓으로 해서 채팅 프로그램을 어느정도는 만들 수 있는 듯..
+https://funyphp.com/archive/php/35
+Serer php: server3.php
+Client php: c1.php
+
+
+// wireshark substitute on ubuntu 20.
+$ sudo apt update && sudo apt install --assume-yes tcpdump
+$ sudo tcpdump --interface=enp0s3
+$ sudo tcpdump --interface=enp0s3 -n
+$ sudo tcpdump --interface=enp0s3 -n host 192.168.0.3
+$ sudo tcpdump --interface=enp0s3 -n host 192.168.0.3 and port 20480
+
+$ sudo tcpdump --interface=lo
+$ sudo tcpdump --interface=lo -n host 127.0.0.1
+# sudo tcpdump -i lo src 127.0.0.1
+# sudo tcpdump -i lo tcp port 30480
+# sudo tcpdump -i lo src 127.0.0.1 and port 30480
+# sudo tcpdump -i lo dst 127.0.0.1 and port 30480
+# sudo tcpdump -i lo src 127.0.0.1 and dst 127.0.0.1 and port 30480
+
+$ sudo tcpdump --interface=docker0
+# sudo tcpdump -i docker0 tcp port 30480
+
+$ sudo tcpdump --interface=eno5
+# sudo tcpdump -i eno5 tcp port 20480
+# sudo tcpdump -i eno5 src 192.168.123.251
+
+$ sudo tcpdump --interface=lo
+# sudo tcpdump -i lo tcp port 20480
+# sudo tcpdump -i lo src 192.168.100.142
+# sudo tcpdump -i lo src 192.168.100.143
+
+$ sudo tcpdump --interface=eno8
+# sudo tcpdump -i eno8 tcp port 20480
+# sudo tcpdump -i eno8 src 192.168.100.142
+# sudo tcpdump -i eno8 src 192.168.100.143
+
+
+포트번호: 20480
+gateway: 192.168.0.1
+192.168.0.2 (Windows 노트북, 클라이언트) -> 192.168.0.20
+192.168.0.2 (Windows 노트북, Virtualbox Ubuntu20) -> 192.168.0.10
+192.168.0.3 (PLC) - 
+192.168.0.200 (macbook) - 
+
+
+james@sonjisig-ui-MacBookPro apache2 % sudo apachectl start
+httpd: Syntax error on line 543 of /usr/local/etc/httpd/httpd.conf: Cannot load /usr/local/opt/php@8.0/lib/httpd/modules/libphp.so into server: dlopen(/usr/local/opt/php@8.0/lib/httpd/modules/libphp.so, 0x000A): tried: '/usr/local/opt/php@8.0/lib/httpd/modules/libphp.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/usr/local/opt/php@8.0/lib/httpd/modules/libphp.so' (no such file), '/usr/local/opt/php@8.0/lib/httpd/modules/libphp.so' (no such file)
+
+remov the install then reinstalled
+$ brew list | grep php
+then
+$ brew uninstall --force {the php version returned from above}
+then
+$ brew install php@8.0
+now symlink
+$ brew link --overwrite --force php@8.0
+
+% brew services restart php@8.0
+
+
+
+cd /etc/netplan
+$ sudo vi 00-installer-config.yaml
+$ sudo vi /etc/netplan/00-installer-config.yaml
+----------------------------------
+# This is the network config written by James for Vbox 192.168.0.10/24
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: false
+      dhcp6: false
+      addresses:
+      - 192.168.0.10/24
+      routes:
+        - to: default
+          via: 192.168.0.1
+      nameservers:
+        addresses: [8.8.8.8,164.124.101.2]
+----------------------------------
+$ sudo netplan apply
+
+
+$ sudo vi /etc/php/7.4/fpm/pool.d/www.conf
+$ sudo vi /etc/nginx/sites-available/default 
+
+// restart services.
+$ sudo systemctl restart nginx
+$ sudo systemctl restart php7.4-fpm
+
+// 백그라운드에서-파이썬-실행하는-방법
+https://bongjacy.tistory.com/entry/%EB%B0%B1%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C%EC%97%90%EC%84%9C-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%8B%A4%ED%96%89%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95
+
+$ cd /home/daechang/www/user/socket/
+$ nohup python3 s26.py & > /dev/null
+$ nohup python3 s27.py & > /dev/null
+$ nohup python3 s28.py & > /dev/null
+$ nohup python3 s29.py & > /dev/null
+$ nohup python3 s12.py & > /dev/null
+$ nohup python3 s13.py & > /dev/null
+$ nohup python3 s14.py & > /dev/null
+$ nohup python3 s15.py & > /dev/null
+$ nohup python3 /home/daechang/www/user/socket/s15.py & > /dev/null
+
+$ nohup python3 c12.py & > /dev/null
+$ nohup python3 c15.py & > /dev/null
+
+
+python3 -m venv venv
+source venv/bin/activate
+deactivate
+
+
+SELECT * FROM g5_1_item3 WHERE json_contains(itm_json, 0,‘$.cst_idx’);
+
+// ok
+SELECT * FROM g5_1_item3 WHERE json_contains(itm_json, 108,'$[0].mms_idx');
+
+SELECT * FROM g5_1_item3 WHERE '01021534841' MEMBER OF( itm_json->'$[0].mb_id' );
+
+SELECT * FROM g5_1_item3 WHERE JSON_CONTAINS(itm_json->'$[0].mms_idx', CAST('[108,145]' AS JSON));
+
+SELECT * FROM g5_1_item3 WHERE JSON_EXTRACT(itm_json, '$.mb_id')
+
+// ok
+SELECT SQL_NO_CACHE * FROM g5_1_item3 WHERE json_value(itm_json,'$[*].status') = 'finish' AND json_value(itm_json,'$[*].mb_id') = '01057498205';
+
+// 속도 안 나옴
+SELECT SQL_NO_CACHE * FROM g5_1_item3 WHERE json_value(itm_json,'$[*].status') = 'finish' AND json_value(itm_json,'$[*].mb_id') = '01081275116';
+SELECT SQL_NO_CACHE * FROM g5_1_item3 WHERE json_value(itm_json,'$[*].mb_id') = '01081275116';
+
+SELECT COUNT(*) AS cnt FROM g5_1_item3 WHERE json_value(itm_json,'$[*].status') = 'finish' OR json_value(itm_json,'$[*].mb_id') = '01081275116';
+
+// 속도 잘 나오는 쿼리들
+SELECT SQL_NO_CACHE * FROM g5_1_item3 WHERE json_value(itm_json,'$[*].mb_id') = '01091104289';
+SELECT * FROM g5_1_item3 WHERE json_value(itm_json,'$[*].status') = 'finish' AND json_value(itm_json,'$[*].mb_id') = '01046729222';
+SELECT SQL_NO_CACHE * FROM g5_1_item3 WHERE json_value(itm_json,'$[*].status') = 'finish'
+ AND json_value(itm_json,'$[*].mb_id') = '01057498205'
+ AND json_value(itm_json,'$[*].statics_date') >= '2023-02-01'
+ AND json_value(itm_json,'$[*].statics_date') <= '2023-02-28'
+GROUP BY json_value(itm_json,'$[*].statics_date')
+ORDER BY json_value(itm_json,'$[*].statics_date')
+LIMIT 0,25
+
+// bom 재고수정
+UPDATE g5_1_bom SET bom_stock = (SELECT ROUND((0.5 + RAND() * 300)))
+
+// 자재 입력, 60만개..
+INSERT INTO g5_1_material (com_idx, cst_idx_provider, cst_idx_customer, bom_idx, moi_idx, mb_id, mtr_part_no, mtr_name, mtr_type,   mtr_value, mtr_lot, mtr_price, mtr_defect_type, mtr_defect_text, trm_idx_location, mtr_status, mtr_date, mtr_reg_dt, mtr_update_dt)
+SELECT com_idx, cst_idx_provider, cst_idx_customer, bom_idx, 0, mb_id, itm_part_no, itm_name, 'material', itm_value, itm_lot, itm_price, itm_defect_type, itm_defect_text, trm_idx_location, 'ok', itm_date, itm_reg_dt, itm_update_dt
+FROM g5_1_item
+
+
+UPDATE g5_1_mms_worker SET mb_id = '01053818229' , mms_idx = '89' , mmw_type = 'sub' , mmw_sort = '242' , mmw_memo = '' , mmw_status = 'ok' , mmw_update_dt = '2023-03-23 19:57:18' WHERE mmw_idx='14'
+
+SELECT * FROM g5_1_mms_worker AS mmw LEFT JOIN g5_1_mms AS mms ON mms.mms_idx = mmw.mms_idx LEFT JOIN g5_member AS mb ON mb.mb_id = mmw.mb_id WHERE mmw_status NOT IN ('trash','delete') AND mms.com_idx = '13' AND mmw.mms_idx LIKE '%89%' ORDER BY mmw_reg_dt DESC LIMIT 0, 15
+
+
+15:02:42.649884 IP localhost.53822 > localhost.30480: Flags [P.], seq 10001:11001, ack 1, win 512, options [nop,nop,TS val 2955390836 ecr 2955389831], length 1000
+15:02:42.649906 IP localhost.30480 > localhost.53822: Flags [.], ack 11001, win 504, options [nop,nop,TS val 2955390836 ecr 2955390836], length 0
+15:02:43.654100 IP localhost.53822 > localhost.30480: Flags [P.], seq 11001:12001, ack 1, win 512, options [nop,nop,TS val 2955391840 ecr 2955390836], length 1000
+15:02:43.654121 IP localhost.30480 > localhost.53822: Flags [.], ack 12001, win 504, options [nop,nop,TS val 2955391840 ecr 2955391840], length 0
+15:02:44.658294 IP localhost.53822 > localhost.30480: Flags [P.], seq 12001:13001, ack 1, win 512, options [nop,nop,TS val 2955392844 ecr 2955391840], length 1000
+15:02:44.658315 IP localhost.30480 > localhost.53822: Flags [.], ack 13001, win 504, options [nop,nop,TS val 2955392844 ecr 2955392844], length 0
+15:02:45.495629 IP localhost.53822 > localhost.30480: Flags [F.], seq 13001, ack 1, win 512, options [nop,nop,TS val 2955393681 ecr 2955392844], length 0
+15:02:45.495784 IP localhost.30480 > localhost.53822: Flags [F.], seq 1, ack 13002, win 512, options [nop,nop,TS val 2955393681 ecr 2955393681], length 0
+15:02:45.495811 IP localhost.53822 > localhost.30480: Flags [.], ack 2, win 512, options [nop,nop,TS val 2955393682 ecr 2955393681], length 0
+
+sudo ufw allow 5432
+
+
+
+SELECT bom.bom_idx, cst_idx_provider, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name
+    , bit.bit_idx, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+FROM g5_1_bom_item AS bit 
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child 
+    LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider 
+WHERE bit.bom_idx = '1889' 
+ORDER BY bit.bit_num DESC, bit.bit_reply
+
+SELECT bom.bom_idx, cst_idx_provider, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name
+    , bit.bit_idx, bit.bom_idx, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+FROM g5_1_bom_item AS bit 
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child 
+    LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider 
+WHERE bit.bom_idx = '1889' 
+ORDER BY bit.bit_num DESC, bit.bit_reply
+
+SELECT bom.bom_idx, cst_idx_provider, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name
+     , bit.bit_idx, bit.bom_idx, bit.bom_idx_child, bit.bit_reply, bit.bit_count 
+FROM g5_1_bom_item AS bit 
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child 
+    LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider 
+WHERE bit.bom_idx = '1884' 
+ORDER BY bit.bit_num DESC, bit.bit_reply
+
+SELECT * FROM {$g5['board_table']} WHERE bo_2 > 0 ORDER BY convert(bo_2, decimal)
+
+
+ORDER BY convert(bo_2, decimal)
+
+SELECT * FROM `g5_1_bom_item` order by bit_reply;
+SELECT * FROM `g5_1_bom_item` order by convert(bit_reply, decimal);
+
+
+$ids = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+$idarr = array();
+for($i=0;$i<count($ids);$i++){
+    if($i == 0) continue;
+    for($j=0;$j<count($ids);$j++){
+        //echo $ids[$i].$ids[$j].“<br>“;
+        array_push($idarr,$ids[$i].$ids[$j]);
+    }
+}
+print_r2($idarr);
+echo array_search('za',$idarr);
+
+$len = strlen($ca_id);
+$len2 = $len + 1;
+
+// 나의 형제 중에서 최고 마지막 두자리 추출
+SELECT MAX(SUBSTRING(bit_reply,1,2)) AS max_2digit -- 처음부터 2digit
+FROM g5_1_bom_item
+WHERE SUBSTRING(bit_reply,1,0) = ''   -- 처음부터 2digit
+// 레벨2 -> 1변수:1, 2변수:0, pre:0
+2*(1)-1, 2*(0)
+(1) = 2-1 / (0) = 2-2 / 
+
+SELECT MAX(SUBSTRING(bit_reply,3,2)) AS max_2digit -- 3자리부터 2digit
+FROM g5_1_bom_item
+WHERE SUBSTRING(bit_reply,1,2) = '10'   -- 처음부터 2digit
+// 레벨3 -> 1변수:3, 2변수:2, pre:2
+2*(2)-1, 2*(1)
+(2) = 3-1 / (1) = 3-2
+
+SELECT MAX(SUBSTRING(bit_reply,5,2)) AS max_2digit -- 5자리부터 2digit
+FROM g5_1_bom_item
+WHERE SUBSTRING(bit_reply,1,4) = '1010'   -- 처음부터 4digit
+// 레벨4 -> 1변수:5, 2변수:4, pre:4
+2*(3)-1, 2*(2)
+(3) = 4-1 / (2) = 4-2
+
+SELECT MAX(SUBSTRING(bit_reply,7,2)) AS max_2digit -- 7자리부터 2digit
+FROM g5_1_bom_item
+WHERE SUBSTRING(bit_reply,1,6) = '101010'   -- 처음부터 6digit
+// 레벨5 -> 1변수:7, 2변수:6, pre:6
+2*(4)-1, 2*(3)
+(4) = 5-1 / (3) = 5-2
+
+SELECT MAX(SUBSTRING(bit_reply,1,2)) AS max_2digit FROM g5_1_bom_item WHERE SUBSTRING(bit_reply,1,0) = ''
+
+
+
+// 테이블 초기화
+TRUNCATE TABLE g5_1_mms_worker;
+TRUNCATE TABLE g5_1_bom;
+TRUNCATE TABLE g5_1_bom_item;
+
+git filter-branch --index-filter 'git rm --cached --ignore-unmatch user/socket/nohup.out'
+
+// 호기가 들어가는 놈은 mms_name_ref 추가
+SELECT mms_name,mms_name_ref FROM g5_1_mms WHERE mms_name LIKE '%호기%';
+SELECT mms_name, REPLACE(mms_name,'호기',''), mms_name_ref FROM g5_1_mms WHERE mms_name LIKE '%호기%' AND mms_name_ref = '';
+
+SELECT mms_name, CONCAT('^R-',REPLACE(mms_name,'호기',''),'^^','R-0',REPLACE(mms_name,'호기',''),'^'), mms_name_ref FROM g5_1_mms WHERE mms_name LIKE '%호기%' AND mms_name_ref = '';
+UPDATE g5_1_mms SET mms_name_ref=CONCAT('^R-',REPLACE(mms_name,'호기',''),'^^','R-0',REPLACE(mms_name,'호기',''),'^') WHERE mms_name LIKE '%호기%' AND mms_name_ref = '';
+
+
+$ nohup python3 s12.py & > /dev/null
+
+$ nohup python3 c12.py & > /dev/null
+$ python3 c12.py
+
+
+일반사원권한
+915110 대시보드
+918000', '수주/출하'
+918110', '수주관리',
+918120', '출하관리',
+922000', '생산/재고'
+922110', '생산계획',
+922120', '생산현황',
+922130', '자재관리',
+922140', '재고관리',
+922150', '발주관리',
+925000', '통합설비관리',
+925110', '실시간모니터링'
+925120', '설비측정그래프'
+925700', '알람리스트', 
+925710', '예지리스트', 
+925800', '알람코드관리',
+925900', '설비관리설정',
+930000', '정비관리',
+930110', '계획정비관리
+930120', '정비조치관리
+930130', '부품재고관리
+930140', '매뉴얼관리'
+930150', '설비사양서'
+930160', 'A/S연락처
+930170', '헬프데스크'
+935000', '통계/보고
+935110', '생산보고서
+935120', '알람보고서
+935130', '예지보고서
+935140', '정비및재고
+935150', '조치보고서
+
+DELETE FROM g5_auth WHERE au_menu = '915110';;;;;
+DELETE FROM g5_auth WHERE au_menu = '918000';
+DELETE FROM g5_auth WHERE au_menu = '918110';
+DELETE FROM g5_auth WHERE au_menu = '918120';
+DELETE FROM g5_auth WHERE au_menu = '922000';
+DELETE FROM g5_auth WHERE au_menu = '922110';
+DELETE FROM g5_auth WHERE au_menu = '922120';
+DELETE FROM g5_auth WHERE au_menu = '922130';
+DELETE FROM g5_auth WHERE au_menu = '922140';
+DELETE FROM g5_auth WHERE au_menu = '922150';
+DELETE FROM g5_auth WHERE au_menu = '925000';
+DELETE FROM g5_auth WHERE au_menu = '925110';
+DELETE FROM g5_auth WHERE au_menu = '925120';
+DELETE FROM g5_auth WHERE au_menu = '925700'; 
+DELETE FROM g5_auth WHERE au_menu = '925710'; 
+DELETE FROM g5_auth WHERE au_menu = '925800';
+DELETE FROM g5_auth WHERE au_menu = '925900';
+DELETE FROM g5_auth WHERE au_menu = '930000';
+DELETE FROM g5_auth WHERE au_menu = '930110';
+DELETE FROM g5_auth WHERE au_menu = '930120';
+DELETE FROM g5_auth WHERE au_menu = '930130';
+DELETE FROM g5_auth WHERE au_menu = '930140';
+DELETE FROM g5_auth WHERE au_menu = '930150';
+DELETE FROM g5_auth WHERE au_menu = '930160';
+DELETE FROM g5_auth WHERE au_menu = '930170';
+DELETE FROM g5_auth WHERE au_menu = '935000';
+DELETE FROM g5_auth WHERE au_menu = '935110';
+DELETE FROM g5_auth WHERE au_menu = '935120';
+DELETE FROM g5_auth WHERE au_menu = '935130';
+DELETE FROM g5_auth WHERE au_menu = '935140';
+DELETE FROM g5_auth WHERE au_menu = '935150';
+
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '915110', 'r,w' FROM g5_member WHERE mb_4 = '13';;;;;;;
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '918000', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '918110', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '918120', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '922000', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '922110', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '922120', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '922130', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '922140', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '922150', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '925000', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '925110', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '925120', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '925700', 'r,w' FROM g5_member WHERE mb_4 = '13'; 
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '925710', 'r,w' FROM g5_member WHERE mb_4 = '13'; 
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '925800', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '925900', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '930000', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '930110', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '930120', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '930130', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '930140', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '930150', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '930160', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '930170', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '935000', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '935110', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '935120', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '935130', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '935140', 'r,w' FROM g5_member WHERE mb_4 = '13';
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '935150', 'r,w' FROM g5_member WHERE mb_4 = '13';
+
+총괄관리권한, 우성협 부장만..
+일반사원권한 + 아래 것들..
+910140 관리자설정 (우성협)
+
+김정수(321~341)
+940000', '기준정보관리'
+940110', '사원정보관리'
+940115', '거래처관리',
+940120', 'BOM', '
+940130', '설비관리', 
+940135', '작업교대관리'
+940160', '데이터조회',
+935900', '통계설정'
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '940000', 'r,w' FROM g5_member WHERE mb_no >= 321 AND mb_no <= 341;
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '940110', 'r,w' FROM g5_member WHERE mb_no >= 321 AND mb_no <= 341;
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '940115', 'r,w' FROM g5_member WHERE mb_no >= 321 AND mb_no <= 341;
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '940120', 'r,w' FROM g5_member WHERE mb_no >= 321 AND mb_no <= 341;
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '940130', 'r,w' FROM g5_member WHERE mb_no >= 321 AND mb_no <= 341;
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '940135', 'r,w' FROM g5_member WHERE mb_no >= 321 AND mb_no <= 341;
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '940160', 'r,w' FROM g5_member WHERE mb_no >= 321 AND mb_no <= 341;
+INSERT INTO g5_auth (mb_id, au_menu, au_auth) SELECT mb_id, '935900', 'r,w' FROM g5_member WHERE mb_no >= 321 AND mb_no <= 341;
+
+
+생산관리권한
+
+SELECT bom.bom_idx, cst_idx_customer, bom.bom_name, bom_part_no, bom_price, bom_status , bit1.bit_idx, bit1.bom_idx_child, bit1.bit_reply, bit1.bit_count , COUNT(bit2.bit_idx) AS group_count FROM g5_1_bom_item AS bit1 JOIN g5_1_bom_item AS bit2 LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit2.bom_idx_child WHERE bit1.bom_idx = '98' AND bit2.bom_idx = '98' AND bit2.bit_reply LIKE CONCAT(bit1.bit_reply,'%') GROUP BY bit1.bit_reply ORDER BY bit1.bit_reply
+
+Array
+(
+    [1] => 10
+    [2] => 1010
+    [3] => 101010
+    [4] => 10101010
+    [5] => 10101011
+    [6] => 10101012
+    [7] => 10101013
+    [8] => 10101014
+    [9] => 10101015
+    [10] => 10101016
+    [11] => 10101017
+    [12] => 10101018
+    [13] => 1010101810
+    [14] => 101010181010
+    [15] => 101010181011
+    [12] => 10101019 --------------------
+    [17] => 1012
+    [18] => 1013
+    [19] => 1014
+    [20] => 1015
+    [21] => 1016
+    [22] => 1017
+    [23] => 1018
+    [24] => 1019
+    [25] => 101a
+    [26] => 101b
+    [27] => 101c
+    [28] => 101d
+    [29] => 101d10
+    [30] => 11
+    [31] => 12
+    [32] => 13
+    [33] => 14
+    [34] => 15
+)
+
+
+SELECT bom.bom_idx, cst_idx_customer, bom.bom_name, bom_part_no, bom_price, bom_status 
+    , bit1.bit_idx, bit1.bom_idx_child, bit1.bit_reply, bit1.bit_count 
+    , COUNT(bit2.bit_idx) AS group_count 
+FROM g5_1_bom_item AS bit1 
+    JOIN g5_1_bom_item AS bit2 
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit2.bom_idx_child 
+WHERE bit1.bom_idx = '1' AND bit2.bom_idx = '1' 
+    AND bit2.bit_reply LIKE CONCAT(bit1.bit_reply,'%')
+GROUP BY bit1.bit_reply
+ORDER BY bit1.bit_reply
+
+SELECT bit1.bit_idx, bit1.bom_idx_child, bit1.bit_reply, bit1.bit_count 
+FROM g5_1_bom_item AS bit1 
+    JOIN g5_1_bom_item AS bit2 
+GROUP BY bit1.bit_reply
+ORDER BY bit1.bit_reply
+
+SELECT bom.bom_idx, cst_idx_provider, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count FROM g5_1_bom_item AS bit LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider WHERE bit.bom_idx = '1' ORDER BY bit.bit_reply
+SELECT bom.bom_idx, cst_idx_provider, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name
+    , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+FROM {$g5['bom_item_table']} AS bit
+    LEFT JOIN {$g5['bom_table']} AS bom ON bom.bom_idx = bit.bom_idx_child
+    LEFT JOIN {$g5['customer_table']} AS cst ON cst.cst_idx = bom.cst_idx_provider
+WHERE bit.bom_idx = '".$row['bom_idx']."'
+ORDER BY bit.bit_reply
+
+
+Java install ====================================================================
+refer to
+1. https://mech2cs.tistory.com/entry/Ubuntu-2004-%EC%9E%90%EB%B0%94-JDK-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EB%B2%84%EC%A0%84-%EA%B4%80%EB%A6%AC
+
+sudo apt update
+sudo apt upgrade
+
+// 설치 가능한 OpenJDK 검색하기
+sudo apt-cache search openjdk
+# 또는
+sudo apt search openjdk
+
+// 원하는 자바 버전을 설치합니다. 이 글에선 8버전과 17버전을 선택하였습니다.
+sudo apt install openjdk-8-jdk
+
+// remove 할 때는..
+sudo apt remove openjdk-8-jdk
+sudo apt-get remove openjdk*
+sudo apt-get autoremove --purge
+sudo apt-get autoclean
+
+
+
+sudo vi ~/.bashrc
+.................
+...
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tools.jar
+...........
+source ~/.bashrc
+
+# 현재 자바 버전 확인
+java -version
+
+# 설치된 자바 버전 리스트 확인
+update-alternatives --list java
+
+// 버전을 변경하고자 한다면 아래 명령어 2가지를 실행한 후 java와 javac의 버전을 변경해 줍니다.
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+// select the version you want. 1.8...
+
+// 현재 자바 버전이 변경되었는지 확인합니다.
+java -version
+
+자바의 경로 확인
+# which javac
+/usr/bin/javac
+
+
+환경변수는 모든 사용자에 적용, add the code at the end of the file.
+# sudo vi /etc/profile
+..........
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+PATH=$PATH:$JAVA_HOME/bin
+CLASSPATH=$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tools.jar
+
+export JAVA_HOME PATH CLASSPATH
+...........
+
+환경 변수를 등록했다면 ssh연결을 재시작하거나 source /etc/profile 명렁어를 입력
+# source /etc/profile
+
+
+$ echo $JAVA_HOME
+/usr/lib/jvm/java-1.8.0-openjdk-amd64
+$ echo $PATH
+/home/ing/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-1.17.0-openjdk-amd64/bin:/usr/lib/jvm/java-1.17.0-openjdk-amd64/bin:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin
+$ echo $CLASSPATH
+/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib:/usr/lib/jvm/java-1.8.0-openjdk-amd64/lib/tools.jar
+
+
+
+downlaod the JDBC file and put it into proper directory.
+1. "https://mvnrepository.com"를 접속하고 검색에 "mariadb-java-client"를 입력하고 검색합니다.
+mariadb-java-client-2.7.2.jar
+"JDBC driver for MariaDB and MySQL"인 "MariaDB Java Client"를 클릭합니다.
+"Version"중에서 "2.7.2"를 다운로드 그리고 복사
+
+cd /home/img/files/
+cp mar
+cd /usr/lib/jvm/java-1.17.0-openjdk-amd64/jre/lib/ext
+ls -al
+
+=========================================================
+# cd ~
+# mkdir docs
+# cd docs
+
+[root@localhost java]# vi MySQLConn1.java
+-----------------------------------------
+import java.sql.*;
+
+public class MySQLConn1 {
+
+    static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
+    static final String DB_URL = "jdbc:mariadb://localhost:3306/daechang_www";
+
+    static final String USERNAME = "daechang";
+    static final String PASSWORD = "daechang@ingglobal";
+
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement stmt = null;
+        try{
+            //Class.forName(JDBC_DRIVER);
+            Class.forName("org.mariadb.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
+            System.out.println("\n- MySQL Connection");
+            stmt = conn.createStatement();
+
+            String sql;
+            sql = "SELECT * FROM g5_board";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                String bo_table = rs.getString("bo_table");
+                String bo_subject = rs.getString("bo_subject");
+                String gr_id = rs.getString("gr_id");
+
+                System.out.print("\n** bo_table : " + bo_table);
+                System.out.print("\n** Subject : " + bo_subject);
+                System.out.print("\n    -> gr_id: " + gr_id);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(SQLException se1){
+            se1.printStackTrace();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                if(stmt!=null)
+                        stmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                        conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        System.out.println("\n\n- MySQL Connection Close");
+    }
+}
+-------------
+# 컴파일
+javac MySQLConn1.java
+-----------------
+MySQLConn1.class 파일이 생성되면
+
+
+# 프로그램 실생
+-----------------
+java MySQLConn1
+--------
+ Error: Could not find or load main class HelloWorld
+#-> ===> 에러가 발생될때는 -classpath . 옵션을 주면 된다.
+--------
+$ java -classpath . MySQLConn1
+
+
+
+
+
+=========================================================
+
+뿌리오는 포트를 2개 사용합니다.
+iptables에서 해당 포트를 열어줍니다.
+UDS_SEND_PORT = 18300
+UDS_RECV_PORT = 18400
+
+// ufw(우부투)인 경우
+sudo ufw allow 18300
+sudo ufw allow 18400
+
+iptables -I INPUT -p tcp -s 0.0.0.0/0 -d 175.118.126.177 --dport 18300 -j ACCEPT
+iptables -I INPUT -p tcp -s 0.0.0.0/0 -d 175.118.126.177 --dport 18400 -j ACCEPT
+
+파일에 적용하고
+iptables-save > /etc/sysconfig/iptables
+systemctl restart iptables
+systemctl restart sshd
+
+ex) refer to below.
+(Any -> Destination IP : 192.168.0.18, Destination Port : 80 - 허용)
+iptables -I INPUT -p tcp -s 0.0.0.0/0 -d 192.168.0.18 --dport 80 -j ACCEPT
+(192.168.0.2 -> Destination IP : 192.168.0.18, Destination Port : 22 - 허용)
+iptables -I INPUT -p tcp -s 192.168.0.2 -d 192.168.0.18 --dport 22 -j ACCEPT
+
+
+
+
+///////////////////////////
+뿌리오 설정
+
+$ cd /home/ing/biz_client
+$ biz_client_v3016.zip 파일 이동하고 압축해제
+$ unzip biz_client_v3016.zip
+
+
+// Atom 편집기로 접속 해당 파일 편집
+/home/ing/biz_client/config/uds.conf
+
+DB 설정들 쭉...하고
+--------------
+...
+#################################################
+# 비즈뿌리오 접속 정보 (필수)
+#################################################
+# 운영    : biz.ppurio.com
+# 검수    : biztest.ppurio.com (실발송 되지 않음)
+# SSL    : 18300/18400
+# NON-SSL : 15300/15400
+#################################################
+UDS_IP = biz.ppurio.com
+UDS_SEND_PORT = 18300
+UDS_RECV_PORT = 18400
+UDS_ID = kookple
+UDS_PW = ppurio@kookple177
+
+....
+BACKUP_OPTION = O
+....
+DBURL =jdbc:mysql://localhost:3306/ppurio?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+DBUSER = ppurio
+DBPASS = ppurio@kookple
+#################################################
+...
+FILE_PATH = ./spool
+#FILE_PATH = /home/daechang/www/data/ppurio
+...
+
+--------------
+실행권한도 주고..
+# chmod 755 biz_start
+# chmod 755 biz_stop
+
+
+환경설정을 해 두고 나서
+/script/biz_start 하면 uds.conf 파일이 암호화(?)되면서 데몬이 시작합니다.
+
+/script/biz_stop을 해도 데몬이 잘 안 죽어요.
+kill -9 데몬번호
+억지로 죽이고 다시 시작합니다.
+
+
+// 이건 안 된다. <br>을 쓰면 안 되네
+INSERT INTO BIZ_MSG (MSG_TYPE, REQUEST_TIME, SEND_TIME, DEST_PHONE, SEND_PHONE, MSG_BODY, TEMPLATE_CODE, SENDER_KEY, NATION_CODE)
+VALUES (6, NOW(), NOW(), '01062750365', '025124558','[서울오빠] 입니다.캠페인명<br>취소 발생 안내드립니다.<br><br>선정취소크리에이터목록입니다.<br><br>취소 인원은 대체 선정 또는 다음 회차에 포함되어 진행됩니다.<br>더 좋은 서비스로 보답하겠습니다.<br><br>감사합니다.<br>서울오빠 드림.', "bizp_2020032510271103031770888", "f7781a82aadb0bd5442966d5afdf5703e1a79250", '82')
+
+// 이건 또 됩니다.  \r\n을 쓰면 됩니다.
+INSERT INTO BIZ_MSG (MSG_TYPE, REQUEST_TIME, SEND_TIME, DEST_PHONE, SEND_PHONE, MSG_BODY, TEMPLATE_CODE, SENDER_KEY, NATION_CODE)
+VALUES (6, NOW(), NOW(), '01062750365', '01062750365','[대창공업] 입니다.캠페인명\r\n취소 발생 안내드립니다.\r\n\r\n선정취소크리에이터목록입니다.\r\n\r\n취소 인원은 대체 선정 또는 다음 회차에 포함되어 진행됩니다.\r\n더 좋은 서비스로 보답하겠습니다.\r\n\r\n감사합니다.\r\n서울오빠 드림.', "bizp_2020032510271103031770888", "f7781a82aadb0bd5442966d5afdf5703e1a79250", '82');
+
+CMID bigint(20) auto_increment에러가 나서 설정해 줘야 하네요.
+type도 바꾸고, auto_increment도 설정하고.. 다시 입력해 보자.
+
+참고..
+데이터 타입 (SMS 0/FAX 2/PHONE 3 /MMS 5/AT 6/FT 7/RCS 8/BI 11/BW 12)
+
+INSERT INTO BIZ_MSG (MSG_TYPE, REQUEST_TIME, SEND_TIME, DEST_PHONE, SEND_PHONE, MSG_BODY)
+VALUES (0, NOW(), NOW(), '01062750365', '0547467766','[대창공업]입니다.안녕\r\n취소 발생 안내\r\n\r\n감사.\r\n대창 드림.');
+
+INSERT INTO BIZ_MSG (MSG_TYPE, REQUEST_TIME, SEND_TIME, DEST_PHONE, SEND_PHONE, MSG_BODY)
+VALUES (0, NOW(), NOW(), '01087269235', '0547467766','[대창공업]입니다.안녕\r\n취소 발생 안내\r\n\r\n감사.\r\n대창 드림.');
+
+비로소 단문 발송 일단 성공!!
+
+
+SELECT *
+FROM (
+        (
+        SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status 
+            , 0, 0, 0, 0, '', 1
+        FROM g5_1_bom AS bom
+        WHERE bom_idx = '111'
+        )
+    UNION ALL
+        (
+        SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status 
+            , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+        FROM g5_1_bom_item AS bit 
+            LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child
+        WHERE bit.bom_idx = '111'
+        ORDER BY bit.bit_reply
+        )
+) AS db1
+
+SELECT *
+FROM (
+        (
+        SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status 
+            , 0 AS bit_idx, 0 AS bit_bom_idx, 0 AS bit_main_yn, 0 AS bom_idx_child, '' AS bit_reply, bom_usage AS bit_count
+        FROM g5_1_bom AS bom
+        WHERE bom_idx = '111'
+        )
+    UNION ALL
+        (
+        SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status 
+            , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+        FROM g5_1_bom_item AS bit 
+            LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child
+        WHERE bit.bom_idx = '111'
+        ORDER BY bit.bit_reply
+        )
+) AS db1
+
+// 아이템별 생산자
+SELECT *
+FROM g5_1_production_member AS prm
+    LEFT JOIN g5_1_production_item AS pri USING(pri_idx)
+WHERE bom_idx = '{$prd['bom_idx']}' AND prd_idx = '{$prd['prd_idx']}' AND pri_status NOT IN ('trash','delete')
+
+
+
+SELECT * 
+FROM g5_1_bom_mms_worker AS bmw 
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bmw.bom_idx 
+    LEFT JOIN g5_1_mms AS mms ON mms.mms_idx = bmw.mms_idx 
+    LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id 
+WHERE bmw_status NOT IN ('trash','delete') AND mms.com_idx = '13' AND mb_name LIKE '%라자%' AND bmw.mms_idx = '89' 
+ORDER BY bmw_reg_dt DESC LIMIT 0, 15;
+
+SELECT * FROM g5_1_bom_mms_worker AS bmw 
+LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bmw.bom_idx
+WHERE bmw_status NOT IN ('trash','delete') AND bmw.bom_idx LIKE '%4%' AND bmw.mms_idx = '89'
+ORDER BY bmw_reg_dt DESC LIMIT 0, 15
+
+SELECT * FROM g5_1_bom_mms_worker AS bmw
+WHERE bmw.mms_idx = '89' AND bom_idx = 4
+
+SELECT * 
+FROM g5_1_bom_mms_worker AS bmw
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = 4 AND mms_idx = 89
+
+SELECT * FROM g5_1_mms WHERE mms_idx = 89
+
+SELECT * 
+    , GROUP_CONCAT(bom_idx)
+FROM g5_1_bom_mms_worker AS bmw
+WHERE bmw_status NOT IN ('trash','delete') AND bmw.mms_idx = '89'
+GROUP BY bom_idx
+
+
+SELECT bmw_idx, bmw.mms_idx AS mms_idx, mms_name, bmw.mb_id AS mb_id, mb_name, bmw_type FROM g5_1_bom_mms_worker AS bmw LEFT JOIN g5_1_mms AS mms ON mms.mms_idx = bmw.mms_idx LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id WHERE bom_idx = '49';
+
+프레스...
+
+
+192.168.123.251 PLC
+192.168.123.00 엣지서버
+
+이상탐지 - 
+불량탐지 -
+
+한주금속
+일지테크
+한호산업
+아진산업
+
+MOU 같이 좀 하고 싶다.
+
+한호서버
+1. 서버 Raid 구성을 다시 해 가지고 와라.
+2. 하드 디스크 끼워 가지고 와라.
+3. 네트워크 구성은 아이엔지가 문제다.
+
+가입증명서
+010-4580-3855
+
+
+070-
+가입증명원이 5장 들어왔다.
+사업자등록증
+
+
+DELETE FROM g5_1_production_item WHERE pri_idx > 13222;
+
+
+
+SELECT * FROM ( ( SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, 'MIP' AS cst_name , 0 AS bit_idx, 0 AS bit_bom_idx, 0 AS bit_main_yn, 0 AS bom_idx_child, '' AS bit_reply, bom_usage AS bit_count FROM g5_1_bom AS bom WHERE bom_idx = '114' ) UNION ALL ( SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count FROM g5_1_bom_item AS bit LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider WHERE bit.bom_idx = '114' ORDER BY bit.bit_reply ) ) AS db1
+
+SELECT bmw_idx, bmw.mms_idx AS mms_idx, mms_name, bmw.mb_id AS mb_id, mb_name, bmw_type FROM g5_1_bom_mms_worker AS bmw LEFT JOIN g5_1_mms AS mms ON mms.mms_idx = bmw.mms_idx LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id WHERE bom_idx = '114' ORDER BY bmw_type, bmw_sort;
+
+SELECT * FROM g5_1_production_member AS prm
+    LEFT JOIN g5_1_production_item AS pri USING(pri_idx)
+WHERE prd_idx = 365
+
+
+        $sql1 = "   SELECT *
+                    FROM (
+                            (
+                            SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, 'MIP' AS cst_name
+                                , 0 AS bit_idx, 0 AS bit_bom_idx, 0 AS bit_main_yn, 0 AS bom_idx_child, '' AS bit_reply, bom_usage AS bit_count
+                            FROM g5_1_bom AS bom
+                            WHERE bom_idx = '".$prd['bom_idx']."'
+                            )
+                        UNION ALL
+                            (
+                            SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name
+                                , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+                            FROM {$g5['bom_item_table']} AS bit
+                                LEFT JOIN {$g5['bom_table']} AS bom ON bom.bom_idx = bit.bom_idx_child
+                                LEFT JOIN {$g5['customer_table']} AS cst ON cst.cst_idx = bom.cst_idx_provider
+                            WHERE bit.bom_idx = '".$prd['bom_idx']."'
+                            ORDER BY bit.bit_reply
+                            )
+                    ) AS db1
+        ";
+
+
+        $sql1 = "   SELECT * 
+                    FROM {$g5['production_member_table']} AS prm
+                        LEFT JOIN {$g5['production_item_table']} AS pri USING(prid_idx)
+                        LEFT JOIN {$g5['bom_table']} AS bom ON bom.bom_idx = pri.bom_idx
+                    WHERE prd_idx = '".$prd['prd_idx']."'
+                    ORDER BY pri_idx
+        ";
+        // print_r3($sql1);
+        $rs1 = sql_query($sql1,1);
+
+054-746-7766 (대창공업)
+
+통신가입 증명원 번호
+070-040-353560
+070-052-222363
+가 회사번호가 아님!!
+
+SELECT * FROM g5_1_production_member AS prm LEFT JOIN g5_1_production_item AS pri USING(pri_idx) LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = pri.bom_idx WHERE prd_idx = '365' AND pri.bom_idx = '114' ORDER BY pri_idx;
+
+http://daechang.epcs.co.kr/adm/v10/ajax/production.json.php?aj=c1&prm_idx=2&mb_id=01074975992&prm_value=0
+http://daechang.epcs.co.kr/adm/v10/ajax/production.json.php?aj=c1&prm_idx=36&mb_id=&prm_value=120
+
+
+// 수주에서 관련항목 생성할 때 처리도 해 주세요. 
+
+
+'''
+[
+    {
+        "bom_idx": "114",
+        "prd_idx": "1886",
+        "prd_val": "120"
+    },
+    {
+        "bom_idx": "61",
+        "prd_idx": "1887",
+        "prd_val": "120"
+    },
+    {
+        "bom_idx": "54",
+        "prd_idx": "1888",
+        "prd_val": "120"
+    },
+    {
+        "bom_idx": "55",
+        "prd_idx": "1889",
+        "prd_val": "120"
+    },
+    {
+        "bom_idx": "55",
+        "prd_idx": "1889",
+        "prd_val": "0"
+    },
+    {
+        "bom_idx": "55",
+        "prd_idx": "1889",
+        "prd_val": "0"
+    },
+    {
+        "bom_idx": "14",
+        "prd_idx": "1890",
+        "prd_val": "120"
+    }
+]
+'''
+자바스크립트에서 이런 객체 배열에 대해서 bom_idx가 같은 항목에 대해서 prd_val 합을 구하는 코드를 좀 짜 주세요.
+
+
+아래와 같이 자바스크립트에서 객체 배열을 활용하여 bom_idx가 같은 항목에 대해 prd_val 합을 구할 수 있습니다.
+
+```
+const arr = [
+  {
+    "bom_idx": "114",
+    "prd_idx": "1886",
+    "prd_val": "120"
+  },
+  {
+    "bom_idx": "61",
+    "prd_idx": "1887",
+    "prd_val": "120"
+  },
+  {
+    "bom_idx": "54",
+    "prd_idx": "1888",
+    "prd_val": "120"
+  },
+  {
+    "bom_idx": "55",
+    "prd_idx": "1889",
+    "prd_val": "120"
+  },
+  {
+    "bom_idx": "55",
+    "prd_idx": "1889",
+    "prd_val": "0"
+  },
+  {
+    "bom_idx": "55",
+    "prd_idx": "1889",
+    "prd_val": "0"
+  },
+  {
+    "bom_idx": "14",
+    "prd_idx": "1890",
+    "prd_val": "120"
+  }
+];
+
+const result = arr.reduce((acc, cur) => {
+  const bomIdx = cur.bom_idx;
+  const prdVal = parseInt(cur.prd_val);
+  if (!acc[bomIdx]) {
+    acc[bomIdx] = prdVal;
+  } else {
+    acc[bomIdx] += prdVal;
+  }
+  return acc;
+}, {});
+
+console.log(result);
+```
+
+결과는 아래와 같습니다.
+
+```
+{
+  "114": 120,
+  "61": 120,
+  "54": 120,
+  "55": 120,
+  "14": 120
+}
+```
+
+참고로, 위 코드에서 reduce 함수는 배열의 각 요소에 대해 순차적으로 실행하며, 
+acc는 누적값, cur은 현재 요소를 의미합니다. 
+acc 객체에 bom_idx를 키로 하고, prd_val을 더해주는 방식으로 합을 구합니다.
+
+'''
+{
+    "14": 120,
+    "54": 120,
+    "55": 120,
+    "61": 120,
+    "114": 120
+}
+'''
+자바스크립트에서 위 배열을 차례대로 읽어들이는 for 문장을 만들어 주세요.
+
+for (const key in obj) {
+  console.log(`obj[${key}] = ${obj[key]}`);
+}
+
+'''
+[
+    {
+        "bom_idx": "114",
+        "bom_usage": "1",
+        "prd_idx": "1891",
+        "prd_val": "120"
+    },
+    {
+        "bom_idx": "114",
+        "bom_usage": "1",
+        "prd_idx": "1891",
+        "prd_val": "10"
+    },
+    {
+        "bom_idx": "61",
+        "bom_usage": "1",
+        "prd_idx": "1892",
+        "prd_val": "130"
+    },
+    {
+        "bom_idx": "54",
+        "bom_usage": "1",
+        "prd_idx": "1893",
+        "prd_val": "130"
+    },
+    {
+        "bom_idx": "55",
+        "bom_usage": "2",
+        "prd_idx": "1894",
+        "prd_val": "120"
+    },
+    {
+        "bom_idx": "55",
+        "bom_usage": "2",
+        "prd_idx": "1894",
+        "prd_val": "10"
+    },
+    {
+        "bom_idx": "14",
+        "bom_usage": "1",
+        "prd_idx": "1895",
+        "prd_val": "130"
+    }
+]
+'''
+자바스크립트, 위 배열에 대해서 중복은 제거하고 배열로 만들되 중복되는 값은 prd_val를 숫자로 변환하고 합계를 표현하는 코딩을 짜 주세요.
+
+
+'''
+[
+    {
+        "bom_idx": 114,
+        "bom_usage": 1,
+        "prd_idx": 1891,
+        "prd_val": 130
+    },
+    {
+        "bom_idx": 61,
+        "bom_usage": 1,
+        "prd_idx": 1892,
+        "prd_val": 130
+    },
+    {
+        "bom_idx": 54,
+        "bom_usage": 1,
+        "prd_idx": 1893,
+        "prd_val": 130
+    },
+    {
+        "bom_idx": 55,
+        "bom_usage": 2,
+        "prd_idx": 1894,
+        "prd_val": 130
+    },
+    {
+        "bom_idx": 14,
+        "bom_usage": 1,
+        "prd_idx": 1895,
+        "prd_val": 130
+    }
+]
+'''
+자바스크립트, 위 배열에서 bom_idx=114의 prd_val을 추출하는 코딩은?
+
+
+SELECT * FROM g5_1_production prd
+    LEFT JOIN g5_1_bom bom ON prd.bom_idx = bom.bom_idx
+WHERE prd_status NOT IN ('trash','delete') AND prd.com_idx = '13'
+ORDER BY prd_idx desc LIMIT 0, 15
+
+SELECT * FROM g5_1_production AS prd LEFT JOIN g5_1_bom AS bom USING(bom_idx) WHERE prd_status NOT IN ('trash','delete') AND prd.com_idx = '13' ORDER BY prd_idx desc LIMIT 0, 15
+
+
+CREATE TABLE `g5_1_production_item_count` (
+  `pic_idx` bigint(20) NOT NULL COMMENT '생산제품idx' AUTO_INCREMENT,
+  `pri_idx` int(11) NOT NULL DEFAULT 0 COMMENT '생산아이템idx',
+  `mb_id` varchar(20) NOT NULL COMMENT '자업자ID',
+  `pic_value` int(11) NOT NULL DEFAULT 0 COMMENT '수량',
+  `pic_date` date DEFAULT '0000-00-00' COMMENT '통계일',
+  `pic_reg_dt` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
+  `pic_update_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시',
+  PRIMARY KEY (`pic_idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `g5_1_production_member` (
+  `prm_idx` int(11) NOT NULL,
+  `mms_idx` int(11) NOT NULL DEFAULT 0 COMMENT '설비idx',
+  `mb_id` varchar(20) NOT NULL COMMENT '자업자ID',
+  `pri_idx` int(11) NOT NULL DEFAULT 0 COMMENT '생산아이템idx',
+  `prm_value` int(11) NOT NULL DEFAULT 0 COMMENT '생산자지시량',
+  `prm_status` varchar(20) DEFAULT 'pending' COMMENT '상태',
+  `prm_reg_dt` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '등록일시',
+  `prm_update_dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정일시'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+ALTER TABLE `g5_1_production_member`
+  ADD PRIMARY KEY (`prm_idx`);
+
+ALTER TABLE `g5_1_production_member`
+  MODIFY `prm_idx` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+
+100만원 확보하면...
+50만원은 토마스
+50만원은 깨루 서버, 문자비용으로..
+
+SELECT SUM(prm_value) AS prm_total, COUNT(prm_idx) AS prm_count
+    FROM g5_1_production_member AS prm 
+    LEFT JOIN g5_1_production_item AS pri USING(pri_idx)
+WHERE prd_idx = '420' AND pri.bom_idx = '114' AND prm_status NOT IN ('trash','delete')
+GROUP BY pri_idx
+
+SELECT SUM(prm_value) AS prm_total, COUNT(prm_idx) AS prm_count
+FROM g5_1_production_member AS prm 
+    LEFT JOIN g5_1_production_item AS pri USING(pri_idx)
+WHERE prd_idx = '420' AND pri.bom_idx = '114' AND prm_status NOT IN ('trash','delete')
+GROUP BY pri_idx
+
+UPDATE g5_1_production SET  com_idx = '13' , ori_idx = '420' , bom_idx = '114' , prd_order_no = 'PRD-GKO797AA25427' , prd_start_date = '2023-05-01' , prd_done_date = '' , prd_memo = '' , prd_status = 'pending' , prd_update_dt = '2023-04-14 18:03:21'  WHERE prd_idx = '421'
+
+http://daechang.epcs.co.kr/adm/v10/ajax/production.json.php?aj=c1&pri_idx=1891&mms_idx=86&mb_id=01074975992&pri_value=140
+
+update user set authentication_string=password('^^epAnne@@740620') where user = 'jamesjoa';
+update user set authentication_string=PASSWORD('^^epAnne@@740620') where user = 'jamesjoa';
+ALTER USER 'jamesjoa'@'%' IDENTIFIED WITH caching_sha2_password BY '^^epAnne@@740620';
+flush privileges;
+
+
+114
+SELECT * FROM g5_1_v_bom_item WHERE bom_idx_product = '114'
+
+
+먼저, `psycopg2` 라이브러리를 설치해야 합니다. `psycopg2`는 Python에서 PostgreSQL 데이터베이스에 접속해서 작업을 할 수 있도록 해주는 라이브러리입니다. 다음 명령어를 사용하여 `psycopg2`를 설치할 수 있습니다.
+
+```
+pip install psycopg2-binary
+```
+
+`psycopg2`가 설치되었다면, 아래 예시 코드를 참고하여 PostgreSQL에 데이터를 입력할 수 있습니다.
+
+```python
+import psycopg2
+
+# PostgreSQL에 접속합니다.
+conn = psycopg2.connect(
+    host="localhost",
+    database="mydatabase",
+    user="myusername",
+    password="mypassword"
+)
+
+# 커서를 생성합니다.
+cur = conn.cursor()
+
+# 새로운 데이터를 입력합니다.
+cur.execute("INSERT INTO mytable (column1, column2, column3) VALUES (%s, %s, %s)", ("value1", "value2", "value3"))
+
+# 변경사항을 커밋합니다.
+conn.commit()
+
+# 커넥션과 커서를 닫습니다.
+cur.close()
+conn.close()
+```
+
+위 코드에서 `host`, `database`, `user`, `password`는 각자의 환경에 맞게 수정해주어야 합니다. 또한, `mytable`은 입력하려는 테이블 이름으로, `column1`, `column2`, `column3`은 입력하려는 컬럼 이름으로 수정해주어야 합니다. `VALUES` 다음에는 입력하려는 값들을 순서대로 입력하면 됩니다.
+
+이제 위 코드를 참고하여 PostgreSQL에 데이터를 입력해보세요!
+
+
+SELECT now() FROM g5_1_socket;
+
+154
+
+SELECT bom.bom_idx, cst_idx_provider, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count FROM g5_1_bom_item AS bit LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider WHERE bit.bom_idx = '154' ORDER BY bit.bit_reply
+
+
+SELECT *
+FROM (
+        (
+        SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, 'MIP' AS cst_name
+            , 0 AS bit_idx, 0 AS bit_bom_idx, 0 AS bit_main_yn, 0 AS bom_idx_child, '' AS bit_reply, bom_usage AS bit_count
+        FROM g5_1_bom AS bom
+        WHERE bom_idx = '76'
+        )
+    UNION ALL
+        (
+        SELECT bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name
+            , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+        FROM g5_1_bom_item AS bit
+            LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child
+            LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider
+        WHERE bit.bom_idx = '76'
+        ORDER BY bit.bit_reply
+        )
+) AS db1
+...
+SELECT *
+FROM (
+        (
+        SELECT com_idx, bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, 'MIP' AS cst_name
+            , 0 AS bit_idx, 0 AS bit_bom_idx, 0 AS bit_main_yn, 0 AS bom_idx_child, '' AS bit_reply, bom_usage AS bit_count
+        FROM g5_1_bom AS bom
+        WHERE bom_idx = '76'
+        )
+    UNION ALL
+        (
+        SELECT bom.com_idx, bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name
+            , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+        FROM g5_1_bom_item AS bit
+            LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child
+            LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider
+        WHERE bit.bom_idx = '76'
+        ORDER BY bit.bit_reply
+        )
+) AS db1
+...
+
+php 정규식에서
+"R-52  R1 지그 카운터"
+"R-52  L1 지그 카운터"
+이런 문장에서 R1, L1 같은 영문1글자, 숫자1자를 추출하는 정규식 좀 만들어 주세요.
+
+// LX2 차종 bom_item 초기화
+SELECT * FROM g5_1_bom WHERE bct_idx IN (60,70);
+DELETE FROM g5_1_bom_item WHERE bom_idx_child IN (SELECT bom_idx FROM g5_1_bom WHERE bct_idx IN (60,70));
+
+$ sudo ufw status
+$ sudo ufw allow 20480
+$ sudo ufw deny 20480
+$ sudo ufw deny 20481
+$ sudo ufw delete allow 20480
+$ sudo ufw delete deny 20480
+$ sudo ufw delete deny 20481
+
+ping 192.168.100.142
+ping 192.168.100.143
+nslookup 192.168.100.142
+
+ing@ing:~$ cat /etc/netplan/00-installer-config.yaml
+ing@ing:~$ vi /etc/netplan/00-installer-config.yaml
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    lo:
+      dhcp4: no
+      addresses: [192.168.100.125/24]
+      gateway4: 192.168.100.1
+      nameservers:
+        addresses: [203.248.252.2,164.124.101.2]
+        search:
+          - localhost
+    eno5:
+      dhcp4: no
+      addresses: [211.254.156.189/24]
+      gateway4: 211.254.156.185
+      nameservers:
+        addresses: [203.248.252.2,164.124.101.2]
+        search:
+          - localhost
+    eno6:
+      dhcp4: true
+    eno7:
+      dhcp4: true
+    eno8:
+      dhcp4: true
+  version: 2
+
+$ sudo tcpdump --interface=eno8
+# sudo tcpdump -i eno8 tcp port 20480
+# sudo tcpdump -i eno8 src 192.168.100.142
+# sudo tcpdump -i eno8 src 192.168.100.143
+
+$ sudo netplan apply
+
+
+SELECT row_estimate AS cnt FROM hypertable_approximate_row_count('g5_1_socket')
+
+
+$a = '[0, 0, 0, 22320, 0, 0, 2011, 1541, 0, 3799, 9165, 7456, 0, 0, 0, 0, 0, 0, 0, 0, 0]';
+php 에서 이런 문자열에서 해당 위치의 배열을 찾는 코딩은 어떻게 될까요?
+
+$a = str_replace(['[', ']'], '', $a);
+$a = explode(',', $a);
+print_r($a);
+
+
+
+var a = '[0, 0, 0, 22320, 0, 0, 2011, 1541, 0, 3799, 9165, 7456, 0, 0, 0, 0, 0, 0, 0, 0, 0,"", "", "", "0000000000000000"]';
+그렇다면 자바스크립트로 위 문자열에서 10번째 항목 찾기, 또는 24번째 항목 찾는 코딩은 어떻게 될까요?
+
+var a = '[0, 0, 0, 22320, 0, 0, 2011, 1541, 0, 3799, 9165, 7456, 0, 0, 0, 0, 0, 0, 0, 0, 0,"", "", "", "0000000000000000"]';
+
+// parse the string into an array
+var arr = JSON.parse(a);
+
+// find the 10th element
+console.log(arr[9]);
+
+// find the 24th element
+console.log(arr[23]);
+
+```
+$a = '0100000000001000';
+$b = '1110000000001000';
+```
+PHP 에서 위와 같은 string 변수를 한 글자씩 잘라서 배열로 만드는 방법은?
+
+// 192.168.100.143 > 172.0.0.1 지그 정보 복제
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 120, 138, 'R1', '172.0.0.1', 20480, 22, '', 'ok', '2023-05-01 20:53:27', '2023-05-02 10:14:31');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 128, 138, 'R1', '172.0.0.1', 20480, 22, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 130, 138, 'R1', '172.0.0.1', 20480, 22, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 137, 138, 'R1', '172.0.0.1', 20480, 22, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 140, 138, 'R1', '172.0.0.1', 20480, 22, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 143, 138, 'R1', '172.0.0.1', 20480, 22, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 145, 138, 'R1', '172.0.0.1', 20480, 22, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 131, 138, 'L1', '172.0.0.1', 20480, 21, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 135, 138, 'L1', '172.0.0.1', 20480, 21, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 146, 138, 'L1', '172.0.0.1', 20480, 21, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 149, 138, 'L1', '172.0.0.1', 20480, 21, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 151, 138, 'L1', '172.0.0.1', 20480, 21, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 153, 138, 'L1', '172.0.0.1', 20480, 21, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 137, 139, 'R1', '172.0.0.1', 20480, 27, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 140, 139, 'R1', '172.0.0.1', 20480, 27, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 143, 139, 'R1', '172.0.0.1', 20480, 27, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 145, 139, 'R1', '172.0.0.1', 20480, 27, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 146, 139, 'L1', '172.0.0.1', 20480, 26, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 149, 139, 'L1', '172.0.0.1', 20480, 26, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 151, 139, 'L1', '172.0.0.1', 20480, 26, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 153, 139, 'L1', '172.0.0.1', 20480, 26, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 154, 141, 'R1', '172.0.0.1', 20480, 32, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 231, 141, 'R1', '172.0.0.1', 20480, 32, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 235, 141, 'L1', '172.0.0.1', 20480, 31, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 238, 141, 'L1', '172.0.0.1', 20480, 31, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 186, 141, 'L1', '172.0.0.1', 20480, 31, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 154, 140, 'R1', '172.0.0.1', 20480, 37, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 231, 140, 'R1', '172.0.0.1', 20480, 37, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 235, 140, 'L1', '172.0.0.1', 20480, 36, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 238, 140, 'L1', '172.0.0.1', 20480, 36, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 186, 140, 'L1', '172.0.0.1', 20480, 36, '', 'ok', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 168, 143, 'R1', '172.0.0.1', 20480, 42, '', 'no', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 241, 143, 'L1', '172.0.0.1', 20480, 41, '', 'no', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 239, 143, 'L1', '172.0.0.1', 20480, 41, '', 'no', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 157, 144, 'L1', '172.0.0.1', 20480, 46, '', 'no', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 173, 144, 'L1', '172.0.0.1', 20480, 46, '', 'no', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 169, 144, 'R1', '172.0.0.1', 20480, 47, '', 'no', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+INSERT INTO `g5_1_bom_jig` VALUES(NULL, 180, 144, 'R1', '172.0.0.1', 20480, 47, '', 'no', '2023-05-01 20:53:27', '2023-05-01 20:53:27');
+
+// 5/2일 생산계획
+SELECT * FROM g5_1_production WHERE prd_start_date = '2023-05-02';
+
+// 5/2일 생산아이템
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-02');
+SELECT * FROM g5_1_production_item WHERE bom_idx = '153' AND mms_idx = '138';
+
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-02') AND bom_idx = '153' AND mms_idx = '138' AND pri_ing = '1'
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-02') AND bom_idx = '153' AND mms_idx = '138'
+
+
+// bom 구조, sub 부분만..
+SELECT bom.bom_idx, bom.bom_type, cst_idx_provider, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name 
+    , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count 
+FROM g5_1_bom_item AS bit 
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child 
+    LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider
+WHERE bit.bom_idx = '238'
+ORDER BY bit.bit_reply
+
+
+SELECT COUNT(bit_idx) AS bit_main_count FROM g5_1_bom_item WHERE bom_idx = '238' AND bit_main_yn = '1';
+
+SELECT * FROM g5_1_material WHERE pri_idx = '2152' AND mtr_type = 'material';
+SELECT * FROM g5_1_material WHERE prd_idx = '600' AND mtr_type = 'material';
+SELECT * FROM g5_1_material WHERE pri_idx = '2152' AND bom = '238' AND mtr_type = 'material';
+
+UPDATE g5_1_material SET
+    prd_idx = '13' , pri_idx = '14', mtr_history = '\nused|2023-05-02 21:49:00', mtr_status = 'used', mtr_update_dt = now()
+WHERE bom_idx = '1884' AND prd_idx = '0' AND pri_idx = '0' AND mtr_status = 'ok'
+ORDER BY mtr_reg_dt LIMIT 2
+
+UPDATE g5_1_material SET mms_idx = '138', ori_idx = '586', prd_idx = '586', pri_idx = '2142', shf_idx = '425', mb_id = '01073861823', mtr_history = ' used|2023-05-02 22:07:28', mtr_status = 'used', mtr_update_dt = '2023-05-02 22:07:28'
+SELECT * FROM g5_1_material
+WHERE bom_idx = '128' AND prd_idx = '0' AND pri_idx = '0' AND mtr_type = 'material' AND mtr_status = 'ok' ORDER BY mtr_idx LIMIT 1
+
+INSERT INTO g5_1_material (mtr_idx, com_idx, cst_idx_provider, cst_idx_customer, imp_idx, mms_idx, ori_idx, prd_idx, pri_idx, bom_idx, shf_idx, moi_idx, mb_id, plt_idx, mtr_part_no, mtr_name, mtr_type, mtr_barcode, mtr_length, mtr_weight, mtr_value, mtr_heat, mtr_lot, mtr_bundle, mtr_price, mtr_defect_type, mtr_defect_text, trm_idx_location, mtr_history, mtr_memo, mtr_status, mtr_auth_dt, mtr_date, mtr_reg_dt, mtr_update_dt) VALUES
+(1, 13, 115, 100, 0, 0, 0, 13, 14, 1884, 0, 0, '01091104289', 0, '89310-GI030YGN', 'FRAME ASSY - 2ND SEAT BACK, LH', 'material', '', 0, 0, 1, NULL, '', NULL, 0, '0', NULL, 0, '\nused|2023-05-02 21:49:00', NULL, 'used', '0000-00-00 00:00:00', '0000-00-00', '2023-02-01 00:00:11', '2023-05-02 21:51:11'),
+(2, 13, 115, 100, 0, 0, 0, 13, 14, 1884, 0, 0, '01091104289', 0, '89310-GI030YGN', 'FRAME ASSY - 2ND SEAT BACK, LH', 'material', '', 0, 0, 1, NULL, '', NULL, 0, '0', NULL, 0, '\nused|2023-05-02 21:49:00', NULL, 'used', '0000-00-00 00:00:00', '0000-00-00', '2023-02-01 00:00:23', '2023-05-02 21:51:11'),
+(3, 13, 115, 100, 0, 0, 0, 13, 14, 1884, 0, 0, '01091104289', 0, '89310-GI030YGN', 'FRAME ASSY - 2ND SEAT BACK, LH', 'material', '', 0, 0, 1, NULL, '', NULL, 0, '0', NULL, 0, '\nused|2023-05-02 21:49:00', NULL, 'used', '0000-00-00 00:00:00', '0000-00-00', '2023-02-01 00:00:36', '2023-05-02 21:51:29');
+
+INSERT INTO g5_1_material (mtr_idx, com_idx, cst_idx_provider, cst_idx_customer, bom_idx, mtr_part_no, mtr_name, mtr_type, mtr_value, mtr_price, mtr_status, mtr_reg_dt, mtr_update_dt) VALUES
+(NULL, 13, 115, 100, 0, 13, 14, 1884, 0, 0, '01091104289', 0, '89310-GI030YGN', 'FRAME ASSY - 2ND SEAT BACK, LH', 'material', '', 0, 0, 1, NULL, '', NULL, 0, '0', NULL, 0, '\nused|2023-05-02 21:49:00', NULL, 'used', '0000-00-00 00:00:00', '0000-00-00', '2023-02-01 00:00:11', '2023-05-02 21:51:11'),
+(NULL, 13, 115, 100, 0, 13, 14, 1884, 0, 0, '01091104289', 0, '89310-GI030YGN', 'FRAME ASSY - 2ND SEAT BACK, LH', 'material', '', 0, 0, 1, NULL, '', NULL, 0, '0', NULL, 0, '\nused|2023-05-02 21:49:00', NULL, 'used', '0000-00-00 00:00:00', '0000-00-00', '2023-02-01 00:00:23', '2023-05-02 21:51:11'),
+(NULL, 13, 115, 100, 0, 13, 14, 1884, 0, 0, '01091104289', 0, '89310-GI030YGN', 'FRAME ASSY - 2ND SEAT BACK, LH', 'material', '', 0, 0, 1, NULL, '', NULL, 0, '0', NULL, 0, '\nused|2023-05-02 21:49:00', NULL, 'used', '0000-00-00 00:00:00', '0000-00-00', '2023-02-01 00:00:36', '2023-05-02 21:51:29');
+
+INSERT INTO g5_1_material (mtr_idx, com_idx, cst_idx_provider, cst_idx_customer, bom_idx, mtr_part_no, mtr_name, mtr_type, mtr_value, mtr_price, mtr_status, mtr_reg_dt, mtr_update_dt) VALUES 
+(NULL, '13', '17', '16', '131', '89411-S8000', 'FRM WELD ASSY-2ND SEAT BACK,RH', 'material', 1, '0', 'ok', '2023-05-08 20:06:19', '2023-05-08 20:06:19'),
+(NULL, '13', '17', '16', '131', '89411-S8000', 'FRM WELD ASSY-2ND SEAT BACK,RH', 'material', 1, '0', 'ok', '2023-05-08 20:06:19', '2023-05-08 20:06:19'),
+(NULL, '13', '17', '16', '131', '89411-S8000', 'FRM WELD ASSY-2ND SEAT BACK,RH', 'material', 1, '0', 'ok', '2023-05-08 20:06:19', '2023-05-08 20:06:19'),
+(NULL, '13', '17', '16', '131', '89411-S8000', 'FRM WELD ASSY-2ND SEAT BACK,RH', 'material', 1, '0', 'ok', '2023-05-08 20:06:19', '2023-05-08 20:06:19'),
+(NULL, '13', '17', '16', '131', '89411-S8000', 'FRM WELD ASSY-2ND SEAT BACK,RH', 'material', 1, '0', 'ok', '2023-05-08 20:06:19', '2023-05-08 20:06:19'),
+(NULL, '13', '17', '16', '131', '89411-S8000', 'FRM WELD ASSY-2ND SEAT BACK,RH', 'material', 1, '0', 'ok', '2023-05-08 20:06:19', '2023-05-08 20:06:19')
+
+SELECT COUNT(mtr_idx) AS mtr_sum FROM g5_1_material
+WHERE bom_idx = '150' AND mtr_status = 'ok'
+1490개가 있네!!
+
+
+899150-898871=279
+
+// 안전재고 갯수 확인
+SELECT SUM(IF(bom_safe_stock=0,1,0)) AS no_stock_sum, 
+    SUM(IF(bom_safe_stock>0,1,0)) AS stock_sum
+FROM g5_1_bom
+
+
+# 통계일을 계산해서 반환하는 함수정의 (기준시간 06:40:00)
+$d1 = ‘2023-04-26 04:00:00’
+$d2 = ‘2023-04-26 07:00:00’
+$d = statics_date($d1);
+echo $d; //2023-04-25
+$d = statics_date($d2);
+echo $d; //2023-04-26
+
+$shf_idx = shift_idx(G5_TIME_YMDHIS)  이런형태로 호출하면 shf_idx를 반환해 줍니다. 참고하세요~
+
+
+SELECT pri_idx, pri.bom_idx, mms_idx, mb_id, pri_value, prd_start_date, bom.* 
+FROM g5_1_production_item AS pri
+    LEFT JOIN g5_1_production AS prd USING(prd_idx)
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = pri.bom_idx
+WHERE prd_start_date = '2023-05-10' AND pri.com_idx = '13'
+ORDER BY cst_idx_customer ASC, pri.bom_idx
+LIMIT 0, 200
+
+SELECT pri_idx, pri.bom_idx AS pri_bom_idx, prd_start_date, bom.bom_idx, bom.bom_part_no, bom.bom_name,
+    cst_idx_customer,
+    SUM(pri_value) AS pri_value_sum,
+    GROUP_CONCAT(pri_value) AS pri_values
+FROM g5_1_production_item AS pri
+    LEFT JOIN g5_1_production AS prd USING(prd_idx)
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = pri.bom_idx
+WHERE prd_start_date = '2023-05-10' AND pri.com_idx = '13'
+GROUP BY cst_idx_customer, pri_bom_idx
+ORDER BY cst_idx_customer ASC, pri.bom_idx
+LIMIT 0, 200
+
+python에서 이런 2진수 16bit가 있는데요.
+`0000000000010011`
+String순서를 뒤집어서 거꾸로 아래처럼 나타나게 하려면 어떻게 하면 될까요?
+`1100100000000000`
+
+```python
+binary_str = '0000000000010011'
+reversed_str = binary_str[::-1]  # 문자열 뒤집기
+reversed_binary = int(reversed_str, 2)  # 2진수 문자열을 10진수 정수로 변환
+result = bin(reversed_binary)[2:].zfill(16)  # 10진수 정수를 2진수 문자열로 변환하고 16자리로 맞추기
+print(result)  # '1100100000000000' 출력
+
+
+Traceback (most recent call last):
+  File "s15.py", line 22, in <module>
+    s.bind((host, port))
+
+OSError: [Errno 98] Address already in use
+This is the message when python is excuted.
+But it can executable a little while after.
+I do not know why?
+
+netstat -an | grep 20480
+netstat -an | grep 192.168.100.143
+
+22 배열 (배열번호: 21)
+2023-05-11 13:36:58 ~ 2023-05-11 13:37:00
+1246 > 1247
+
+
+DELETE FROM g5_1_order_item WHERE ori_idx IN ( SELECT ori_idx FROM g5_1_production WHERE prd_idx = 862 );
+DELETE FROM g5_1_production WHERE prd_idx = 862;
+DELETE FROM g5_1_production_item WHERE prd_idx = 862;
+DELETE FROM g5_1_production_item_count WHERE pri_idx IN ( SELECT pri_idx FROM g5_1_production_item WHERE prd_idx = 862 );
+....
+DELETE FROM g5_1_order_item WHERE ori_idx IN ( SELECT ori_idx FROM g5_1_production WHERE prd_idx = 882 );
+DELETE FROM g5_1_production WHERE prd_idx = 882;
+DELETE FROM g5_1_production_item WHERE prd_idx = 882;
+DELETE FROM g5_1_production_item_count WHERE pri_idx IN ( SELECT pri_idx FROM g5_1_production_item WHERE prd_idx = 882 );
+
+
+// LX2 생산 초기화 (날짜별) ---------------------------
+DELETE FROM g5_1_order_item WHERE ori_date = '2023-05-15';
+
+DELETE FROM g5_1_production_item_count WHERE pri_idx IN ( SELECT pri_idx FROM g5_1_production_item WHERE prd_idx IN ( SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16' ) );
+DELETE FROM g5_1_production_item WHERE prd_idx IN ( SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-15' );
+DELETE FROM g5_1_production WHERE prd_start_date = '2023-05-15';
+
+
+89311-S8530
+bmw_idx=341 (Remove the record after testing)
+
+http://daechang.epcs.co.kr/adm/v10/production_form.php?sst=&sod=&sfl=&stx=&page=&sca=&st_date=&en_date=&w=u&prd_idx=912
+
+SELECT *
+FROM g5_1_production_item AS pri
+    LEFT JOIN g5_1_bom AS bom USING(bom_idx)
+WHERE prd_idx = '948' AND pri.bom_idx = '261'
+ORDER BY pri_idx
+
+
+// There is no matching bom_idx, mms_idx prodution in the list... Wondering!!??
+Array
+(
+    [mms_name] => 47호기
+    [boj_code] => L1
+    [bom_part_no] => 89411-S8000
+    [bom_name] => FRM WELD ASSY-2ND SEAT BACK,RH
+    [bom_idx] => 131
+    [mms_idx] => 138
+    [boj_status] => ok
+)
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '131' AND mms_idx = '138'
+Array
+(
+    [mms_name] => 47호기
+    [boj_code] => L1
+    [bom_part_no] => 89411-S8010
+    [bom_name] => FRM WELD ASSY-2ND SEAT BACK, RH
+    [bom_idx] => 135
+    [mms_idx] => 138
+    [boj_status] => ok
+)
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '135' AND mms_idx = '138'
+Array
+(
+    [mms_name] => 47호기
+    [boj_code] => L1
+    [bom_part_no] => 89411-S8300
+    [bom_name] => FRM WELD ASSY-2ND SEAT BACK, RH
+    [bom_idx] => 146
+    [mms_idx] => 138
+    [boj_status] => ok
+)
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '146' AND mms_idx = '138'
+Array
+(
+    [mms_name] => 47호기
+    [boj_code] => L1
+    [bom_part_no] => 89411-S8310
+    [bom_name] => FRM WELD ASSY-2ND SEAT BACK, RH
+    [bom_idx] => 149
+    [mms_idx] => 138
+    [boj_status] => ok
+)
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '149' AND mms_idx = '138'
+Array
+(
+    [mms_name] => 47호기
+    [boj_code] => L1
+    [bom_part_no] => 89411-S8320
+    [bom_name] => FRM WELD ASSY-2ND SEAT BACK, RH
+    [bom_idx] => 151
+    [mms_idx] => 138
+    [boj_status] => ok
+)
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '151' AND mms_idx = '138'
+Array
+(
+    [mms_name] => 47호기
+    [boj_code] => L1
+    [bom_part_no] => 89411-S8330
+    [bom_name] => FRM WELD ASSY-2ND SEAT BACK, RH
+    [bom_idx] => 153
+    [mms_idx] => 138
+    [boj_status] => ok
+)
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '153' AND mms_idx = '138'
+SELECT prd_idx,bom_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16' AND bom_idx = '153'
+
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '235' AND mms_idx = '141';
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '238' AND mms_idx = '141';
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '186' AND mms_idx = '141';
+
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16') AND bom_idx = '235' AND mms_idx = '141'
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-16' AND bom_idx = '235') AND mms_idx = '141'
+
+SELECT * FROM g5_1_bom_mms_worker AS bmw 
+LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bmw.bom_idx 
+LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id
+WHERE bmw_status NOT IN ('trash','delete') AND bmw.bom_idx = '186' AND bmw.mms_idx = '141'
+ORDER BY bmw_reg_dt DESC LIMIT 0, 15
+....
+SELECT * FROM g5_1_bom_mms_worker AS bmw 
+LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bmw.bom_idx 
+LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id
+WHERE bmw_status NOT IN ('trash','delete') AND bmw.bom_idx = '238' AND bmw.mms_idx = '141'
+ORDER BY bmw_reg_dt DESC LIMIT 0, 15
+....
+
+SELECT SUM(pic_value) AS pic_sum FROM g5_1_production_item_count WHERE pri_idx = '2685' AND mb_id = '01021534841' AND pic_date = '2023-05-16';
+SELECT * FROM g5_1_production_item_count WHERE pri_idx = '2685' AND mb_id = '01021534841' AND pic_date = '2023-05-16';
+
+SELECT mb_id FROM g5_1_production_item AS pri 
+LEFT JOIN g5_1_production AS prd USING(prd_idx) 
+LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = pri.bom_idx
+WHERE prd_start_date = '2023-05-16' AND pri.com_idx = '13'
+GROUP BY mb_id
+
+SELECT pri_idx, pri.bom_idx, mms_idx, mb_id, pri_value, prd_start_date, bom.*
+FROM g5_1_production_item AS pri
+LEFT JOIN g5_1_production AS prd USING(prd_idx)
+LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = pri.bom_idx
+WHERE prd_start_date = '2023-05-16' AND pri.com_idx = '13'
+ORDER BY pri_idx DESC LIMIT 0, 200
+...
+SELECT *
+FROM g5_1_production_item AS pri
+LEFT JOIN g5_1_production AS prd USING(prd_idx)
+WHERE prd_start_date = '2023-05-16' AND pri.com_idx = '13'
+ORDER BY pri_idx DESC LIMIT 0, 200
+...
+
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 139, 42, '192.168.0.143', 20480, 471, 0, 'M130E', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-48  비상정비', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:01');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 139, 42, '192.168.0.143', 20480, 471, 1, 'M130D', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-48  로보트 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:54');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 139, 42, '192.168.0.143', 20480, 471, 2, 'M130A', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-48  GAS 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:39', '2023-05-18 17:12:26');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 139, 42, '192.168.0.143', 20480, 471, 3, 'M1339', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-48  AIR 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-12 09:22:35', '2023-05-18 17:12:47');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 139, 42, '192.168.0.143', 20480, 471, 4, 'M1352', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-48  LS 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-02 00:04:37', '2023-05-18 17:13:05');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 139, 42, '192.168.0.143', 20480, 471, 5, 'M1353', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-48  로보트 원위치 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-29 10:29:27', '2023-05-18 17:13:22');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 139, 42, '192.168.0.143', 20480, 471, 6, 'M1350', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-48  로보트기동 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-28 09:36:14', '2023-05-18 17:13:41');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 139, 42, '192.168.0.143', 20480, 471, 7, 'M1309', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-48  프로그램 미선택 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-23 15:02:07', '2023-05-18 17:14:28');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 139, 42, '192.168.0.143', 20480, 471, 8, 'M1026', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-48  파트감지 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-21 07:19:15', '2023-05-18 17:14:46');
+....
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 141, 42, '192.168.0.143', 20480, 472, 0, 'M130E', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-49  비상정비', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:01');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 141, 42, '192.168.0.143', 20480, 472, 1, 'M130D', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-49  로보트 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:54');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 141, 42, '192.168.0.143', 20480, 472, 2, 'M130A', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-49  GAS 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:39', '2023-05-18 17:12:26');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 141, 42, '192.168.0.143', 20480, 472, 3, 'M1339', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-49  AIR 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-12 09:22:35', '2023-05-18 17:12:47');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 141, 42, '192.168.0.143', 20480, 472, 4, 'M1352', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-49  LS 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-02 00:04:37', '2023-05-18 17:13:05');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 141, 42, '192.168.0.143', 20480, 472, 5, 'M1353', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-49  로보트 원위치 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-29 10:29:27', '2023-05-18 17:13:22');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 141, 42, '192.168.0.143', 20480, 472, 6, 'M1350', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-49  로보트기동 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-28 09:36:14', '2023-05-18 17:13:41');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 141, 42, '192.168.0.143', 20480, 472, 7, 'M1309', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-49  프로그램 미선택 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-23 15:02:07', '2023-05-18 17:14:28');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 141, 42, '192.168.0.143', 20480, 472, 8, 'M1026', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-49  파트감지 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-21 07:19:15', '2023-05-18 17:14:46');
+....
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 140, 42, '192.168.0.143', 20480, 473, 0, 'M130E', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-50  비상정비', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:01');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 140, 42, '192.168.0.143', 20480, 473, 1, 'M130D', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-50  로보트 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:54');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 140, 42, '192.168.0.143', 20480, 473, 2, 'M130A', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-50  GAS 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:39', '2023-05-18 17:12:26');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 140, 42, '192.168.0.143', 20480, 473, 3, 'M1339', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-50  AIR 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-12 09:22:35', '2023-05-18 17:12:47');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 140, 42, '192.168.0.143', 20480, 473, 4, 'M1352', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-50  LS 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-02 00:04:37', '2023-05-18 17:13:05');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 140, 42, '192.168.0.143', 20480, 473, 5, 'M1353', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-50  로보트 원위치 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-29 10:29:27', '2023-05-18 17:13:22');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 140, 42, '192.168.0.143', 20480, 473, 6, 'M1350', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-50  로보트기동 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-28 09:36:14', '2023-05-18 17:13:41');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 140, 42, '192.168.0.143', 20480, 473, 7, 'M1309', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-50  프로그램 미선택 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-23 15:02:07', '2023-05-18 17:14:28');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 140, 42, '192.168.0.143', 20480, 473, 8, 'M1026', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-50  파트감지 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-21 07:19:15', '2023-05-18 17:14:46');
+....
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 143, 42, '192.168.0.143', 20480, 474, 0, 'M130E', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-51  비상정비', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:01');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 143, 42, '192.168.0.143', 20480, 474, 1, 'M130D', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-51  로보트 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:54');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 143, 42, '192.168.0.143', 20480, 474, 2, 'M130A', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-51  GAS 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:39', '2023-05-18 17:12:26');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 143, 42, '192.168.0.143', 20480, 474, 3, 'M1339', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-51  AIR 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-12 09:22:35', '2023-05-18 17:12:47');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 143, 42, '192.168.0.143', 20480, 474, 4, 'M1352', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-51  LS 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-02 00:04:37', '2023-05-18 17:13:05');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 143, 42, '192.168.0.143', 20480, 474, 5, 'M1353', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-51  로보트 원위치 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-29 10:29:27', '2023-05-18 17:13:22');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 143, 42, '192.168.0.143', 20480, 474, 6, 'M1350', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-51  로보트기동 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-28 09:36:14', '2023-05-18 17:13:41');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 143, 42, '192.168.0.143', 20480, 474, 7, 'M1309', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-51  프로그램 미선택 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-23 15:02:07', '2023-05-18 17:14:28');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 143, 42, '192.168.0.143', 20480, 474, 8, 'M1026', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-51  파트감지 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-21 07:19:15', '2023-05-18 17:14:46');
+....
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 144, 42, '192.168.0.143', 20480, 475, 0, 'M130E', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-52  비상정비', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:01');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 27, 144, 42, '192.168.0.143', 20480, 475, 1, 'M130D', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-52  로보트 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:40', '2023-05-18 17:09:54');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 144, 42, '192.168.0.143', 20480, 475, 2, 'M130A', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-52  GAS 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-21 22:26:39', '2023-05-18 17:12:26');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 144, 42, '192.168.0.143', 20480, 475, 3, 'M1339', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-52  AIR 공급중단', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-12 09:22:35', '2023-05-18 17:12:47');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 144, 42, '192.168.0.143', 20480, 475, 4, 'M1352', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-52  LS 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-04-02 00:04:37', '2023-05-18 17:13:05');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 144, 42, '192.168.0.143', 20480, 475, 5, 'M1353', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-52  로보트 원위치 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-29 10:29:27', '2023-05-18 17:13:22');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 144, 42, '192.168.0.143', 20480, 475, 6, 'M1350', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-52  로보트기동 이상발생', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-28 09:36:14', '2023-05-18 17:13:41');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 144, 42, '192.168.0.143', 20480, 475, 7, 'M1309', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-52  프로그램 미선택 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-23 15:02:07', '2023-05-18 17:14:28');
+INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 144, 42, '192.168.0.143', 20480, 475, 8, 'M1026', 0, 0, 'err', 'a', 0, 0, 0, 5, 'R-52  파트감지 이상', '', '{\"r_name\":null,\"r_role\":null,\"r_hp\":null,\"r_email\":null}', 1, 0, '', 0, 'ok', '2022-03-21 07:19:15', '2023-05-18 17:14:46');
+....
+
+50호기(140), 다웃(부) 01043356764
+89311-S8510
+11161298, 11161302, 11161306(2023-05-19 10:49:59)
+2051 > 2052
+
+
+
+```
+* * * * * /path/to/script
+* * * * * sleep 5; /path/to/script
+* * * * * sleep 10; /path/to/script
+* * * * * sleep 15; /path/to/script
+* * * * * sleep 20; /path/to/script
+...
+// 한주에서는 이렇게도 해 봤구나..
+#* *      * * *  root    /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php
+
+```
+* * * * * root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php
+* * * * * sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php
+```
+I just wrote a cron like above.
+But I got the message like this below.
+How do I fix it?
+Error: bad username; while reading /etc/crontab
+
+
+```
+* * * * * root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php; sleep 5; root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php
+* * * * * root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php
+```
+this is ths crontab file content.
+I got the message like below.
+```
+Error: command too long; while reading /etc/crontab
+```
+How can I fix this?
+
+
+sudo grep s.php /var/log/syslog
+
+$ cd /etc/init.d
+$ sudo cp -ar mysql python.sh
+// If you make the file itself, you have to give permition to the file. 755
+$ sudo vi python.sh
+....
+#!/bin/bash
+# james code for communication with PLCs
+
+nohup python3 /home/daechang/www/user/socket/s15.py & > /dev/null
+....
+$ sudo update-rc.d python.sh defaults 
+// 원래는 sudo update-rc.d python.sh defaults 실행순서 종료순서인데 실행순서/종료순서는 지정하지 않아도 된다.
+
+- 만약 등록된 것을 지우고 싶다면
+$ sudo update-rc.d -f python.sh remove
+
+
+SELECT * FROM g5_1_production_item_count WHERE pic_reg_dt BETWEEN '2023-05-24 23:59:00' AND '2023-05-25 00:01:00'
+SELECT pic_date, COUNT(pic_idx) AS total FROM g5_1_production_item_count GROUP BY pic_date
+SELECT pic_date, COUNT(pic_idx) AS total FROM g5_1_production_item_count WHERE pic_reg_dt LIKE '%23:59:%' GROUP BY pic_date
+SELECT * FROM g5_1_production_item_count WHERE pic_reg_dt BETWEEN '2023-05-19 23:59:00' AND '2023-05-20 00:01:00'
+SELECT * FROM g5_1_production_item_count WHERE pic_reg_dt BETWEEN '2023-05-18 23:59:00' AND '2023-05-19 00:01:00'
+
+
+SELECT pri_idx, pri.bom_idx, mms_idx, mb_id, pri_value, prd_start_date, bom.*
+FROM g5_1_production_item AS pri
+    LEFT JOIN g5_1_production AS prd USING(prd_idx)
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = pri.bom_idx
+WHERE prd_start_date = '2023-05-26' AND pri.com_idx = '13'
+ORDER BY pri_idx DESC LIMIT 0, 200
+
+
+SELECT bom.bom_idx, cst_idx_provider, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name
+    , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+FROM g5_1_bom_item AS bit 
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child 
+    LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider
+WHERE bit.bom_idx = '186'
+ORDER BY bit.bit_reply
+
+
+SELECT * 
+FROM ( 
+        ( 
+        SELECT bom.bom_idx, bom.bom_name, bom_type, bom_part_no, bom_price, bom_status, 'MIP' AS cst_name 
+            , 0 AS bit_idx, 0 AS bit_bom_idx, 0 AS bit_main_yn, 0 AS bom_idx_child, '' AS bit_reply, bom_usage AS bit_count 
+        FROM g5_1_bom AS bom
+        WHERE bom_idx = '186' AND bom_type IN ('product','half')
+        ) 
+    UNION ALL 
+        ( 
+        SELECT bom.bom_idx, bom.bom_name, bom_type, bom_part_no, bom_price, bom_status, cst_name 
+            , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+        FROM g5_1_bom_item AS bit 
+            LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = bit.bom_idx_child 
+            LEFT JOIN g5_1_customer AS cst ON cst.cst_idx = bom.cst_idx_provider 
+        WHERE bit.bom_idx = '186' AND bom_type IN ('product','half')
+        ORDER BY bit.bit_reply 
+        ) 
+) AS db1
+ORDER BY bit_reply
+
+
+최상위 bom - 완제품
+89411-S8530 (bom_idx=186)
+31 - 32번배열
+Lets make a production for the item above.
+14146725 14146728 14146731
+2023-05-29 14:04:34
+SELECT * FROM g5_1_production_item WHERE prd_idx IN (SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-29') AND bom_idx = '186' AND mms_idx = '141' AND pri_ing = '1'
+SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-05-29'
+
+하위 bom - 서브제품
+89411-S8530-C1 (bom_idx=241)
+41 - 42번배열
+14158240 14158243 14158246
+2023-05-29 15:01:48
+
+
+
+SELECT off_idx, mms_idx, off_period_type , off_start_time , off_end_time
+FROM g5_1_offwork
+WHERE com_idx = '13' AND off_status IN ('ok') AND off_start_dt >= '2023-05-29 00:00:00' AND off_end_dt <= '2023-05-29 23:59:59' AND mms_idx IN (0)
+ORDER BY mms_idx, off_period_type, off_start_time
+
+
+// 생산아이템 업데이트
+// 추가변수: prd_value(대표제품 생산수량)
+if(!function_exists('get_production_item')){
+function get_production_item($prd)
+{
+	global $g5;
+	
+	if(!$prd['prd_idx']) {
+		return false;
+    }
+
+    // 배열 초기화
+    $list = array();
+    $idx = 0;
+
+    $sql = "SELECT * FROM {$g5['production_item_table']}
+            WHERE prd_idx = '".$prd['prd_idx']."' AND pri_status NOT IN ('trash','delete')
+            ORDER BY pri_idx
+    ";
+    $rs = sql_query($sql,1);
+    $row['rows'] = sql_num_rows($rs);
+    // 구성품이 없는 경우는 BOM 구조를 따라서 생성
+    if(!$row['rows']) {
+
+        $sql1 = "   SELECT *
+                    FROM (
+                            (
+                            SELECT com_idx, bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, 'MIP' AS cst_name
+                                , 0 AS bit_idx, 0 AS bit_bom_idx, 0 AS bit_main_yn, 0 AS bom_idx_child, '' AS bit_reply, bom_usage AS bit_count
+                            FROM g5_1_bom AS bom
+                            WHERE bom_idx = '".$prd['bom_idx']."'
+                            )
+                        UNION ALL
+                            (
+                            SELECT bom.com_idx, bom.bom_idx, bom.bom_name, bom_part_no, bom_price, bom_status, cst_name
+                                , bit.bit_idx, bit.bom_idx, bit.bit_main_yn, bit.bom_idx_child, bit.bit_reply, bit.bit_count
+                            FROM {$g5['bom_item_table']} AS bit
+                                LEFT JOIN {$g5['bom_table']} AS bom ON bom.bom_idx = bit.bom_idx_child
+                                LEFT JOIN {$g5['customer_table']} AS cst ON cst.cst_idx = bom.cst_idx_provider
+                            WHERE bit.bom_idx = '".$prd['bom_idx']."'
+                            ORDER BY bit.bit_reply
+                            )
+                    ) AS db1
+                    ORDER BY bit_reply
+        ";
+        // print_r3($sql1);
+        $rs1 = sql_query($sql1,1);
+        $row['rows'] = sql_num_rows($rs1);
+        // echo $rowspan.'<br>';
+        for ($j=0; $row1=sql_fetch_array($rs1); $j++) {
+            // print_r2($row1);
+
+            // 설비별 작업자 연결 정보 추출 ---------------------------------------------------------------
+            $sql2 = "   SELECT bmw_idx, bmw.mms_idx AS mms_idx, mms_name, bmw.mb_id AS mb_id, mb_name, bmw_type, bmw_sort
+                        FROM {$g5['bom_mms_worker_table']} AS bmw
+                            LEFT JOIN {$g5['mms_table']} AS mms ON mms.mms_idx = bmw.mms_idx
+                            LEFT JOIN {$g5['member_table']} AS mb ON mb.mb_id = bmw.mb_id
+                        WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '".$row1['bom_idx']."'
+                        ORDER BY bmw_type, bmw_sort
+            ";
+            // print_r3($sql2);
+            $rs2 = sql_query($sql2,1);
+            $row1['bmw_rows'] = sql_num_rows($rs2); // 몇 개
+            // echo $row1['bmw_rows'];
+            for ($k=0; $row2=sql_fetch_array($rs2); $k++) {
+                // print_r2($row2);
+                $row1['mms_option_arr'][$k]['mms_idx'] = $row2['mms_idx'];
+                $row1['mms_option_arr'][$k]['mms_name'] = $row2['mms_name'];
+                $row1['mb_id_arr'][$k]['mb_id'] = $row2['mb_id'];
+                $row1['mb_id_arr'][$k]['mb_name'] = $row2['mb_name'];
+                $row1['mb_id_arr'][$k]['bmw_tpye'] = $row2['bmw_type'];
+            }
+            // print_r2($row1['mms_option_arr']);
+            // 설비 중복 제거하고 하나씩만 표현
+            $row1['mms_options_ar'] = @array_unique($row1['mms_option_arr'],SORT_REGULAR);
+            $row1['mms_options_ar'] = @array_values(array_filter($row1['mms_options_ar']));
+            // print_r3($row1['mms_options_ar']);
+            for ($y=0; $y<@sizeof($row1['mms_options_ar']); $y++) {
+                // print_r2($row1['mms_options_ar'][$y]);
+                $row1['mms_options'] .= '<option value="'.$row1['mms_options_ar'][$y]['mms_idx'].'">'.$row1['mms_options_ar'][$y]['mms_name'].'</option>';
+            }
+            // 작업자 중복 제거하고 하나씩만 표현
+            $row1['mb_ids_ar'] = @array_unique($row1['mb_id_arr'],SORT_REGULAR);
+            $row1['mb_ids_ar'] = @array_values(array_filter($row1['mb_ids_ar']));
+            // print_r3($row1['mb_ids_ar']);
+            for ($y=0; $y<@sizeof($row1['mb_ids_ar']); $y++) {
+                // print_r2($row1['mb_ids_ar'][$y]);
+                $row1['mb_ids_ar'][$y]['mb_type'] = $g5['set_bmw_type_value'][$row1['mb_ids_ar'][$y]['bmw_tpye']];
+                $row1['mb_id_options'] .= '<option value="'.$row1['mb_ids_ar'][$y]['mb_id'].'">'.$row1['mb_ids_ar'][$y]['mb_name'].'('.$row1['mb_ids_ar'][$y]['mb_type'].')</option>';
+            }
+
+            // 설비정보 생산자정보 모두 존재하는 경우만 입력
+            if($row1['mms_options_ar'][0] || $row1['mb_ids_ar'][0]) {
+                // 생산아이템 정보 입력 ---------------------------------------------------------------
+                $sql3 = "   INSERT INTO {$g5['production_item_table']} SET
+                                prd_idx = '".$prd['prd_idx']."'
+                                , com_idx = '".$row1['com_idx']."'
+                                , bom_idx = '".$row1['bom_idx']."'
+                                , mms_idx = '".$row1['mms_options_ar'][0]['mms_idx']."'
+                                , mb_id = '".$row1['mb_ids_ar'][0]['mb_id']."'
+                                , trm_idx_operation = ''
+                                , trm_idx_line = ''
+                                , pri_value = '".$prd['prd_value']."'
+                                , pri_memo = ''
+                                , pri_status = 'pending'
+                                , pri_reg_dt = '".G5_TIME_YMDHIS."'
+                                , pri_update_dt = '".G5_TIME_YMDHIS."'
+                ";
+                sql_query($sql3,1);
+                $row1['pri_idx'] = sql_insert_id();
+                // 리턴할 배열 생성
+                $list[$idx] = array($row1['pri_idx'],$prd['prd_idx'].$row1['bom_idx'],$row1['mms_options_ar'][0]['mms_idx'],'','',$prd['prd_value'],'','pending',G5_TIME_YMDHIS,G5_TIME_YMDHIS); 
+                $idx++;
+                // // 작업자아이템 정보 입력 ---------------------------------------------------------------
+                // $sql3 = "   INSERT INTO {$g5['production_member_table']} SET
+                //                 mms_idx = '".$row1['mms_options_ar'][0]['mms_idx']."'
+                //                 , mb_id = '".$row1['mb_ids_ar'][0]['mb_id']."'
+                //                 , pri_idx = '".$row1['pri_idx']."'
+                //                 , prm_value = '".$prd['prd_value']."'
+                //                 , prm_status = 'pending'
+                //                 , prm_reg_dt = '".G5_TIME_YMDHIS."'
+                //                 , prm_update_dt = '".G5_TIME_YMDHIS."'
+                // ";
+                // sql_query($sql3,1);
+                // $row1['prm_idx'] = sql_insert_id();
+            }
+        }
+    }
+    // 존재하는 경우는 list 배열 생성
+    else {
+        for ($i=0; $row=sql_fetch_array($rs); $i++) {
+            // print_r2($row1);
+            $list[$i] = $row; 
+        }
+    }
+
+    return $list;
+}
+}
+
+
+// 설비별 작업자 연결 정보 추출 ---------------------------------------------------------------
+SELECT bmw_idx, bmw.mms_idx AS mms_idx, mms_name, bmw.mb_id AS mb_id, mb_name, bmw_type, bmw_sort
+FROM g5_1_bom_mms_worker AS bmw
+    LEFT JOIN g5_1_mms AS mms ON mms.mms_idx = bmw.mms_idx
+    LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '261'
+ORDER BY bmw_type, bmw_sort
+
+주간 작업 설비당 2명 있는 것!!
+89311-S8530 (bom_idx=261)
+
+주간 + 야간 있는 거!!
+89311-S8300 (bom_idx=137)
+
+SELECT bmw_idx, bmw.mms_idx AS mms_idx, mms_name, bmw.mb_id AS mb_id, mb_name, bmw_type, bmw_sort
+FROM g5_1_bom_mms_worker AS bmw
+    LEFT JOIN g5_1_mms AS mms ON mms.mms_idx = bmw.mms_idx
+    LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '137'
+ORDER BY bmw.mms_idx, bmw_type, bmw_sort
+....
+
+// Let's extract them at one time by using GRPUP
+// mms_idx ............ 설비구분
+SELECT bmw.mms_idx, mms_name
+FROM g5_1_bom_mms_worker AS bmw
+    LEFT JOIN g5_1_mms AS mms ON mms.mms_idx = bmw.mms_idx
+    LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '137'
+GROUP BY mms_idx 
+....
+// bmw_type ............ 주야, 구분
+SELECT bmw_type
+FROM g5_1_bom_mms_worker AS bmw
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '137' AND  bmw_type IN ('day','night')
+GROUP BY bmw_type 
+....
+SELECT COUNT(bmw_type) AS night_count 
+FROM g5_1_bom_mms_worker
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '137' AND  bmw_type = 'night'
+
+SELECT * 
+FROM g5_1_production_item AS pri 
+LEFT JOIN g5_1_bom AS bom USING(bom_idx)
+WHERE prd_idx = '1208' AND pri.bom_idx = '207' AND bom.bom_type IN ('product','half')
+ORDER BY pri_idx
+// 주간만. 추출
+SELECT bmw_idx, bmw.mms_idx AS mms_idx, mms_name, bmw.mb_id AS mb_id, mb_name, bmw_type, bmw_sort
+FROM g5_1_bom_mms_worker AS bmw
+    LEFT JOIN g5_1_mms AS mms ON mms.mms_idx = bmw.mms_idx
+    LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '137' AND bmw_type = 'day'
+ORDER BY bmw_sort
+LIMIT 1
+...
+SELECT bmw_idx, bmw.mms_idx AS mms_idx, mms_name, bmw.mb_id AS mb_id, mb_name, bmw_type, MIN(bmw_sort) AS bmw_sort
+FROM g5_1_bom_mms_worker AS bmw
+    LEFT JOIN g5_1_mms AS mms ON mms.mms_idx = bmw.mms_idx
+    LEFT JOIN g5_member AS mb ON mb.mb_id = bmw.mb_id
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '137'
+GROUP BY bmw.mms_idx
+ORDER BY bmw_sort
+...
+SELECT t1.*
+FROM 테이블명 t1
+JOIN (
+    SELECT mms_idx, MIN(bmw_sort) AS bmw_sort
+    FROM 테이블명
+    GROUP BY mms_idx
+) t2 ON t1.mms_idx = t2.mms_idx AND t1.bmw_sort = t2.bmw_sort
+ORDER BY t1.bmw_sort;
+...
+SELECT bmw_idx, mms_idx, MIN(bmw_sort) AS bmw_sort
+FROM g5_1_bom_mms_worker
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '137'
+GROUP BY mms_idx
+...
+
+```
+| bmw_idx | mms_idx | mms_name | mb_id | mb_name | bmw_type | bmw_sort |
+| --- | --- | --- | --- | --- | --- | --- |
+| 177 | 138 | 47호기 | 1073861823 | 코요 | day | 0 |
+| 368 | 138 | 47호기 | 1072931879 | 아쉬라프 | day | 2 |
+| 364 | 138 | 47호기 | 1072931870 | 토마스 | day | 3 |
+| 415 | 139 | 48호기 | 1072931879 | 아쉬라프 | day | 7 |
+| 179 | 139 | 48호기 | 1073861823 | 코요 | day | 8 |
+| 109 | 139 | 48호기 | 1073861823 | 제임스 | day | 9 |
+```
+이런 정보가 있다고 할께요.
+MySQL 쿼리로 아래와 같은 결과를 뽑고 싶어요.
+GROUP BY mms_idx 로 묶은 후 해당 GROUP에서 bmw_sort가 제일 작은 레코드 한개씩만을 추출하는 거예요.
+```
+| bmw_idx | mms_idx | mms_name | mb_id | mb_name | bmw_type | bmw_sort |
+| --- | --- | --- | --- | --- | --- | --- |
+| 177 | 138 | 47호기 | 1073861823 | 코요 | day | 0 |
+| 415 | 139 | 48호기 | 1072931879 | 아쉬라프 | day | 7 |
+```
+GROUP BY mms_idx 로 묶고 ORDER BY bmw_sort 를 활용해 주세요.
+
+SELECT mms_idx
+FROM g5_1_bom_mms_worker
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '137'
+GROUP BY mms_idx 
+...
+SELECT GROUP_CONCAT(mms_idx) AS mms_idxs
+FROM g5_1_bom_mms_worker
+WHERE bmw_status NOT IN ('trash','delete') AND bom_idx = '137'
+...
+
+                if($row['mms_idx']==139) {
+                    // print_r2($downtime[$j]);
+                    // echo $downtime[$j]['start'].'~'.$downtime[$j]['end'].' 원본<br>';
+                }
+
+계획정지 arr[0]:
+Array
+(
+    [3] => Array
+        (
+            [start] => 083217
+            [end] => 091000
+        )
+
+)
+계획정지 arr[1]:
+Array
+(
+    [3] => Array
+        (
+            [start] => 083000
+            [end] => 091000
+        )
+
+    [4] => Array
+        (
+            [start] => 110000
+            [end] => 114000
+        )
+
+    [5] => Array
+        (
+            [start] => 134000
+            [end] => 135000
+        )
+
+)
+계획정지 arr[5]:

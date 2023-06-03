@@ -1,0 +1,2 @@
+mcs_idx,shot_id,event_time,hold_temp,upper_heat,lower_heat,upper_1_temp,upper_2_temp,upper_3_temp,upper_4_temp,upper_5_temp,upper_6_temp,lower_1_temp,lower_2_temp,lower_3_temp
+1,147073,2020-11-02 08:16:43,692,359.7,372.9,0,0,0,0,355.5,360.8,379.8,0,0
