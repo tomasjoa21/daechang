@@ -20,6 +20,9 @@ $sql = " SELECT itm.plt_idx
         ORDER BY itm.plt_idx DESC
 ";
 $result = sql_query($sql,1);
+if(!$result->num_rows){
+    goto_url('./label_production_list.php',false);
+}
 ?>
 <div id="main" class="<?=$main_type_class?>">
 <form name="form01" id="form01" action="./label_production_pallet_list_update.php" onsubmit="return form01_submit(this);" method="post">
@@ -27,6 +30,7 @@ $result = sql_query($sql,1);
 <input type="hidden" name="token" value="">
 <input type="hidden" name="mb_id" value="<?=$member['mb_id']?>">
 <input type="hidden" name="mb_name" value="<?=$member['mb_name']?>">
+<input type="hidden" name="bom_idx" value="<?=$bom_idx?>">
 <div class="tbl_head01 tbl_wrap">
     <table>
     <caption><?php echo $g5['title']; ?> 목록</caption>
@@ -47,6 +51,7 @@ $result = sql_query($sql,1);
         $sql2 = " SELECT itm.bom_idx
                         , bom.bom_part_no
                         , bom.bom_name
+                        , itm.mms_idx
                         , COUNT(itm_idx) AS itm_cnt
             FROM {$g5['item_table']} itm
             LEFT JOIN {$g5['bom_table']} bom ON itm.bom_idx = bom.bom_idx
@@ -57,18 +62,20 @@ $result = sql_query($sql,1);
         $res = sql_query($sql2,1);
 
         $row['itm_total'] = 0;
+        $row['bom_idxs'] = '';
     ?>
     <tr class="<?php echo $bg; ?>" tr_id="<?php echo $row['plt_idx'] ?>">
         <td class="td_chk">
-            <input type="checkbox" class="inp_chk" name="chk[]" value="<?=$i?>" id="chk_<?php echo $i ?>">
+            <input type="checkbox" class="inp_chk" name="chk[]" value="<?=$row['plt_idx']?>" id="chk_<?php echo $i ?>">
             <label for="chk_<?php echo $i ?>" class="chk"></label>
-            <input type="hidden" name="plt_idx[<?=$i?>]" value="<?=$row['plt_idx']?>">
+            <!-- <input type="hidden" name="plt_idx[<?php //$row['plt_idx']?>]" value="<?php //$row['plt_idx']?>"> -->
         </td>
         <td class="td_plt_idx"><?=$row['plt_idx']?></td><!-- 파렛트ID -->
         <td class="td_bom">
             <ul>
             <?php for($j=0;$row2=sql_fetch_array($res);$j++){ 
-                $row['itm_total'] += $row2['itm_cnt'];    
+                $row['itm_total'] += $row2['itm_cnt'];
+                $row['bom_idxs'] .= ($j == 0) ? $row2['bom_idx'] : '_'.$row2['bom_idx'];
             ?>
             <li>
                 <span class="ss ss_no">[ <?=$row2['bom_part_no']?> ]</span>
@@ -81,7 +88,7 @@ $result = sql_query($sql,1);
         <td class="td_plt_reg_dt"><?=$row['plt_reg_dt']?></td>
         <td class="td_plt_in_cnt"><?=$row['itm_total']?></td>
         <td class="td_plt_reprint">
-            <a href="<?=G5_USER_ADMIN_KIOSK_URL?>/label_production_form.php?bom_idx=<?=$row['bom_idx']?>" class="btn btn05 btn_reprint">재발행</a>
+            <a href="<?=G5_USER_ADMIN_KIOSK_URL?>/label_production_form2.php?plt_idx=<?=$row['plt_idx']?>&bom_idxs=<?=$row['bom_idxs']?>&bom_idx=<?=$bom_idx?>" class="btn btn05 btn_reprint">재발행</a>
         </td>
     </tr>
     <?php } ?>
@@ -94,7 +101,16 @@ $result = sql_query($sql,1);
 </form>
 </div><!--//#main-->
 <script>
+function form01_submit(f){
+    $submit_flag = true;
+    if(!is_checked("chk[]")){
+        alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
+        $submit_flag = false;
+        return false;
+    }
 
+    return $submit_flag;
+}
 </script>
 <?php
 include_once('./_tail.php');

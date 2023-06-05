@@ -29,7 +29,6 @@ $plt_check_yn = 0;
 $drv_id_arr = array();
 $drv_name_arr = array();
 $plt_idx = 0;
-
 //아작스로 보낼 bom데이터배열
 $boms = '';
 for ($i = 0; $i < count($chk); $i++) {
@@ -61,6 +60,8 @@ $drv_names = implode(',', $drv_name_arr);
 $rowspan = 5;
 $rowspan += ($plt_check_yn) ? 1 : 0;
 $rowspan += (count($bom_idx)) ? count($bom_idx) : 0;
+
+//여기서는 form01의 기능 필요없고 label.production_print.php파일도 사옹안함
 ?>
 
 <div id="main" class="<?= $main_type_class ?>">

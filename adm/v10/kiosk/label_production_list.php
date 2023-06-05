@@ -90,7 +90,7 @@ $result = sql_query($sql,1);
     ?>
     <tr class="<?php echo $bg; ?>" tr_id="<?php echo $row['prd_idx'] ?>">
         <td class="td_chk">
-            <input type="checkbox" class="inp_chk" name="chk[]" value="<?=$i?>" id="chk_<?php echo $i ?>" stock="<?=$row['itm_total']?>">
+            <input type="checkbox" class="inp_chk" name="chk[]" value="<?=$i?>" id="chk_<?php echo $i ?>" stock="<?=$row['itm_total']?>" plt_cnt="<?=$row['plt_count']?>">
             <label for="chk_<?php echo $i ?>" class="chk"></label>
             <input type="hidden" name="prd_idx[<?=$i?>]" value="<?=$row['prd_idx']?>">
             <input type="hidden" name="prd_start_date[<?=$i?>]" value="<?=$row['prd_start_date']?>">
@@ -114,7 +114,9 @@ $result = sql_query($sql,1);
         <td class="td_prd_stock"><?=number_format($row['itm_total'])?></td><!-- 재고 -->
         <td class="td_plt_count"><?=number_format($row['plt_count'])?></td><!-- 파레트수량 -->
         <td class="td_plt_reoutput">
+            <?php if($row['plt_count']){ ?>
             <a href="<?=G5_USER_ADMIN_KIOSK_URL?>/label_production_pallet_list.php?bom_idx=<?=$row['bom_idx']?>" class="btn btn04 btn_reoutput">상세</a>
+            <?php } ?>
         </td><!-- 재발행 -->
     </tr>
     <?php 
@@ -148,6 +150,11 @@ function form01_submit(f){
     }
 
     $('.inp_chk:checked').each(function(){
+        // if($(this).attr('plt_cnt') != '0'){
+        //     alert('파레트수량이 존재하는 제품은 새롭게 라벨을 출력할 수 없습니다.\n상세페이지에서 재출력은 가능합니다.');
+        //     $submit_flag = false;
+        //     return false;
+        // }
         if($(this).attr('stock') == '0' || $(this).attr('stock') == ''){
             alert('재고가 없는 제품은 라벨을 출력할 수 없습니다.');
             $submit_flag = false;
