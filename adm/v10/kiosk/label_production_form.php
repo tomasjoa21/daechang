@@ -190,8 +190,8 @@ function init() {
                         var orgCtnt = document.body.innerHTML;
                         document.body.innerHTML = prtCtnt;
                         window.print();
-                        // document.body.innerHTML = orgCtnt;
-                        // window.location.reload();
+                        document.body.innerHTML = orgCtnt;
+                        window.location.reload();
                         //로딩끝
                         $('#loading_box').removeClass('focus');
                     },1000);
