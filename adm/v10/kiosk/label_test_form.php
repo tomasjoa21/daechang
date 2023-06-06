@@ -130,7 +130,7 @@ function init(){
         document.body.innerHTML = prtCtnt;
         window.print();
         document.body.innerHTML = orgCtnt;
-        // window.location.reload();
+        window.location.reload();
     }
     
     function printWithoutDialog() {
@@ -143,10 +143,10 @@ function init(){
         // 숨겼던 브라우저 웹문서 영역 복구
         document.body.innerHTML = originalContents;
         // 현재 창 닫기
-        // window.close();
+        window.close();
     }
-    // printBtn.addEventListener("click", handlePrint);
-    printBtn.addEventListener("click", printWithoutDialog);
+    printBtn.addEventListener("click", handlePrint);
+    // printBtn.addEventListener("click", printWithoutDialog);
 }
 
 // 페이지 로드가 완료되면 이벤트 리스너를 등록
