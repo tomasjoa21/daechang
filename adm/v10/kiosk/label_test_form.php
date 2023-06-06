@@ -132,7 +132,21 @@ function init(){
         document.body.innerHTML = orgCtnt;
         // window.location.reload();
     }
-    printBtn.addEventListener("click", handlePrint);
+    
+    function printWithoutDialog() {
+        var printContents = document.getElementById('lbl_box').innerHTML;
+        var originalContents = document.body.innerHTML;
+        // 브라우저 웹문서 영역 숨기기
+        document.body.innerHTML = printContents;   
+        // 자동으로 인쇄
+        window.print();
+        // 숨겼던 브라우저 웹문서 영역 복구
+        document.body.innerHTML = originalContents;
+        // 현재 창 닫기
+        window.close();
+    }
+    // printBtn.addEventListener("click", handlePrint);
+    printBtn.addEventListener("click", printWithoutDialog);
 }
 
 // 페이지 로드가 완료되면 이벤트 리스너를 등록
