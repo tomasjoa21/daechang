@@ -18,7 +18,7 @@ $menu_datas = array(
         , 'me_icon' => 'fa-truck'
         , 'me_file' => 'delivery_list'
         , 'me_keyword' => 'delivery'
-    )
+    ),
     // ,
     // array(
     //     'me_name' => '불량라벨출력'
@@ -27,6 +27,15 @@ $menu_datas = array(
     //     , 'me_icon' => 'fa-exclamation-triangle'
     //     , 'me_file' => 'label_defect_list'
     // )
+
+    array(
+        'me_name' => '프린터테스트'
+        , 'me_link' => G5_USER_ADMIN_KIOSK_URL.'/label_test_form.php'
+        , 'me_target' => '_self'
+        , 'me_icon' => 'fa-print'
+        , 'me_file' => 'label_test_form'
+        , 'me_keyword' => 'label_test'
+    )
 );
 $main_type_class = ($g5['file_name'] == 'index') ? 'index_main' : 'sub_main';
 ?>

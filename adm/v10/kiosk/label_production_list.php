@@ -2,8 +2,8 @@
 include_once('./_common.php');
 include_once('./_head.php');
 
-// $shif_date = statics_date(G5_TIME_YMDHIS);
-$shif_date = statics_date('2023-06-05 09:15:20');
+$shif_date = statics_date(G5_TIME_YMDHIS);
+// $shif_date = statics_date('2023-06-05 09:15:20');
 
 $sql = " SELECT prd.prd_idx
             , prd.prd_start_date
