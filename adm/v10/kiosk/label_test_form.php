@@ -143,7 +143,7 @@ function init(){
         // 숨겼던 브라우저 웹문서 영역 복구
         document.body.innerHTML = originalContents;
         // 현재 창 닫기
-        window.close();
+        // window.close();
     }
     // printBtn.addEventListener("click", handlePrint);
     printBtn.addEventListener("click", printWithoutDialog);
