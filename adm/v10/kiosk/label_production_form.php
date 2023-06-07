@@ -91,14 +91,14 @@ $rowspan += (count($bom_idx)) ? count($bom_idx) : 0;
                         <td class="td_plt_idx" id="td_plt_idx"></td>
                     </tr>
                     <tr>
-                        <th>총수량</th>
-                        <td colspan="3" class="td_total"><?= $total_cnt ?> EA</td>
+                        <th>생산자</th>
+                        <td colspan="3" class="td_total"><?= $mb_name ?></td>
                     </tr>
                     <tr>
                         <th>설비</th>
                         <td><?= $mms_nm ?></td>
-                        <th>생산자</th>
-                        <td><?= $mb_name ?></td>
+                        <th>총수량</th>
+                        <td><?= $total_cnt ?> EA</td>
                     </tr>
                     <tr>
                         <th>배차기사</th>
