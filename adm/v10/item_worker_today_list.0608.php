@@ -197,8 +197,8 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 
 <div class="local_desc01 local_desc" style="display:no ne;">
     <p><?=$st_date?> 각 작업자별 생산 현황입니다.</p>
-    <p>10분 정도 시차 Delay(딜레이)를 두고 실시간 반영됩니다. 시스템 부하를 분산시키기 위한 불가피한 지연 시간입니다.</p>
-    <p>항목 중에서 비가동 시간이 의미하는 바는 (<a href="<?=G5_USER_ADMIN_URL?>/system/offwork_list.php">계획정지</a> + <a href="<?=G5_USER_ADMIN_URL?>/system/manual_downtime_list.php">설비비가동</a>)입니다. 해당 페이지에서 설정해 주세요.</p>
+    <p>10분 정도 시차 Delay(딜레이)를 두고 실시간 반영됩니다. 시스템 부하를 분산시키기 위한 불가피한 조치입니다. 현시점 실시간 반영하시려면 상단 [생산현황동기화] 버튼을 클릭하세요.</p>
+    <p>항목 중에서 비가동 시간이 의미하는 바는 (<a href="<?=G5_USER_ADMIN_URL?>/system/offwork_list.php">계획정지</a> + <a href="<?=G5_USER_ADMIN_URL?>/system/manual_downtime_list.php">설비비가동</a>)입니다.</p>
 </div>
 
 <form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" style="width:100%;">
@@ -287,14 +287,13 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         // print_r2($row['dt']);
         $row['pri_hours'] = $row['dt']['pic_min_dt'] ? substr($row['dt']['pic_min_dt'],11,-3) : '';
         $row['pri_hours'] .= $row['dt']['pic_max_dt'] ? '~'.substr($row['dt']['pic_max_dt'],11,-3) : '';
-        // 생산 시작 및 종료시간이 존재할 때 ----------------------------------------------------------
         if($row['dt']['pic_min_dt'] && $row['dt']['pic_max_dt']) {
             // print_r2($row['dt']);
             $row['pri_work_seconds'] = strtotime($row['dt']['pic_max_dt']) - strtotime($row['dt']['pic_min_dt']);
             $row['pri_work_min'] = $row['pri_work_seconds']/60;
             $row['pri_work_min_text'] = $row['pri_work_min'] ? '<br>('.number_format($row['pri_work_min'],2).'분)' : '';
             // echo $row['pri_work_seconds'].BR;
-            $row['pri_work_hour'] = $row['pri_work_seconds']/3600;  // 1. 1차 작업시간 계산 //<-----------
+            $row['pri_work_hour'] = $row['pri_work_seconds']/3600;
             // echo $row['pri_work_hour'].BR;
 
             // 실제 적용시간 범위
@@ -320,14 +319,15 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 //                 echo num2seconds($offwork[$j]['end']).'~'.num2seconds($offwork[$j]['start']).' times<br>';
                 
 // }
+
                 // 같은 값도 있네요. (통과)
                 if( $row['dta_start_his'] == $row['dta_end_his']) {
                      continue;
                 }
                 // 완전 포함인 경우는 무조건 공제시간
                 else if( $row['dta_start_his'] <= $offwork[$j]['start'] && $row['dta_end_his'] >= $offwork[$j]['end'] ) {
-                    $row['offwork_arr'][$i][$j]['start'] = $offwork[$j]['start'];  // 하단 비가동에서 재활용
-                    $row['offwork_arr'][$i][$j]['end'] = $offwork[$j]['end'];      // 하단 비가동에서 재활용
+                    $row['offworks_arr'][$i][$j]['start'] = $offwork[$j]['start'];  // 하단 비가동에서 재활용
+                    $row['offworks_arr'][$i][$j]['end'] = $offwork[$j]['end'];      // 하단 비가동에서 재활용
                     $row['offwork_sec'][$i] += num2seconds($offwork[$j]['end']) - num2seconds($offwork[$j]['start']);
                 }
                 // 걸쳐 있는 경우
@@ -335,26 +335,26 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
                     // echo $j.BR;
                     // echo $row['dta_start_his'] .'<='. $offwork[$j]['end'] .'&&'. $row['dta_end_his'] .'>='. $offwork[$j]['start'].BR;
                     if( $row['dta_start_his'] >= $offwork[$j]['start'] ) {
-                        $row['offwork_arr'][$i][$j]['start'] = $row['dta_start_his'];  // 하단 비가동에서 재활용
-                        $row['offwork_arr'][$i][$j]['end'] = $offwork[$j]['end'];      // 하단 비가동에서 재활용
+                        $row['offworks_arr'][$i][$j]['start'] = $row['dta_start_his'];  // 하단 비가동에서 재활용
+                        $row['offworks_arr'][$i][$j]['end'] = $offwork[$j]['end'];      // 하단 비가동에서 재활용
                         // $offwork[$j]['start'] = $row['dta_start_his']; // 원본을 바꾸면 안 됨 (for문에서 변경되므로)
                         $row['offwork_sec'][$i] += num2seconds($offwork[$j]['end']) - num2seconds($row['dta_start_his']);
                     }
                     if( $row['dta_end_his'] <= $offwork[$j]['end'] ) {
-                        $row['offwork_arr'][$i][$j]['start'] = $offwork[$j]['start'];  // 하단 비가동에서 재활용
-                        $row['offwork_arr'][$i][$j]['end'] = $row['dta_end_his'];      // 하단 비가동에서 재활용
+                        $row['offworks_arr'][$i][$j]['start'] = $offwork[$j]['start'];  // 하단 비가동에서 재활용
+                        $row['offworks_arr'][$i][$j]['end'] = $row['dta_end_his'];      // 하단 비가동에서 재활용
                         // $offwork[$j]['end'] = $row['dta_end_his']; // 원본을 바꾸면 안 됨 (for문에서 변경되므로)
                         $row['offwork_sec'][$i] += num2seconds($row['dta_end_his']) - num2seconds($offwork[$j]['start']);
                     }
                 }
             }
             // echo '계획정지 공제시간 합(sec): '.$row['offwork_sec'][$i].'<br>';
-            // echo '계획정지 arr['.$i.']: '.BR.print_r2($row['offwork_arr'][$i]); // 최종 적용된 계획정지 배열 (하단에서 중복 제거용)
+            // echo '계획정지 arr['.$i.']: '.BR.print_r2($row['offworks_arr'][$i]); // 하단에서 중복 제거용
             $row['offwork_hour'][$i] = $row['offwork_sec'][$i] ? $row['offwork_sec'][$i]/3600 : 0;  // convert to hour unit.
-            $row['pri_work_hour'] -= $row['offwork_hour'][$i];  // 2. 2차 작업시간 계산: 계획정지 시간 제외해 줌 //<-----------
+            $row['pri_work_hour'] -= $row['offwork_hour'][$i];
         
 
-
+            
             // 비가동정지 (downtime), 위에서 만들어둔 배열 활용
             for($j=0;$j<@sizeof($downtime);$j++){
                 // print_r2($downtime[$j]);
@@ -368,105 +368,56 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
                     // text print <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 89311-S8530, 유말, 50호기
                     if($row['bom_idx'] == 261 && $row['mms_idx'] == 140 && $row['mb_id'] == '01056058011') {
                         // 결국에는 아래 두개 배열을 비교해서 제거하는 거네요.
-                        // echo $row['dta_start_his'].'~'.$row['dta_end_his'].' 적용시간범위<br>';
-                        // print_r2($row['offwork_arr']);
-                        // print_r2($downtime[$j]);
+                        print_r2($row['offworks_arr']);
+                        print_r2($downtime[$j]);
                         // echo $downtime[$j]['start'].'~'.$downtime[$j]['end'].' 원본<br>';
-
-                    
-                    // 같은 값도 있네요. (통과)
-                    if( $row['dta_start_his'] == $row['dta_end_his']) {
-                        continue;
                     }
-                    // 완전 포함인 경우는 무조건 공제
-                    else if( $row['dta_start_his'] <= $downtime[$j]['start'] && $row['dta_end_his'] >= $downtime[$j]['end'] ) {
-                        $row['downtime_arr'][$i][$j]['start'] = $downtime[$j]['start'];  // 하단 중복처리에서 재활용
-                        $row['downtime_arr'][$i][$j]['end'] = $downtime[$j]['end'];      // 하단 중복처리에서 재활용
-                        $row['downtime_sec'][$i] += num2seconds($downtime[$j]['end']) - num2seconds($downtime[$j]['start']);
-                        // echo $downtime[$j]['end'].' - '.$downtime[$j]['start'].' --- 1 완전포함'.BR;
-                    }
-                    // 걸쳐 있는 경우
-                    else if( $row['dta_start_his'] <= $downtime[$j]['end'] && $row['dta_end_his'] >= $downtime[$j]['start'] ) {
-                        // echo $j.BR;
-                        // echo $row['dta_start_his'] .'<='. $downtime[$j]['end'] .'&&'. $row['dta_end_his'] .'>='. $downtime[$j]['start'].BR;
-                        if( $row['dta_start_his'] >= $downtime[$j]['start'] ) {
-                            $row['downtime_arr'][$i][$j]['start'] = $row['dta_start_his'];  // 하단 중복처리에서 재활용
-                            $row['downtime_arr'][$i][$j]['end'] = $downtime[$j]['end'];      // 하단 중복처리에서 재활용
-                            $row['downtime_sec'][$i] += num2seconds($downtime[$j]['end']) - num2seconds($row['dta_start_his']);
-                            // echo $downtime[$j]['end'].' - '.$row['dta_start_his'].' --- 2 앞쪽'.BR;
-                        }
-                        if( $row['dta_end_his'] <= $downtime[$j]['end'] ) {
-                            $row['downtime_arr'][$i][$j]['start'] = $downtime[$j]['start'];  // 하단 중복처리에서 재활용
-                            $row['downtime_arr'][$i][$j]['end'] = $row['dta_end_his'];      // 하단 중복처리에서 재활용
-                            $row['downtime_sec'][$i] += num2seconds($row['dta_end_his']) - num2seconds($downtime[$j]['start']);
-                            // echo $row['dta_end_his'].' - '.$downtime[$j]['start'].' --- 3 뒤쪽'.BR;
-                        }
-                    }
-                    // echo $row['downtime_sec'][$i].' 초'.BR;
-                    // print_r2($row['downtime_arr'][$i]);  // 최종 적용한 downtime 배열
 
+                    // 비가동 시간 일단을 먼저 추출하고
+                    $row['downtime_sec'][$i] += num2seconds($downtime[$j]['end'])- num2seconds($downtime[$j]['start']);
+                    echo $row['downtime_sec'][$i].' --> 비가동 시간'.BR;
 
-                    } // text print <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 89311-S8530, 유말, 50호기
-                }
-            }
-            $row['downtime_hour'][$i] = $row['downtime_sec'][$i] ? $row['downtime_sec'][$i]/3600 : 0;  // convert to hour unit.
-            $row['pri_work_hour'] -= $row['downtime_hour'][$i];  // 3. 3차 작업시간 계산: 비가동 시간 제외해 줌 //<-----------
+                    // 계획정비 배열 전체를 돌면서 중복 부분만 제거해 주면 됨
+                    if(is_array($row['offworks_arr'][$i])) {
+                        foreach($row['offworks_arr'][$i] as $k1=>$v1) {
+                            // print_r2($v1);
+                            // echo $v1['start'].'~'.$v1['end'].' 계획정지(위에서 추출한 값)<br>';
 
-
-            // 비가동과 계획정비가 중복되는 시간은 다시 공제에서 제외 (두번 제외된 구간 복구)
-            if($row['downtime_sec'][$i]) {
-                // print_r2($row['offwork_arr'][$i]);
-                // print_r2($row['downtime_arr'][$i]);  // 최종 적용한 downtime 배열
-                // 계획정비 배열 전체를 돌면서 중복 부분 제거 (비가동을 돌면서 계획정비를 처리해도 마찬가지!)
-                if(is_array($row['offwork_arr'][$i])) {
-                    foreach($row['offwork_arr'][$i] as $k1=>$v1) {
-                        // print_r2($v1);
-                        // echo $v1['start'].'~'.$v1['end'].' 계획정지 구간<br>';
-
-                        // 각 구간마다 중복되는 부분 추출
-                        if(is_array($row['downtime_arr'][$i])) {
-                            foreach($row['downtime_arr'][$i] as $k2=>$v2) {
-                                // print_r2($v2);
-                                // echo '---> '.$v2['start'].'~'.$v2['end'].' 비가동 구간<br>';
-
-                                // 비가동이 계획정비에 완전 포함되는 경우는 중복된 시간이므로 추출
-                                if( $v2['start'] >= $v1['start'] && $v2['end'] <= $v1['end'] ) {
-                                    $row['duplicated_sec'][$i] += num2seconds($v2['end'])- num2seconds($v2['start']);
-                                    // echo $v2['end'].' - '.$v2['start'].' --- 2 완전포함'.BR;
+                            // 같은 값도 있네요. (통과)
+                            if( $downtime[$j]['start'] == $downtime[$j]['end']) {
+                                continue;
+                            }
+                            // 계획정비가 비가동에 완전 포함되는 경우는 중복이므로 제외해야 함
+                            else if( $downtime[$j]['start'] >= $row['offworks_arr'][$i][$k1]['start'] && $downtime[$j]['end'] <= $row['offworks_arr'][$i][$k1]['end'] ) {
+                                continue;
+                            }
+                            // 걸쳐 있는 경우
+                            else if( $downtime[$j]['end'] >= $row['offworks_arr'][$i][$k1]['start'] && $downtime[$j]['start'] <= $row['offworks_arr'][$i][$k1]['end'] ) {
+                                // echo $downtime[$j]['start'].'~'.$downtime[$j]['end'].' 2 적용시간범위<br>';
+                                // print_r2($row['offworks_arr'][$i][$k1]);
+                                // 앞쪽 구간에 걸친 경우
+                                if( $downtime[$j]['end'] >= $row['offworks_arr'][$i][$k1]['start'] ) {
+                                    // print_r2($row['offworks_arr'][$i][$k1]);
+                                    $row['downtime_sec_duplicated'][$i] += num2seconds($row['offworks_arr'][$i][$k1]['start'])- num2seconds($downtime[$j]['start']);
+                                    echo $row['offworks_arr'][$i][$k1]['start'].' - '.$downtime[$j]['start'].' --- 2'.BR;
                                 }
-                                // 걸쳐 있는 경우
-                                else if( $v2['end'] >= $v1['start'] && $v2['start'] <= $v1['end'] ) {
-                                    // echo $v2['start'].'~'.$v2['end'].' 2 적용시간범위<br>';
-                                    // print_r2($v1);
-                                    // 앞쪽 구간에 걸친 경우
-                                    if( $v2['end'] >= $v1['start'] ) {
-                                        // print_r2($v1);
-                                        $row['duplicated_sec'][$i] += num2seconds($v2['end'])- num2seconds($v1['start']);
-                                        // echo $v2['end'].' - '.$v1['start'].' --- 2 앞쪽구간'.BR;
-                                    }
-                                    // 뒤쪽 구간에 걸친 경우
-                                    else if( $v2['start'] <= $v1['end'] ) {
-                                        // print_r2($v1);
-                                        $row['duplicated_sec'][$i] += num2seconds($v1['end']) - num2seconds($v2['start']);
-                                        // echo $v1['end'].' - '.$v2['start'].' --- 3 뒤쪽구간'.BR;
-                                    }
+                                // 뒤쪽 구간에 걸친 경우
+                                else if( $downtime[$j]['start'] <= $row['offworks_arr'][$i][$k1]['end'] ) {
+                                    // print_r2($row['offworks_arr'][$i][$k1]);
+                                    // echo $downtime[$j]['end'];
+                                    $row['downtime_sec_duplicated'][$i] += num2seconds($downtime[$j]['end']) - num2seconds($row['offworks_arr'][$i][$k1]['end']);
+                                    echo $downtime[$j]['end'].' - '.$row['offworks_arr'][$i][$k1]['end'].' --- 3'.BR;
                                 }
                             }
+                            
                         }
-                        // echo '============='.BR;
-                        
                     }
+                    echo $row['downtime_sec_duplicated'][$i].BR;
+
                 }
-                // echo $row['duplicated_sec'][$i].' 중복더블차감된 부분이므로 다시 복구해 줘야 하는 초'.BR;
+
             }
-            $row['duplicated_hour'][$i] = $row['duplicated_sec'][$i] ? $row['duplicated_sec'][$i]/3600 : 0;  // convert to hour unit.
-            $row['pri_work_hour'] += $row['duplicated_hour'][$i];  // 4. 4차 작업시간 계산: 계획정비와 비가동에서 중복제외된 시간 복구해 줌 //<-----------
-
-
-            // 비가동전체 = 계획정지 + 비가동 - 중복적용시간
-            $row['offdown_seconds'] = $row['offwork_sec'][$i] + $row['downtime_sec'][$i] - $row['duplicated_sec'][$i];
-            $row['offdown_min'] = $row['offdown_seconds'] ? $row['offdown_seconds']/60 : 0;
-            $row['offdown_text'] = $row['offdown_min'] ? number_format($row['offdown_min'],1).'분' : '';
+            // echo '비가동 공제시간 합(sec): '.$row['downtime_sec'][$i].'<br>';
 
 
 
@@ -478,7 +429,13 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             $pri_uph_total += $row['pri_uph'];
 
         }
-        //// 생산 시작 및 종료시간이 존재할 때 ----------------------------------------------------------
+        //// 생산 시작 및 종료시간 ----------------------------------------------------------
+        
+        // 계획정지 + 비가동 표시
+        $row['offdown_seconds'] = $row['offwork_sec'][$i] + $row['downtime_sec'][$i];
+        $row['offdown_min'] = $row['offdown_seconds'] ? $row['offdown_seconds']/60 : 0;
+        $row['offdown_text'] = $row['offdown_min'] ? number_format($row['offdown_min'],1).'분' : '';
+
 
         // 비율
         $row['rate'] = ($row['pri_value']) ? $row['pic']['pic_sum'] / $row['pri_value'] * 100 : 0 ;
@@ -557,7 +514,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     </table>
 </div>
 
-<div class="btn_fixed_top" style="display:<?=(!$member['mb_manager_yn'])?'none':''?>;">
+<div class="btn_fixed_top" style="display:no ne;">
     <a href="<?=G5_USER_URL?>/cron/socket_read.php" class="btn btn_02 btn_production_sync">생산현황동기화</a>
 </div>
 

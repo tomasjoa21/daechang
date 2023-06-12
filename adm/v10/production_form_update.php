@@ -65,7 +65,7 @@ else if($w == 'u'){
         // BOM 구조를 따라서 관련 정보 생성
         $list = get_production_item($prd);
         // print_r2($list);
-        // exit;
+        exit;
     }
     // 초기화가 아니면 정보 업데이트
     else {

@@ -274,10 +274,10 @@ function get_production_item($prd)
             // echo $row1['bmw_rows'];
             for ($k=0; $row2=sql_fetch_array($rs2); $k++) {
                 // print_r2($row2);
-                $row2['mms_n_type'] = $row2['mms_idx'].'_'.$row2['bmw_type'];
+                $row2['bom_mms_type'] = $row1['bom_idx'].'_'.$row2['mms_idx'].'_'.$row2['bmw_type'];
                 // 설비가 바뀌면서 교대가 바뀌면서 맨 처음것만 입력(중복은 건너뜀)
-                // echo !in_array($row2['mms_n_type'],$arr_done) .' && '. $mms_idx_odd .' != '. $row2['mms_idx'] .'&&'. $bmw_type_odd .'!='. $row2['bmw_type'].BR;
-                if(!in_array($row2['mms_n_type'],$arr_done) && ($mms_idx_odd != $row2['mms_idx'] || $bmw_type_odd != $row2['bmw_type'])) {
+                // echo !in_array($row2['bom_mms_type'],$arr_done) .' && '. $mms_idx_odd .' != '. $row2['mms_idx'] .'&&'. $bmw_type_odd .'!='. $row2['bmw_type'].BR;
+                if(!in_array($row2['bom_mms_type'],$arr_done) && ($mms_idx_odd != $row2['mms_idx'] || $bmw_type_odd != $row2['bmw_type'])) {
                     // echo $k.'------------'.BR;
                     $arr[$idx]['com_idx'] = $row1['com_idx'];
                     $arr[$idx]['bom_idx'] = $row1['bom_idx'];
@@ -287,8 +287,8 @@ function get_production_item($prd)
                     // print_r2($arr);
                     // 합계수량
                     $pri_value_total[$j] += $arr[$idx]['pri_value'];
-                    $arr_done[] = $row2['mms_n_type'];   // 이미 처리한 설비_교대값을 저장(중복방지) arr('138_day','138_night','139_day','139_night')
-                    // print_r2($arr_done);
+                    $arr_done[] = $row2['bom_mms_type'];   // 이미 처리한 설비_교대값을 저장(중복방지) arr('235_138_day','235_138_night','236_139_day','237_139_night')
+                    print_r2($arr_done);
                     $idx++;
                 }
                 // 이전값 저장
@@ -300,7 +300,7 @@ function get_production_item($prd)
                 $prd['prd_value_rest'] = $prd['prd_value'] - $pri_value_total[$j];
                 $arr[0]['pri_value'] = $arr[0]['pri_value']+$prd['prd_value_rest'];
             }
-            // print_r2($arr);
+            print_r2($arr);
 
             // 최종 만들어진 배열을 가지고 디비 입력
             for ($i=0; $i<@sizeof($arr); $i++) {
