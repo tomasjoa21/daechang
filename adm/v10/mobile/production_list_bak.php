@@ -103,12 +103,13 @@ include_once('./_head.php');
             $goal_url = G5_URL.$frow['fle_path'];
             $fle_name = $frow['fle_name'];
             $thumb_img = $goal_url.'/'.thumbnail($fle_name,$orig_path,$goal_path,$twd,$tht,false,true,'center');
-            $thumb_path = $goal_path.'/'.thumbnail($fle_name,$orig_path,$goal_path,$twd,$tht,false,true,'center');
             $noimg_img = G5_USER_ADMIN_MOBILE_IMG_URL.'/no_image.png';
-            $thumb_url = (!is_file($thumb_path)) ? $noimg_img : $thumb_img;
+            $thumb_url = (!$frow) ? $noimg_img : $thumb_img;
         ?>
         <li class="li_desc">
+            <dt class="dt_ttl">설비명(Equipment name)</dt>
             <dd class="dd_des dd_mms">
+                <?=$g5['mms_arr'][$row['mms_idx']]?>
                 <?php if(!$row['mms_call_yn']){ ?>
                     <?php if($row['pri_ing']){ ?>
                         <strong class="st_ing">Running!</strong>
@@ -117,27 +118,22 @@ include_once('./_head.php');
                     <strong class="st_call">Calling!</strong>
                 <?php } ?>
             </dd>
-            <dd class="dd_des">
-                <?=$row['bom_name']?><br>
-                <strong class="part_no">[ <?=$row['bom_part_no']?> ]</strong>
-                <span class="part_nm"><?=$g5['set_bom_type_value'][$row['bom_type']]?></span>
-            </dd>
-            <div class="num_box">
-                <div class="num">
-                    <span>Goal Count</span>
-                    <strong><?=$row['pri_value']?></strong>
-                </div>
-                <div class="num">
-                    <span>My Count</span>
-                    <strong><?=$ptotal?></strong>
-                </div>
-                <div class="num">
-                    <span>Total Count</span>
-                    <strong><?=$total?></strong>
-                </div>
-            </div>
+            <dt class="dt_ttl">고객사(Cutomer)</dt>
+            <dd class="dd_des"><?=$row['cst_name']?></dd>
+            <dt class="dt_ttl">품번(Item number)</dt>
+            <dd class="dd_des"><?=$row['bom_part_no']?></dd>
+            <dt class="dt_ttl">품명(Item name)</dt>
+            <dd class="dd_des"><?=$row['bom_name']?></dd>
+            <dt class="dt_ttl">유형(Item type)</dt>
+            <dd class="dd_des"><?=$g5['set_bom_type_value'][$row['bom_type']]?>(<?=$row['bom_type']?>)</dd>
+            <dt class="dt_ttl">나의 생산목표(Production goal)</dt>
+            <dd class="dd_des"><?=$row['pri_value']?></dd>
+            <dt class="dt_ttl">현재 나의생산량(Current my count)</dt>
+            <dd class="dd_des"><?=$ptotal?></dd>
+            <dt class="dt_ttl">현재 전체생산량(Current total count)</dt>
+            <dd class="dd_des"><?=$total?></dd>
             <dt class="dt_ttl">제품이미지(Item image)</dt>
-            <dd class="dd_des dd_img"><img src="<?=$thumb_url?>" alt="<?=$row['bom_name']?>_이미지"></dd>
+            <dd class="dd_des"><img src="<?=$thumb_url?>" alt="<?=$row['bom_name']?>_이미지"></dd>
             <div class="btn_box">
                 <form name="formA<?=$i?>" class="formA" id="formA<?=$i?>" action="./production_list_update.php" onsubmit="return form01_submit(this);" method="post">
                     <input type="hidden" name="call" value="0">

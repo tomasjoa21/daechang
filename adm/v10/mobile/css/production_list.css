@@ -3,13 +3,17 @@
 #plt_list #plt_ttl{font-size:1.5em !important;color:#4e4ea7;}
 .ul_item{}
 .li_desc{border-top: 1px solid #ddd;margin-top:10px;}
-.dt_ttl{color:#444475;font-size:1.1em;margin-top:10px;}
+.dt_ttl{color:#444475;font-size:1.1em;margin-top:10px;display:none;}
 .dd_des{font-size:1.4em;margin-top:5px;font-weight:700;}
-.dd_des.dd_mms{position:relative;}
-.dd_des.dd_mms strong{position:absolute;top:0;right:10px;}
-.dd_des img{width:100%;height:auto;border:1px solid #ddd;}
+.dd_des .part_no{color:darkorange !important;}
+.dd_img{display:none;}
 .st_ing{color:#0000ff;animation:blink 0.6s linear infinite;}
 .st_call{color:#e9103f;animation:blink 0.6s linear infinite;}
+.num_box{}
+.num_box:after{display:block;visibility:hidden;clear:both;content:''}
+.num_box .num{float:left;width:33.333%;position:relative;text-align:left;padding-top:20px;padding-left:5px;}
+.num_box .num span{position:absolute;top:5px;left:5px;}
+.num_box .num strong{}
 
 .formA{display:inline-block;position:relative;}
 .tooltip{display:none;}
