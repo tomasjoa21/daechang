@@ -7,6 +7,18 @@ $shif_date = statics_date(G5_TIME_YMDHIS);
 // echo $bom_idx."<br>";
 // echo $member['mb_id'];
 //우선 오늘 적재한 해당 bom_idx가 포함되어 있는 plt_idx를 전부 추출하자
+// $sql = " SELECT itm.plt_idx
+//                 , plt_reg_dt
+//                 , mb_id_worker
+//         FROM {$g5['item_table']} itm
+//         LEFT JOIN {$g5['pallet_table']} plt ON itm.plt_idx = plt.plt_idx
+//         WHERE plt.mb_id_worker = '{$member['mb_id']}'
+//             AND bom_idx = '{$bom_idx}'
+//             AND itm.plt_idx != '0'
+//             AND plt_reg_dt LIKE '".G5_TIME_YMD."%'
+//         GROUP BY itm.plt_idx
+//         ORDER BY itm.plt_idx DESC
+// ";
 $sql = " SELECT itm.plt_idx
                 , plt_reg_dt
                 , mb_id_worker
@@ -15,7 +27,8 @@ $sql = " SELECT itm.plt_idx
         WHERE plt.mb_id_worker = '{$member['mb_id']}'
             AND bom_idx = '{$bom_idx}'
             AND itm.plt_idx != '0'
-            AND plt_reg_dt LIKE '".G5_TIME_YMD."%'
+            AND plt_reg_dt >= '".statics_date(G5_TIME_YMDHIS)." 00:00:00'
+            AND plt_status IN ('ok','check','delivery')
         GROUP BY itm.plt_idx
         ORDER BY itm.plt_idx DESC
 ";
