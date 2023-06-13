@@ -18,12 +18,11 @@ $countgap = ($demo) ? 10 : 20;    // 몇건씩 보낼지 설정
 $maxscreen = ($demo) ? 30 : 150;  // 몇건씩 화면에 보여줄건지?
 $sleepsec = 100;     // 천분의 몇초간 쉴지 설정 (1sec=1000)
 
-
 $table1 = 'g5_1_socket';
 $fields1 = sql_field_names_pg($table1);
 
 // meta 데이터가 있으면 마지막 이후 10분까지만 (cron 10분 주기, 나중에 혹시 누락 일괄 처리할 때 디비 부하가 너무 높으면 안 됨, 10분씩 끊어서 입력할 것!!) ------
-$sql = " SELECT * FROM g5_5_meta WHERE mta_db_table = 'pgsql/socket' AND mta_key = 'sck_idx_last' ";
+$sql = " SELECT * FROM {$g5['meta_table']} WHERE mta_db_table = 'pgsql/socket' AND mta_key = 'sck_idx_last' ";
 $one = sql_fetch($sql,1);
 // print_r2($one);
 if($one['mta_idx']) {
@@ -31,8 +30,12 @@ if($one['mta_idx']) {
     $sql_end_dt = date("Y-m-d H:i:s", strtotime($one['mta_reg_dt'])+1000);   // 10 minutes from now (10분(600)보다 조금 더 넉넉하게..)
     // echo $sql_end_dt.BR;
     $sql_where = " WHERE sck_idx > '".$one['mta_db_id']."' AND sck_dt <= '".$sql_end_dt."' ";
-    // if time difference is too much(2 hour), start recent ones.
-    if( strtotime($one['mta_reg_dt'])+3600*2 < G5_SERVER_TIME ) {
+    // if time difference is too much(1 hour), start recent ones.
+    if( strtotime($one['mta_reg_dt'])+3600*1 < G5_SERVER_TIME ) {
+        $one['mta_idx'] = 0;
+    }
+    // if [생산현황동기화] button is clicked. From 20 min ago.
+    if($sync && strtotime($one['mta_reg_dt'])+60*20 < G5_SERVER_TIME) {
         $one['mta_idx'] = 0;
     }
 }
@@ -43,7 +46,7 @@ if(!$one['mta_idx']) {
 
 // for loop 첫번째 항목(들)의 $prev 배열값 만들어 둬야 오차를 줄일 수 있음!
 // print_r2($prev['192.168.100.139']['20480']);
-$sql = " SELECT * FROM g5_5_meta WHERE mta_db_table = 'pgsql/socket' AND mta_key = 'sck_prev_info' ";
+$sql = " SELECT * FROM {$g5['meta_table']} WHERE mta_db_table = 'pgsql/socket' AND mta_key = 'sck_prev_info' ";
 $rs = sql_query($sql,1);
 for($i=0;$row=sql_fetch_array($rs);$i++) {
     // print_r2($row);

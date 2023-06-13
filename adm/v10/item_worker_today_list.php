@@ -558,7 +558,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 </div>
 
 <div class="btn_fixed_top" style="display:<?=(!$member['mb_manager_yn'])?'none':''?>;">
-    <a href="<?=G5_USER_URL?>/cron/socket_read.php" class="btn btn_02 btn_production_sync">생산현황동기화</a>
+    <a href="<?=G5_USER_URL?>/cron/socket_read.php?sync=1" class="btn btn_02 btn_production_sync">생산현황동기화</a>
 </div>
 
 </form>

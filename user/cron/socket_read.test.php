@@ -23,7 +23,7 @@ $fields1 = sql_field_names_pg($table1);
 
 
 // prev 비교를 위해서 이전값 2번째 앞에서부터 시작해야 함
-$sql_where = " WHERE sck_idx BETWEEN 14146725 AND 14146731 AND sck_ip = '192.168.100.143' ";
+$sql_where = " WHERE sck_idx BETWEEN 18946659 AND 18946667 AND sck_ip = '192.168.100.143' ";
 $sql = " SELECT * FROM g5_1_socket {$sql_where} ORDER BY sck_dt ";
 // echo $sql.BR;
 // exit;
