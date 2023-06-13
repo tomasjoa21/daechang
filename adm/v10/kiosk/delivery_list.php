@@ -25,6 +25,10 @@ $(function(e){
     //         $('#qr_scan').val('').select().focus();
     //     }, 500);
     // });
+
+    $('#qr_scan').on('input',function(){
+        alert($(this).val());
+    });
 });
 </script>
 <?php

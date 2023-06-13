@@ -166,7 +166,14 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
 	</tr>
 	<tr>
 		<th scope="row"><label for="mms_memo">설비명참조</label></th>
-		<td colspan="3"><input type="text" name="mms_name_ref" value="<?php echo $mms['mms_name_ref'] ?>" class="frm_input" style="width:100%;"></td>
+		<td><input type="text" name="mms_name_ref" value="<?php echo $mms['mms_name_ref'] ?>" class="frm_input" style="width:100%;"></td>
+		<th scope="row">수동카운트여부</th>
+		<td>
+			<label for="mms_manual_yn">
+               <input type="checkbox" name="mms_manual_yn" id="mms_manual_yn" value="1" <?=($mms['mms_manual_yn']=='1')?'checked':''?> class="frm_input">
+               수동카운트설비인 경우 체크하세요.
+            </label>
+		</td>
 	</tr>
 	<tr> 
 	<th scope="row">모델명</th>

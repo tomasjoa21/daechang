@@ -24,10 +24,26 @@ if(!count($boms)){
     $res['ok'] = false;
     $res['msg'] = '제품데이터가 넘어오지 않았습니다.';
 }
+
+//현 재고량 확인후 적재량보다 재고량이 부족하면 안된다.
+foreach($boms as $bk => $bv){
+    $sql2 = " SELECT SUM(itm_value) AS itm_total
+    FROM {$g5['item_table']}
+    WHERE com_idx = '{$_SESSION['ss_com_idx']}'
+        AND bom_idx = '{$bk}' 
+        AND plt_idx = '0'
+        AND itm_status IN ('finish','check')
+    ";
+    $stk = sql_fetch($sql2);
+    if($bv > $stk['itm_total']){
+        $res['ok'] = false;
+        $res['msg'] = '실제로 적재되지 않은 재고량이 부족합니다.'; 
+    }
+}
 // echo json_encode($res);
 // exit;
 //신규인쇄/발행
-if($w == ''){
+if($res['ok']){
     //신규 plt_idx등록
     $ins_sql = " INSERT INTO {$g5['pallet_table']} SET
                    com_idx = '{$_SESSION['ss_com_idx']}'
@@ -48,7 +64,7 @@ if($w == ''){
                 WHERE com_idx = '{$_SESSION['ss_com_idx']}'
                     AND plt_idx = '0'
                     AND bom_idx = '{$bk}'
-                    AND itm_status = 'finish'
+                    AND itm_status IN ('finish','check')
                 ORDER BY itm_idx
                 LIMIT {$bv}
         ";
@@ -60,9 +76,6 @@ if($w == ''){
         $res['print_dt'] = G5_TIME_YMDHIS;
     }
 }
-//재인쇄
-else{
 
-}
 
 echo json_encode($res,true);

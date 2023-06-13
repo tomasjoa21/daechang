@@ -67,16 +67,19 @@ $result = sql_query($sql,1);
         $bg = 'bg'.($i%2);
         
         // 완제품에 대한 재고수량만 가지고 옴
-        $sql2 = "SELECT SUM(itm_value) AS itm_total
+        $sql2 = " SELECT SUM(itm_value) AS itm_total
                 FROM {$g5['item_table']}
                 WHERE bom_idx = '{$row['bom_idx']}' 
-                    AND itm_status = 'finish'
+                    AND com_idx = '{$_SESSION['ss_com_idx']}'
+                    AND plt_idx = '0'
+                    AND itm_status IN ('finish','check')
         ";
-        // echo $sql2.BR;
+        // echo $sql2;
         $pri = sql_fetch($sql2,1);
         // print_r3($pri);
         $row['itm_total'] = $pri['itm_total'];
 
+        // $row['bom_ship_count'] = ($row['bom_ship_count'] > $row['itm_total']) ? $row['itm_total'] : $row['bom_ship_count'];
 
         // 해당 prd_idx와 pri_idx를 담고 있는 plt_idx의 갯수를 조회
         $sql3 = " SELECT COUNT(DISTINCT itm.plt_idx) AS plt_count
@@ -91,6 +94,8 @@ $result = sql_query($sql,1);
         $itm = sql_fetch($sql3,1);
         // print_r3($itm);
         $row['plt_count'] = $itm['plt_count'];
+
+
     ?>
     <tr class="<?php echo $bg; ?>" tr_id="<?php echo $row['prd_idx'] ?>">
         <td class="td_chk">
@@ -170,6 +175,16 @@ function form01_submit(f){
             $('#plt_in_cnt_'+$(this).val()).focus();
             $submit_flag = false;
             return false;
+        }
+        else{
+            var stock = Number($(this).attr('stock'));
+            var cnt = Number($('#plt_in_cnt_'+$(this).val()).val());
+            if(cnt > stock){
+                alert('적재수량이 재고량을 초과할 수는 없습니다.');
+                $('#plt_in_cnt_'+$(this).val()).focus();
+                $submit_flag = false;
+                return false;
+            }
         }
     });
 

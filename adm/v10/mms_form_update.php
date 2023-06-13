@@ -13,7 +13,7 @@ check_admin_token();
 $mms_price = preg_replace("/,/","",$_POST['mms_price']);
 
 // 체크박스 값이 안 넘어오는 현상 때문에 추가, 폼의 체크박스는 모두 배열로 선언해 주세요.
-$checkbox_array=array('mms_output_yn','mms_default_yn','mms_call_yn','mms_pos_yn');
+$checkbox_array=array('mms_output_yn','mms_default_yn','mms_manual_yn','mms_call_yn','mms_pos_yn');
 for ($i=0;$i<sizeof($checkbox_array);$i++) {
 	if(!$_REQUEST[$checkbox_array[$i]])
 		$_REQUEST[$checkbox_array[$i]] = 'N';
@@ -34,6 +34,7 @@ $sql_common = "  com_idx = '{$_POST['com_idx']}'
                 , mms_linecode = '{$_POST['mms_linecode']}'
                 , mms_output_yn = '{$_POST['mms_output_yn']}'
                 , mms_default_yn = '{$_POST['mms_default_yn']}'
+                , mms_manual_yn = '{$_POST['mms_manual_yn']}'
                 , mms_sort = '{$_POST['mms_sort']}'
                 , mms_call_yn = '{$_POST['mms_call_yn']}'
                 , mms_pos_yn = '{$_POST['mms_pos_yn']}'

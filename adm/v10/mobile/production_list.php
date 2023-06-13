@@ -22,6 +22,7 @@ $sql = " SELECT prd.prd_idx
             , pri_value
             , pri.mms_idx
             , mms.mms_call_yn
+            , mms.mms_manual_yn
             , pri.mb_id
             , pri_memo
             , pri_ing
@@ -46,12 +47,14 @@ $result = sql_query($sql,1);
 $g5['title'] = '생산작업설정(Production Setting)';
 $g5['box_title'] = $member['mb_name'].'님의 '.statics_date(G5_TIME_YMDHIS).' 생산설정';
 $g5['box_title'] .= '<br>Prodution for '.$member['mb_name'].' at '.statics_date(G5_TIME_YMDHIS);
+$mms_manual_yn = 0;
 include_once('./_head.php');
 ?>
 <div id="plt_list">
     <h4 id="plt_ttl"><?=(($mms_name)?'['.$mms_name.']설비에서의 ':'')?>생산제품</h4>
     <ul class="ul_item">
         <?php for($i=0;$row=sql_fetch_array($result);$i++){ 
+            if($i == 0) $mms_manual_yn = $row['mms_manual_yn'];
             /*
             $prf_tbl = ($row['bom_type'] == 'product') ? $g5['item_table'] : $g5['material_table'];
             $prf = ($row['bom_type'] == 'product') ? 'itm' : 'mtr';
@@ -174,6 +177,7 @@ include_once('./_head.php');
 </div>
 <script>
 var url = '<?=G5_USER_ADMIN_MOBILE_URL?>/production_list.php<?=(($mms_idx)?'?mms_idx='.$mms_idx:'')?>';
+var mms_manual_yn = <?=$mms_manual_yn?>;
 
 $('.tooltip_close').on('click',function(){
     $(this).siblings('input').val('');
@@ -190,22 +194,23 @@ function form01_submit(f){ //inp
     var num = 0;
     var flag = true;
     if(document.pressed == 'END'){
-        var ajax_stock_check_url = '<?=G5_USER_ADMIN_MOBILE_URL?>/ajax/end_stock_check.php';
-        $.ajax({
-            type: "POST",
-            url: ajax_stock_check_url,
-            dataType: "text",
-            data: {"pri_idx":f.pri_idx.value,"mb_id": '<?=$member['mb_id']?>'},
-            async: false,
-            success: function(res){
-                num = Number(res);
-            },
-            error: function(xmlReq){
-                alert('Status: ' + xmlReq.status + ' \n\rstatusText: ' + xmlReq.statusText + ' \n\rresponseText: ' + xmlReq.responseText);
-            }
-        });
+        // var ajax_stock_check_url = '<?=G5_USER_ADMIN_MOBILE_URL?>/ajax/end_stock_check.php';
+        // $.ajax({
+        //     type: "POST",
+        //     url: ajax_stock_check_url,
+        //     dataType: "text",
+        //     data: {"pri_idx":f.pri_idx.value,"mb_id": '<?=$member['mb_id']?>'},
+        //     async: false,
+        //     success: function(res){
+        //         num = Number(res);
+        //     },
+        //     error: function(xmlReq){
+        //         alert('Status: ' + xmlReq.status + ' \n\rstatusText: ' + xmlReq.statusText + ' \n\rresponseText: ' + xmlReq.responseText);
+        //     }
+        // });
         //종료시점에 재고가 0이면 수기입력하자
-        if(num == 0 && !f.pri_cnt.value){
+        // if(num == 0 && !f.pri_cnt.value){
+        if(mms_manual_yn && !f.pri_cnt.value){
             $(f).find('.tooltip').addClass('focus');
             flag = false;
             return flag;
