@@ -175,7 +175,6 @@ include_once('./_head.php');
 <script>
 var url = '<?=G5_USER_ADMIN_MOBILE_URL?>/production_list.php<?=(($mms_idx)?'?mms_idx='.$mms_idx:'')?>';
 
-
 $('.tooltip_close').on('click',function(){
     $(this).siblings('input').val('');
     $(this).parent().removeClass('focus');
@@ -248,8 +247,6 @@ function form01_submit(f){ //inp
     }
     return flag;
 }
-
-
 
 </script>
 <?php

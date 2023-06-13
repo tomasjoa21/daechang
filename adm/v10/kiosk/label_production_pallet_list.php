@@ -12,13 +12,15 @@ $sql = " SELECT itm.plt_idx
                 , mb_id_worker
         FROM {$g5['item_table']} itm
         LEFT JOIN {$g5['pallet_table']} plt ON itm.plt_idx = plt.plt_idx
-        WHERE itm.mb_id = '{$member['mb_id']}'
+        WHERE plt.mb_id_worker = '{$member['mb_id']}'
             AND bom_idx = '{$bom_idx}'
             AND itm.plt_idx != '0'
             AND plt_reg_dt LIKE '".G5_TIME_YMD."%'
         GROUP BY itm.plt_idx
         ORDER BY itm.plt_idx DESC
 ";
+// echo '<br><br><br><br><br><br><br><br>';
+// echo $sql;exit;
 $result = sql_query($sql,1);
 if(!$result->num_rows){
     goto_url('./label_production_list.php',false);
@@ -95,7 +97,7 @@ if(!$result->num_rows){
     </tbody>
     </table>
 </div><!--//.tbl_wrap-->
-<div class="btn_fixed_top">
+<div class="btn_fixed_top" style="display:none;">
     <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn04 btn_del">
 </div>
 </form>
