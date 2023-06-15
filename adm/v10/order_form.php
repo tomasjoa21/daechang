@@ -66,6 +66,7 @@ a.btn_price_add {color:#3a88d8 !important;cursor:pointer;}
 <input type="hidden" name="ser_cst_idx" value="<?=$ser_cst_idx?>">
 <input type="hidden" name="st_date" value="<?=$st_date?>">
 <input type="hidden" name="en_date" value="<?=$en_date?>">
+<input type="hidden" name="ori_type" value="normal">
 
 <div class="local_desc01 local_desc" style="display:none;">
     <p>가격 변경 이력을 관리합니다. (가격 변동 날짜 및 가격을 지속적으로 기록하고 관리합니다.)</p>
@@ -109,8 +110,12 @@ a.btn_price_add {color:#3a88d8 !important;cursor:pointer;}
     </tr>
 	<tr>
         <th scope="row">단가</th>
-		<td colspan="3">
+		<td>
 			<input type="text" name="ori_price" id="ori_price" value="<?=number_format(${$pre}['ori_price'])?>" class="frm_input" style="width:100px;text-align:right;"> 원
+		</td>
+        <th scope="row">수주ID</th>
+		<td>
+			<input type="text" name="ori_id" id="ori_id" value="<?=${$pre}['ori_id']?>" class="frm_input" style="width:100px;">
 		</td>
     </tr>
     <?php
@@ -124,13 +129,15 @@ a.btn_price_add {color:#3a88d8 !important;cursor:pointer;}
     ?>
     <tr>
         <th scope="row">상태</th>
-        <td colspan="3">
+        <td>
             <select name="<?=$pre?>_status" id="<?=$pre?>_status"
                 <?php if (auth_check($auth[$sub_menu],"d",1)) { ?>onFocus='this.initialSelect=this.selectedIndex;' onChange='this.selectedIndex=this.initialSelect;'<?php } ?>>
                 <?=$g5['set_ori_status_options']?>
             </select>
             <script>$('select[name="<?=$pre?>_status"]').val('<?=${$pre}[$pre.'_status']?>');</script>
         </td>
+        <th scope="row">등록일</th>
+		<td><?=${$pre}['ori_reg_dt']?></td>
     </tr>
 	</tbody>
 	</table>

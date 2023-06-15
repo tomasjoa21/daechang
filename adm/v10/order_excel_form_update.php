@@ -193,6 +193,7 @@ for($i=0;$i<=sizeof($allData[0]);$i++) {
             $ar['com_idx'] = $_SESSION['ss_com_idx'];
             $ar['cst_idx'] = $arr['cst_idx'];
             $ar['bom_idx'] = $bom['bom_idx'];
+            $ar['ori_id'] = preg_replace("/-/","",substr($ord_date,2)).'_'.sprintf("%03d",$idx+1);  // 230614_002
             $ar['ori_count'] = $arr['count'];
             $ar['ori_type'] = 'normal';
             $ar['ori_status'] = 'ok';

@@ -74,7 +74,7 @@ if ($where)
 
 
 if (!$sst) {
-    $sst = $pre."_reg_dt";
+    $sst = "ori_idx";
     $sod = "DESC";
 }
 
@@ -83,13 +83,13 @@ $sql_order = " ORDER BY {$sst} {$sod} ";
 $sql = " SELECT COUNT(*) AS cnt {$sql_common} {$sql_search} ";
 $row = sql_fetch($sql,1);
 $total_count = $row['cnt'];
-//print_r3($sql).'<br>';
+// echo $sql.BR;
 
-$rows = $config['cf_page_rows'];
+$rows = 50;
+// $rows = $config['cf_page_rows'];
 $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) $page = 1; // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
-
 
 $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
 
@@ -151,6 +151,7 @@ $colspan = 16;
 <select name="sfl" id="sfl">
     <option value="bom_part_no"<?php echo get_selected($_GET['sfl'], "bom_part_no"); ?>>품번</option>
     <option value="bom_name"<?php echo get_selected($_GET['sfl'], "bom_name"); ?>>품명</option>
+    <option value="ori_id"<?php echo get_selected($_GET['sfl'], "ori_id"); ?>>수주ID</option>
     <option value="ori.bom_idx"<?php echo get_selected($_GET['sfl'], "ori.bom_idx"); ?>>BOMidx</option>
     <option value="ori_idx"<?php echo get_selected($_GET['sfl'], "ori_idx"); ?>>수주고유번호</option>
     <option value="ori_status"<?php echo get_selected($_GET['sfl'], "ori_status"); ?>>상태</option>
@@ -188,7 +189,7 @@ $colspan = 16;
             <label for="chkall" class="sound_only">항목 전체</label>
             <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
         </th>
-        <th scope="col">ID</th>
+        <th scope="col">수주ID</th>
         <th scope="col">고객사</th>
         <th scope="col">날짜</th>
         <th scope="col">차종</th>
@@ -258,7 +259,7 @@ $colspan = 16;
             <input type="hidden" name="prd_date[<?=$i?>]" value="<?=$prd_date?>" id="prd_date_<?=$i?>">
             <input type="checkbox" name="chk[]" value="<?=$i?>" id="chk_<?=$i?>">
         </td>
-        <td class="td_ori_idx"><?=$row['ori_idx']?></td>
+        <td class="td_ori_id font_size_8"><?=$row['ori_id']?></td>
         <td class="td_cst_name"><a href="?ser_cst_idx=<?=$row['cst_idx']?>"><?=get_text($row['cst']['cst_name'])?></a></td>
         <td class="td_ori_date font_size_8"><a href="?<?=$qstr1?>&sfl=ori_date&stx=<?=$row['ori_date']?>"><?=$row['ori_date']?></a></td>
         <td class="td_ori_count"><?=$row['bct']['bct_name']?></td><!-- 차종 -->

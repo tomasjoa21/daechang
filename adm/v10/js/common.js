@@ -15,6 +15,27 @@ $(function(e) {
             $('tr[tr_id='+$(this).attr('tr_id')+']').removeClass('tr_hover');
         }    
     });
+    // 테이블 항목 체크되면
+    $(document).on("change",".tbl_head01 tbody input[name^=chk]",function(e){
+        if( $(this).prop('checked') ) {
+            $(this).closest('tr').addClass('tr_check');
+        }
+        else {
+            $(this).closest('tr').removeClass('tr_check');
+        }
+    });
+    // 테이블 항목 체크되면
+    $(document).on("change",".tbl_head01 thead input[name^=chkall]",function(e){
+        $(".tbl_head01 tbody input[name^=chk]").each(function(e){
+            // console.log( $(this).prop('checked') );
+            if( $(this).prop('checked') ) {
+                $(this).closest('tr').addClass('tr_check');
+            }
+            else {
+                $(this).closest('tr').removeClass('tr_check');
+            }
+        });
+    });
 
     // 관리자 상단 오른편, 홈페이지로 이동 target="_blank" 제거 - 자꾸 새창이 떠서 너무 귀찮아요.
     $('.tnb_li .tnb_shop, .tnb_li .tnb_community').removeAttr('target');

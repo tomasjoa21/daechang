@@ -120,6 +120,7 @@ label[for^=set_] input[type=radio] {margin-right:2px;}
 .tbl_head01 tbody .bg1cancel {background:#060d1b !important}
 .tbl_head01 tbody .bg1cancel td {border-color:#091631 !important}
 .tr_hover td {background-color: #14203b !important;}
+.tr_check td {background-color: #35190b !important;}
 
 /* 설정버튼 */
 .btn_close {cursor:pointer;background: #043b65;color:#fff;}

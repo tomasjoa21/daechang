@@ -2601,10 +2601,60 @@ Array
 )
 계획정지 arr[5]:
 
-율어초등학교
-68년도 졸업했을 것이다.
-정춘자
-행정실.. 
+
+SELECT * FROM g5_1_order_item AS ori LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = ori.bom_idx WHERE ori_status NOT IN ('trash','delete') AND ori_type = 'normal' AND ori.com_idx = '13' ORDER BY ori_reg_dt DESC LIMIT 0, 50
+
+SELECT * 
+FROM g5_1_order_item AS ori 
+LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = ori.bom_idx 
+WHERE ori_status NOT IN ('trash','delete') AND ori_type = 'normal' AND ori.com_idx = '13'
+ORDER BY ori_reg_dt DESC LIMIT 0, 50
+
+2331
+13
+111
+207
+NULL
+normal
+40
+0
+ok
+2023-06-14
+2023-06-13 16:17:54
+2023-06-14 08
+
+2311
+13
+111
+135
+NULL
+normal
+36
+0
+ok
+2023-06-14
+2023-06-13 16:17:54
+2023-06-14 08:26:3
+
+......................................
+프레스 장비!!
+서브모터 토크 주기
+우리가 제일 많이 알고 있다.
+
+트리거가 있는 데이터가 필요하다.
+한 사이클의 정상적인 패턴!!
+시각화, 그래프화를 해야 한다.
+
+서브모터, 금형온도,
+사이클: 3초라고 가정하자.
+......................................
 
 
-구청
+
+
+
+
+
+
+
+
