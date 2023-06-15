@@ -51,7 +51,6 @@ if($res['ok']){
                    , mb_id_worker = '{$mb_id_worker}'
                    , mms_idx = '{$mms_idx}'
                    , plt_check_yn = '{$chk_yn}'
-                   , plt_history = CONCAT(plt_history,'\n{$plt_status}|".G5_TIME_YMDHIS.")
                    , plt_status = 'ok'
                    , plt_reg_dt = '".G5_TIME_YMDHIS."'
                    , plt_update_dt = '".G5_TIME_YMDHIS."'
