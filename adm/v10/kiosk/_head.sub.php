@@ -35,6 +35,7 @@ var g5_cookie_domain = "<?php echo G5_COOKIE_DOMAIN ?>";
 <?php if(defined('G5_IS_ADMIN')) { ?>
 // var g5_admin_url = "<?php ;//echo G5_ADMIN_URL; ?>";
 var g5_user_admin_url = "<?php echo G5_USER_ADMIN_URL; ?>";
+var g5_user_admin_kiosk_url = "<?php echo G5_USER_ADMIN_KIOSK_URL; ?>";
 <?php } ?>
 </script>
 <?php

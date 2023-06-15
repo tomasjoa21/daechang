@@ -10,3 +10,11 @@
 #qr_status.error{color:#f00;}
 
 .tbl_wrap{}
+
+.td_plt_idx{}
+.td_bom_info{}
+.td_mb_id_delivery{width:110px;text-align:center;}
+.td_itm_total{width:80px;text-align:center;}
+.td_plt_reg_dt{width:200px;text-align:center;}
+.td_plt_update_dt{width:200px;text-align:center;}
+.td_cancel{width:80px;text-align:center;}

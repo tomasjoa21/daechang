@@ -82,15 +82,19 @@ $result = sql_query($sql,1);
         // $row['bom_ship_count'] = ($row['bom_ship_count'] > $row['itm_total']) ? $row['itm_total'] : $row['bom_ship_count'];
 
         // 해당 prd_idx와 pri_idx를 담고 있는 plt_idx의 갯수를 조회
-        $sql3 = " SELECT COUNT(DISTINCT itm.plt_idx) AS plt_count
-                FROM {$g5['item_table']} itm
-                LEFT JOIN {$g5['pallet_table']} plt ON itm.plt_idx = plt.plt_idx
-                WHERE bom_idx = '{$row['bom_idx']}'
-                    AND itm_status IN ('finish','check','delivery')
-                    AND itm.plt_idx != '0'
-                    AND mb_id_worker = '{$member['mb_id']}'
-                    AND plt_reg_dt >= '".statics_date(G5_TIME_YMDHIS)." 00:00:00'
+        $sql3 = " SELECT COUNT(DISTINCT plt_idx) AS plt_count
+            FROM {$g5['pallet_table']} plt
+            WHERE EXISTS (
+                SELECT * FROM {$g5['item_table']} itm
+                    WHERE bom_idx = '{$row['bom_idx']}'
+                        AND itm_status IN ('finish','check','delivery')
+                        AND itm.plt_idx != '0'
+                        AND mb_id_worker = '{$member['mb_id']}'
+                        AND plt.plt_idx = itm.plt_idx
+            )
+            AND plt_reg_dt >= '".statics_date(G5_TIME_YMDHIS)." 00:00:00'
         ";
+        // echo $sql3;
         $itm = sql_fetch($sql3,1);
         // print_r3($itm);
         $row['plt_count'] = $itm['plt_count'];
