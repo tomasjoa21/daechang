@@ -306,7 +306,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             // }
 
 // // text print <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 89311-S8530, 유말, 50호기
-// if($row['bom_idx'] == 261 && $row['mms_idx'] == 140 && $row['mb_id'] == '01056058011') {
+// if($row['bom_idx'] == 240 && $row['mms_idx'] == 144 && $row['mb_id'] == '01021634581') {
 //     print_r2($row['dt']);
 // }
 
@@ -314,15 +314,18 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             for($j=0;$j<@sizeof($offwork);$j++){
                 // print_r2($offwork[$j]);
                 // echo $offwork[$j]['start'].'~'.$offwork[$j]['end'].' 원본<br>';
-// // text print <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 89311-S8530, 유말, 50호기
-// if($row['bom_idx'] == 261 && $row['mms_idx'] == 140 && $row['mb_id'] == '01056058011') {
+// // // text print <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 89311-S8530, 유말, 50호기
+// if($row['bom_idx'] == 240 && $row['mms_idx'] == 144 && $row['mb_id'] == '01021634581') {
 //                 echo $offwork[$j]['start'].'~'.$offwork[$j]['end'].' 원본<br>';
 //                 echo num2seconds($offwork[$j]['end']).'~'.num2seconds($offwork[$j]['start']).' times<br>';
-                
 // }
                 // 같은 값도 있네요. (통과)
                 if( $row['dta_start_his'] == $row['dta_end_his']) {
                      continue;
+                }
+                // 완전 벗어난 경우는 무조건 건너뜀
+                else if( $row['dta_start_his'] >= $offwork[$j]['start'] && $row['dta_end_his'] <= $offwork[$j]['end'] ) {
+                    continue;
                 }
                 // 완전 포함인 경우는 무조건 공제시간
                 else if( $row['dta_start_his'] <= $offwork[$j]['start'] && $row['dta_end_his'] >= $offwork[$j]['end'] ) {
@@ -333,22 +336,32 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
                 // 걸쳐 있는 경우
                 else if( $row['dta_start_his'] <= $offwork[$j]['end'] && $row['dta_end_his'] >= $offwork[$j]['start'] ) {
                     // echo $j.BR;
-                    // echo $row['dta_start_his'] .'<='. $offwork[$j]['end'] .'&&'. $row['dta_end_his'] .'>='. $offwork[$j]['start'].BR;
+// if($row['bom_idx'] == 240 && $row['mms_idx'] == 144 && $row['mb_id'] == '01021634581') {
+//                     echo $row['dta_start_his'] .'<='. $offwork[$j]['end'] .'&&'. $row['dta_end_his'] .'>='. $offwork[$j]['start'].BR;
+// }
                     if( $row['dta_start_his'] >= $offwork[$j]['start'] ) {
                         $row['offwork_arr'][$i][$j]['start'] = $row['dta_start_his'];  // 하단 비가동에서 재활용
                         $row['offwork_arr'][$i][$j]['end'] = $offwork[$j]['end'];      // 하단 비가동에서 재활용
                         // $offwork[$j]['start'] = $row['dta_start_his']; // 원본을 바꾸면 안 됨 (for문에서 변경되므로)
                         $row['offwork_sec'][$i] += num2seconds($offwork[$j]['end']) - num2seconds($row['dta_start_his']);
+// if($row['bom_idx'] == 240 && $row['mms_idx'] == 144 && $row['mb_id'] == '01021634581') {
+//                         echo $row['offwork_sec'][$i].BR;
+// }
                     }
                     if( $row['dta_end_his'] <= $offwork[$j]['end'] ) {
                         $row['offwork_arr'][$i][$j]['start'] = $offwork[$j]['start'];  // 하단 비가동에서 재활용
                         $row['offwork_arr'][$i][$j]['end'] = $row['dta_end_his'];      // 하단 비가동에서 재활용
                         // $offwork[$j]['end'] = $row['dta_end_his']; // 원본을 바꾸면 안 됨 (for문에서 변경되므로)
                         $row['offwork_sec'][$i] += num2seconds($row['dta_end_his']) - num2seconds($offwork[$j]['start']);
+// if($row['bom_idx'] == 240 && $row['mms_idx'] == 144 && $row['mb_id'] == '01021634581') {
+//                         echo $row['offwork_sec'][$i].BR;
+// }
                     }
                 }
             }
-            // echo '계획정지 공제시간 합(sec): '.$row['offwork_sec'][$i].'<br>';
+// if($row['bom_idx'] == 240 && $row['mms_idx'] == 144 && $row['mb_id'] == '01021634581') {
+//             echo '계획정지 공제시간 합(sec): '.$row['offwork_sec'][$i].'<br>';
+// }
             // echo '계획정지 arr['.$i.']: '.BR.print_r2($row['offwork_arr'][$i]); // 최종 적용된 계획정지 배열 (하단에서 중복 제거용)
             $row['offwork_hour'][$i] = $row['offwork_sec'][$i] ? $row['offwork_sec'][$i]/3600 : 0;  // convert to hour unit.
             $row['pri_work_hour'] -= $row['offwork_hour'][$i];  // 2. 2차 작업시간 계산: 계획정지 시간 제외해 줌 //<-----------
@@ -376,6 +389,10 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
                     
                     // 같은 값도 있네요. (통과)
                     if( $row['dta_start_his'] == $row['dta_end_his']) {
+                        continue;
+                    }
+                    // 완전 벗어난 경우는 무조건 건너뜀
+                    else if( $row['dta_start_his'] >= $downtime[$j]['start'] && $row['dta_end_his'] <= $downtime[$j]['end'] ) {
                         continue;
                     }
                     // 완전 포함인 경우는 무조건 공제
