@@ -45,11 +45,14 @@ foreach($boms as $bk => $bv){
 //신규인쇄/발행
 if($res['ok']){
     //신규 plt_idx등록
+    $chk_yn = ($plt_status == 'ok') ? '1' : '0';
     $ins_sql = " INSERT INTO {$g5['pallet_table']} SET
                    com_idx = '{$_SESSION['ss_com_idx']}'
                    , mb_id_worker = '{$mb_id_worker}'
                    , mms_idx = '{$mms_idx}'
-                   , plt_status = '{$plt_status}'
+                   , plt_check_yn = '{$chk_yn}'
+                   , plt_history = CONCAT(plt_history,'\n{$plt_status}|".G5_TIME_YMDHIS.")
+                   , plt_status = 'ok'
                    , plt_reg_dt = '".G5_TIME_YMDHIS."'
                    , plt_update_dt = '".G5_TIME_YMDHIS."'
     ";
@@ -64,7 +67,7 @@ if($res['ok']){
                 WHERE com_idx = '{$_SESSION['ss_com_idx']}'
                     AND plt_idx = '0'
                     AND bom_idx = '{$bk}'
-                    AND itm_status IN ('finish','check')
+                    AND itm_status = 'finish'
                 ORDER BY itm_idx
                 LIMIT {$bv}
         ";

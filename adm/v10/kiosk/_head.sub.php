@@ -42,6 +42,7 @@ var g5_user_admin_url = "<?php echo G5_USER_ADMIN_URL; ?>";
 add_javascript('<script src="'.G5_JS_URL.'/jquery-1.12.4.min.js"></script>', 0);
 add_javascript('<script src="'.G5_JS_URL.'/jquery-migrate-1.4.1.min.js"></script>', 0);
 add_javascript('<script src="'.G5_JS_URL.'/jquery.menu.js?ver='.G5_JS_VER.'"></script>', 0);
+add_javascript('<script src="'.G5_USER_ADMIN_JS_URL.'/function.js?ver='.G5_JS_VER.'"></script>', 0);
 if(!defined('G5_IS_ADMIN'))
     echo $config['cf_add_script'];
 ?>

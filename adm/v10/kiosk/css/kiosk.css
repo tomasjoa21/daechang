@@ -136,6 +136,13 @@ box-shadow:0 0 10px rgba(181, 181, 181, 0.4);
 .btn_top .btn_cancel,.btn_top .btn_b01 {border:1px solid #aaa;background:none;color:#666;line-height:28px;background:#fff}
 .btn_bo_user {right:10px}
 
+/*검색*/
+.local_ov{display:inline-block;position:relative;top:3px;}
+.ov_listall{border:1px solid #777;padding:0 6px;height:31px;line-height:31px;background:#444;color:#fff;}
+#fsearch{display:inline-block;margin-left:10px;}
+#fsearch #stx{height:31px;line-height:31px;}
+#fsearch .btn_submit{height:31px;line-height:31px;padding:0 10px;}
+
 /* 서브페이지 */
 .sub_main{padding:20px 30px;padding-top:141px;}
 
