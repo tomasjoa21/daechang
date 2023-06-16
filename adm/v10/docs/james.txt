@@ -2610,31 +2610,6 @@ LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = ori.bom_idx
 WHERE ori_status NOT IN ('trash','delete') AND ori_type = 'normal' AND ori.com_idx = '13'
 ORDER BY ori_reg_dt DESC LIMIT 0, 50
 
-2331
-13
-111
-207
-NULL
-normal
-40
-0
-ok
-2023-06-14
-2023-06-13 16:17:54
-2023-06-14 08
-
-2311
-13
-111
-135
-NULL
-normal
-36
-0
-ok
-2023-06-14
-2023-06-13 16:17:54
-2023-06-14 08:26:3
 
 ......................................
 프레스 장비!!
@@ -2648,6 +2623,7 @@ ok
 서브모터, 금형온도,
 사이클: 3초라고 가정하자.
 ......................................
+
 
 
 
