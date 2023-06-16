@@ -8,23 +8,16 @@ $g5['title'] = '파렛트조회';
 // include_once('./_top_menu_orp.php');
 include_once('./_head.php');
 // echo $g5['container_sub_title'];
-$sql_common = " FROM {$g5['item_table']} itm
-                    LEFT JOIN {$g5['bom_table']} bom ON itm.bom_idx = bom.bom_idx
-                    LEFT JOIN {$g5['pallet_table']} plt ON itm.plt_idx = plt.plt_idx
-"; 
+$sql_common = " FROM {$g5['pallet_table']} "; 
 $where = array();
 // 디폴트 검색조건 (used 제외)
 $where[] = " plt_status NOT IN ('trash','delete') ";
-$where[] = " itm_status NOT IN ('trash','delete') ";
 
 // 검색어 설정
 if ($stx != "") {
     switch ($sfl) {
 		case ( $sfl == 'plt_idx') :
-			$where[] = " plt.{$sfl} = '".trim($stx)."' ";
-            break;
-        case ( $sfl == 'bom_part_no' ) :
-            $where[] = " {$sfl} = '".trim($stx)."' ";
+			$where[] = " {$sfl} = '".trim($stx)."' ";
             break;
         default :
 			$where[] = " $sfl LIKE '%".trim($stx)."%' ";
@@ -48,18 +41,12 @@ if ($where)
     $sql_search = ' WHERE '.implode(' AND ', $where);
 
 if (!$sst) {
-    $sst = "plt.plt_idx";
+    $sst = "plt_idx";
     $sod = "desc";
 }
 
-if (!$sst2) {
-    $sst2 = ", itm.bom_idx";
-    $sod2 = "desc";
-}
-
-$sql_order = " ORDER BY {$sst} {$sod} {$sst2} {$sod2} ";
-$sql_group = " GROUP BY itm.plt_idx, itm.bom_idx"; //" GROUP BY orp.orp_idx ";
-$sql = " select count(*) as cnt {$sql_common} {$sql_search} {$sql_group} ";
+$sql_order = " ORDER BY {$sst} {$sod} ";
+$sql = " select count(*) as cnt {$sql_common} {$sql_search} ";
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
 
@@ -68,17 +55,16 @@ $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) $page = 1; // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
-$sql = " SELECT plt.plt_idx
-                , itm.bom_idx
-                , bom.bct_idx
-                , bom.bom_part_no
-                , bom.bom_name
-                , itm.prd_idx
-                , SUM(itm_value) AS plt_count
-                , plt_reg_dt
-                , plt_update_dt
-                , plt_status
-        {$sql_common} {$sql_search} {$sql_group} {$sql_order}
+$sql = " SELECT plt_idx
+        , mb_id_delivery
+        , plt_date
+        , plt_reg_dt
+        , plt_update_dt
+        , plt_status
+        , plt_check_yn
+        , plt_reg_dt
+        , plt_update_dt
+        {$sql_common} {$sql_search} {$sql_order}
         LIMIT {$from_record}, {$rows}
 ";
 // print_r3($sql);//exit;
@@ -89,11 +75,19 @@ $qstr .= '&sca='.$sca.'&ser_cod_type='.$ser_cod_type; // 추가로 확장해서 
 ?>
 <style>
 .tbl_head01 thead tr th{position:sticky;top:100px;z-index:100;}
-.td_bom_name {text-align:left !important;}
+.td_plt_idx{}
+.td_bom_info {text-align:left !important;}
+.td_bom_info p b{color:skyblue;}
+.td_bom_info span{color:orange;}
+.td_bom_info strong{color:yellow;}
 .sp_pno{color:skyblue;font-size:0.85em;}
 .sp_std{color:#e87eee;font-size:0.85em;}
-.td_bom_part_no {text-align:left !important;}
-.td_plt_count{text-align:right !important;}
+.td_mb_id_delivery {width:90px;text-align:center !important;}
+.td_itm_total{width:80px;text-align:center !important;}
+.td_plt_delivery_check_yn{width:80px;}
+.td_plt_reg_dt{width:170px;}
+.td_plt_update_dt{width:170px;}
+.td_plt_status{width:90px;}
 
 .sp_cat{color:orange;font-size:0.85em;}
 .sp_pno{color:skyblue;}
@@ -113,12 +107,9 @@ $qstr .= '&sca='.$sca.'&ser_cod_type='.$ser_cod_type; // 추가로 확장해서 
 
 <form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
     <label for="sfl" class="sound_only">검색대상</label>
-    <select name="sfl" id="sfl">
-        <option value="plt_idx"<?php echo get_selected($_GET['sfl'], "plt_idx"); ?>>파렛트ID</option>
-        <option value="bom_part_no"<?php echo get_selected($_GET['sfl'], "bom_part_no"); ?>>품번</option>
-    </select>
+    <input type="hidden" name="sfl" value="plt_idx">
     <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-    <input type="text" name="stx" value="<?php echo $stx ?>" id="stx" class="frm_input">
+    <input type="text" name="stx" value="<?php echo $stx ?>" placeholder="파레트ID" id="stx" class="frm_input">
     <label for="plt_status" class="sch_label">
         <span>상태<i class="fa fa-times data_blank" aria-hidden="true"></i></span>
         <select name="plt_status" id="plt_status">
@@ -152,10 +143,12 @@ $qstr .= '&sca='.$sca.'&ser_cod_type='.$ser_cod_type; // 추가로 확장해서 
     <thead>
     <tr>
         <th scope="col">파렛트ID</th>
-        <th scope="col">차종</th>
-        <th scope="col">품명</th>
+        <th scope="col">제품정보</th>
+        <th scope="col">배송기사</th>
         <th scope="col">적재수량</th>
-        <th scope="col">등록일</th>
+        <th scope="col">검사완료</th>
+        <th scope="col">등록일시</th>
+        <th scope="col">출하일시</th>
         <th scope="col">상태</th>
     </tr>
     <tr>
@@ -164,44 +157,62 @@ $qstr .= '&sca='.$sca.'&ser_cod_type='.$ser_cod_type; // 추가로 확장해서 
     <tbody>
         <?php
     for ($i=0; $row=sql_fetch_array($result); $i++) {
-        //print_r3($row);
-        if($row['bct_idx']){
-            $cat_str = sql_fetch(" SELECT bct_name FROM {$g5['bom_category_table']} WHERE bct_idx = '{$row['bct_idx']}' ");
-            $row['bct_name'] = $cat_str['bct_name'];
-        }
-        //$s_mod = '<a href="./order_practice_form.php?'.$qstr.'&amp;w=u&amp;orp_idx='.$row['orp_idx'].'" class="btn btn_03">수정</a>';
-        //$s_copy = '<a href="./order_practice_form.php?'.$qstr.'&w=c&orp_idx='.$row['orp_idx'].'" class="btn btn_03" style="margin-right:5px;">복제</a>';
-
+        $mb = sql_fetch(" SELECT mb_name FROM {$g5['member_table']} WHERE mb_id = '{$row['mb_id_delivery']}' ");
+        $row['mb_name'] = $mb['mb_name'];
+        $row['itm_total'] = 0;
+        $chk_yn = false;
+        $itm_sql = " SELECT itm.bom_idx
+                        , itm_name
+                        , itm_part_no
+                        , bct_idx
+                        , bom_delivery_check_yn
+                        , SUM(itm_value) AS itm_sum
+                    FROM {$g5['item_table']} itm
+                    LEFT JOIN {$g5['bom_table']} bom ON itm.bom_idx = bom.bom_idx
+                    WHERE plt_idx = '{$row['plt_idx']}'
+                    GROUP BY itm.bom_idx
+        ";
+        $itm_res = sql_query($itm_sql,1);
+        // print_r2($row);
         $bg = 'bg'.($i%2);
     ?>
     <tr class="<?php echo $bg; ?>" tr_id="<?php echo $row['orp_idx'] ?>">
         <td class="td_plt_idx"><?=$row['plt_idx']?></td>
-        <td class="td_bct_idx"><?=$row['bct_name']?></td>
-        <td class="td_bom_name">
-            <b><?=$row['bom_name']?></b>
-            <?php if($row['bom_part_no']){ ?>
-                <br><span class="sp_pno">[ <?=$row['bom_part_no']?> ]</span>
+        <td class="td_bom_info">
+            <?php for($j=0;$itm_row=sql_fetch_array($itm_res);$j++){ 
+                    $row['itm_total'] += $itm_row['itm_sum'];
+                    if($itm_row['bom_delivery_check_yn'])
+                        $chk_yn = true;
+            ?>
+            <p><b>( <?=$g5['cats_key_val'][$itm_row['bct_idx']]?> )</b> <?=$itm_row['itm_name']?></p>
+            <span>[ <?=$itm_row['itm_part_no']?> ]</span>
+            <strong>(<?=$itm_row['itm_sum']?> EA)</strong>
             <?php } ?>
-            <?php if($row['bom_std']){ ?>
-                <br><span class="sp_std">[ <?=$row['bom_std']?> ]</span>
-            <?php } ?>
-        </td><!-- 품명 -->
-        <td class="td_plt_count"><?=number_format($row['plt_count'])?></td><!-- 적재수량 -->
-        <td class="td_plt_reg_dt"><?=substr($row['plt_reg_dt'],0,10)?></td>
+        </td>
+        <td class="td_mb_id_delivery"><?=$row['mb_name']?></td>
+        <td class="td_itm_total"><?=number_format($row['itm_total'])?></td><!-- 적재수량 -->
+        <td class="td_plt_check_yn">
+                <label for="chk_<?php echo $i; ?>" class="sound_only"></label>
+                <input type="hidden" name="chk[<?=$row['plt_idx']?>]" value="0">
+                <input type="checkbox" name="plt_check_yn[<?=$row['plt_idx']?>]"<?php echo $row['plt_check_yn'] ? ' checked' : ''; ?> value="1" id="plt_check_yn_<?php echo $i ?>">
+                <div class="chkdiv_btn" chk_no="<?=$i?>"></div>
+        </td>
+        <td class="td_plt_reg_dt"><?=$row['plt_reg_dt']?></td>
+        <td class="td_plt_update_dt"><?=$row['plt_update_dt']?></td>
         <td class="td_plt_status"><?=$g5['set_plt_status_value'][$row['plt_status']]?></td><!-- 상태 -->
     </tr>
     <?php
     }
     if ($i == 0)
-        echo "<tr><td colspan='7' class=\"empty_table\">자료가 없습니다.</td></tr>";
+        echo "<tr><td colspan='8' class=\"empty_table\">자료가 없습니다.</td></tr>";
     ?>
     </tbody>
     </table>
 </div>
 
 <div class="btn_fixed_top">
-    <?php if (false){ //(!auth_check($auth[$sub_menu],'w')) { ?>
-    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02">
+    <?php if (!auth_check($auth[$sub_menu],'w')) { ?>
+    <input type="submit" name="act_button" value="수정" onclick="document.pressed=this.value" class="btn btn_02">
     <?php } ?>
     <?php if(false){//($is_admin){ ?>
     <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
@@ -218,172 +229,8 @@ $qstr .= '&sca='.$sca.'&ser_cod_type='.$ser_cod_type; // 추가로 확장해서 
 $("input[name*=_date],input[id*=_date]").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99" });
 
 
-var first_no = '';
-var second_no = '';
-$('.chkdiv_btn').on('click',function(e){
-    //시프트키 또는 알트키와 클릭을 같이 눌렀을 경우
-    if(e.shiftKey || e.altKey){
-        //first_no정보가 없으면 0번부터 shift+click한 체크까지 선택을 한다.
-        if(first_no == ''){
-            first_no = 0;
-        }
-        //first_no정보가 있으면 first_no부터 second_no까지 체크를 선택한다.
-        else{
-            ;
-        }
-        second_no = Number($(this).attr('chk_no'));
-        var key_type = (e.shiftKey) ? 'shift' : 'alt';
-        //multi_chk(first_no,second_no,key_type);
-        (function(first_no,second_no,key_type){
-            //console.log(first_no+','+second_no+','+key_type+':func');return;
-            var start_no = (first_no < second_no) ? first_no : second_no;
-            var end_no = (first_no < second_no) ? second_no : first_no;
-            //console.log(start_no+','+end_no);return;
-            for(var i=start_no;i<=end_no;i++){
-                if(key_type == 'shift')
-                    $('.chkdiv_btn[chk_no="'+i+'"]').siblings('input[type="checkbox"]').attr('checked',true);
-                else
-                    $('.chkdiv_btn[chk_no="'+i+'"]').siblings('input[type="checkbox"]').attr('checked',false);
-            }
-
-            first_no = '';
-            second_no = '';
-        })(first_no,second_no,key_type);
-    }
-    //클릭만했을 경우
-    else{
-        //이미 체크되어 있었던 경우 체크를 해제하고 first_no,second_no를 초기화해라
-        if($(this).siblings('input[type="checkbox"]').is(":checked")){
-            first_no = '';
-            second_no = '';
-            $(this).siblings('input[type="checkbox"]').attr('checked',false);
-        }
-        //체크가 안되어 있는 경우 체크를 넣고 first_no에 해당 체크번호를 대입하고, second_no를 초기화한다.
-        else{
-            $(this).siblings('input[type="checkbox"]').attr('checked',true);
-            first_no = $(this).attr('chk_no');
-            second_no = '';
-        }
-    }
-});
-
-
-$('.shf_one').on('keyup',function(e){
-    var ask = e.keyCode;
-    var oro_idx = $(e.target).attr('orp_idx');
-    var oro_n = $(e.target).attr('orp');
-
-
-    if(ask == 38){ //위쪽 화살표 눌렀을 경우
-        var trobj = $(this).parent().parent();
-        if(trobj.prev().find('td').find('input[orp="'+oro_n+'"]').length)
-            trobj.prev().find('td').find('input[orp="'+oro_n+'"]').focus();
-        return false;
-    }
-    else if(ask == 40){ //아래쪽 화살표를 눌렀을 경우
-        var trobj = $(this).parent().parent();
-        if(trobj.next().find('td').find('input[orp="'+oro_n+'"]').length)
-            trobj.next().find('td').find('input[orp="'+oro_n+'"]').focus();
-        return false;
-    }
-    else if((ask < 48 || ask > 57) && (ask < 96 || ask > 105) && (ask < 37 || ask > 40) && ask != 16 && ask != 9 && ask != 46 && ask != 8){
-        $(this).val('');
-        return false;
-    }
-});
-
-
-
-// 마우스 hover 설정
-$(".tbl_head01 tbody tr").on({
-    mouseenter: function () {
-        $('tr[tr_id='+$(this).attr('tr_id')+']').find('td').css('background','#0b1938');
-        
-    },
-    mouseleave: function () {
-        $('tr[tr_id='+$(this).attr('tr_id')+']').find('td').css('background','unset');
-    }    
-});
-
-// 가격 입력 쉼표 처리
-$(document).on( 'keyup','input[name^=orp_price], input[name^=orp_count], input[name^=orp_lead_time]',function(e) {
-    if(!isNaN($(this).val().replace(/,/g,'')))
-        $(this).val( thousand_comma( $(this).val().replace(/,/g,'') ) );
-});
-
-// 숫자만 입력
-function chk_Number(object){
-    $(object).keyup(function(){
-        $(this).val($(this).val().replace(/[^0-9|-]/g,""));
-    });
-}
-  
-
-function slet_input(f){
-    var chk_count = 0;
-    var chk_idx = [];
-    //var dt_pattern = new RegExp("^(\d{4}-\d{2}-\d{2})$");
-    var dt_pattern = /^(\d{4}-\d{2}-\d{2})$/;
-    for(var i=0; i<f.length; i++){
-        if(f.elements[i].name == "chk[]" && f.elements[i].checked){
-            chk_idx.push(f.elements[i].value);
-            chk_count++;
-        }
-    }
-    if (!chk_count) {
-        alert("일괄입력할 출하목록을 하나 이상 선택하세요.");
-        return false;
-    }
-
-
-
-    var o_date = $.trim(document.getElementById('o_date').value);
-    //완료일의 날짜 형식 체크
-    if(!dt_pattern.test(o_date) && o_date != ''){
-        alert('날짜 형식에 맞는 데이터를 입력해 주세요.\r\n예)2021-02-05');
-        document.getElementById('o_date').value = '0000-00-00';
-        document.getElementById('o_date').focus();
-        return false;
-    }
-    
-    //console.log(chk_idx);return;
-    for(var idx in chk_idx){
-        //console.log(idx);continue;
-        if(o_date){
-            $('.td_orp_done_date_'+chk_idx[idx]).find('input[type="text"]').val(o_date);
-        }
-    }
-}
-
-
-
-
-
 function form01_submit(f)
 {
-    if (!is_checked("chk[]")) {
-        alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
-        return false;
-    }
-
-    if(document.pressed == "선택삭제") {
-        if(!confirm("선택한 자료를 정말 삭제하시겠습니까?")) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-function form02_submit(f) {
-    if (!f.file_excel.value) {
-        alert('엑셀 파일(.xls)을 입력하세요.');
-        return false;
-    }
-    else if (!f.file_excel.value.match(/\.xls$|\.xlsx$/i) && f.file_excel.value) {
-        alert('엑셀 파일만 업로드 가능합니다.');
-        return false;
-    }
 
     return true;
 }
