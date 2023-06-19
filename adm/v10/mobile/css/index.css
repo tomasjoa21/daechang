@@ -8,8 +8,10 @@
     min-height:630px;
     background-color:#e5e5e5;
 }
-#main #box{display:grid;
+#main #box{
+    display:grid;
     gap:20px;
+    grid-template-columns:repeat(2,1fr);
 }
 #main #box .menu{
     background-color:#ffffff;

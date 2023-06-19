@@ -13,7 +13,13 @@ $menu_datas = array(
         , 'me_link' => G5_USER_ADMIN_MOBILE_URL.'/production_list.php'
         , 'me_target' => '_self'
         , 'me_icon' => 'fa-industry'
-     )//,
+    ),
+    array(
+        'me_name' => '출하검사'
+        , 'me_link' => G5_USER_ADMIN_MOBILE_URL.'/check.php'
+        , 'me_target' => '_self'
+        , 'me_icon' => 'fa-tripadvisor'
+    )
     // array(
     //     'me_name' => '빠레트정보'
     //     , 'me_link' => G5_USER_ADMIN_MOBILE_URL.'/pallet_list.php'

@@ -3,9 +3,7 @@ include_once('./_common.php');
 include_once('./_head.php');
 ?>
 <style>
-#main #box{
-    grid-template-columns:repeat(<?=(count($menu_datas) % 2)?>, 1fr);
-}
+
 </style>
 <div id="main">
     <div id="box">

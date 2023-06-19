@@ -84,7 +84,7 @@ $qstr .= '&sca='.$sca.'&ser_cod_type='.$ser_cod_type; // 추가로 확장해서 
 .sp_std{color:#e87eee;font-size:0.85em;}
 .td_mb_id_delivery {width:90px;text-align:center !important;}
 .td_itm_total{width:80px;text-align:center !important;}
-.td_plt_delivery_check_yn{width:80px;}
+.td_plt_check_yn{width:80px;}
 .td_plt_reg_dt{width:170px;}
 .td_plt_update_dt{width:170px;}
 .td_plt_status{width:90px;}
@@ -145,7 +145,7 @@ $qstr .= '&sca='.$sca.'&ser_cod_type='.$ser_cod_type; // 추가로 확장해서 
         <th scope="col">파렛트ID</th>
         <th scope="col">제품정보</th>
         <th scope="col">배송기사</th>
-        <th scope="col">적재수량</th>
+        <th scope="col">총적재수량</th>
         <th scope="col">검사완료</th>
         <th scope="col">등록일시</th>
         <th scope="col">출하일시</th>
@@ -198,7 +198,9 @@ $qstr .= '&sca='.$sca.'&ser_cod_type='.$ser_cod_type; // 추가로 확장해서 
                 <div class="chkdiv_btn" chk_no="<?=$i?>"></div>
         </td>
         <td class="td_plt_reg_dt"><?=$row['plt_reg_dt']?></td>
-        <td class="td_plt_update_dt"><?=$row['plt_update_dt']?></td>
+        <td class="td_plt_update_dt">
+            <?=(($row['plt_status'] == 'delivery')?$row['plt_update_dt']:'-')?>
+        </td>
         <td class="td_plt_status"><?=$g5['set_plt_status_value'][$row['plt_status']]?></td><!-- 상태 -->
     </tr>
     <?php
