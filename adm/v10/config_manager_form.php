@@ -96,6 +96,13 @@ if ($config['cf_sms_use'] && $config['cf_icode_id'] && $config['cf_icode_pw']) {
                 </script>
             </td>
         </tr>
+		<tr>
+			<th scope="row">파레트데이터 생존일수</th>
+			<td colspan="3">
+				<?php echo help('출하되지 않은 파레트 데터는 설정 일수<br>이후에는 자동으로 삭제처리 됩니다. 예) 5') ?>
+				<input type="number" name="mng_pallet_days" value="<?php echo (($g5['setting']['mng_pallet_days'])?$g5['setting']['mng_pallet_days']:'0') ?>" id="mng_pallet_days" required class="required frm_input" style="width:60px;">
+			</td>
+		</tr>
         </tbody>
 		</table>
 	</div>
