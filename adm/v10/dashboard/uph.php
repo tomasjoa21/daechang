@@ -603,6 +603,10 @@ if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css
 $(document).on('click','.btn_reload',function(){
     self.location.reload();
 });
+// 10분에 한번 재로딩
+setTimeout(function(e){
+    self.location.reload();
+},1000*600);
 </script>
 
 <?php

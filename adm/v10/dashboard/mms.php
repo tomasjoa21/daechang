@@ -7,14 +7,30 @@ include_once('./_head.sub.php');
 
 // st_date, en_date
 $st_date = $st_date ?: date("Y-m-d",G5_SERVER_TIME);
-$st_time = $st_time ?: '00:00:00';
-$en_time = $en_time ?: '23:59:59';
-$st_datetime = $st_date.' '.$st_time;
-$en_datetime = $st_date.' '.$en_time;
 
-// 검색일자
-$stat_date = $st_date ?: statics_date(G5_TIME_YMDHIS);
-// echo $stat_date;
+$mms = get_table('mms','mms_idx',$mms_idx);
+
+$sql = "SELECT *
+        FROM {$g5['production_item_count_table']}
+        WHERE pri_idx IN (  SELECT pri_idx
+                            FROM {$g5['production_item_table']} WHERE mms_idx = '".$mms['mms_idx']."'
+                            AND prd_idx IN ( SELECT prd_idx FROM {$g5['production_table']} WHERE prd_start_date = '".$st_date."' )
+        )
+        ORDER BY pic_idx DESC
+";
+// echo $sql.BR;
+$rs = sql_query($sql,1);
+for($i=0;$row=sql_fetch_array($rs);$i++) {
+    // first item for current production info.
+    if($i==0) {
+        $mb = get_member($row['mb_id']);
+        $mb_name = $mb['mb_name'];
+        $pri = get_table('production_item','pri_idx',$row['pri_idx']);
+        $bom = get_table('bom','bom_idx',$pri['bom_idx']);
+        $bom_part_no = $bom['bom_part_no'];
+    }
+    $total += $row['pic_value'];
+}
 
 
 
@@ -26,35 +42,32 @@ if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css
 }
 ?>
 <style>
-.box_header {color:#9c9c9c;margin:2px 6px;}
-.box_header:after {display:block;visibility:hidden;clear:both;content:'';}
-.box_header .top_left {float:left;}
-.box_header .top_right {float:right;}
-.box_body {color:white;text-align: center;border:0px solid red;}
-.box_body:after {display:block;visibility:hidden;clear:both;content:'';}
-.box_body p {color:#c3c393;font-size:3.7em;font-weight:550;}
-.box_footer {position:fixed;bottom:0;width:100%;color:#9c9c9c;text-align:center;padding:2px 0px 10px;border:0px solid blue;}
-.box_footer:after {display:block;visibility:hidden;clear:both;content:'';}
 </style>
+
+
 <div class="box_header">
     <div class="top_left">
-        <p class="title_main"><?=G5_TIME_YMD?> (<?=$g5['week_names'][date("w",G5_SERVER_TIME)]?>)</p>
+        <p class="title_main"><?=$mms['mms_name']?> 생산</p>
     </div>
     <div class="top_right">
         <p><a href="javascript:" class="btn_reload"><i class="fa fa-repeat"></i></a></p>
     </div>
 </div>
 <div class="box_body">
-    <p>52.6</p>
+    <p><?=number_format($total)?></p>
 </div>
 <div class="box_footer">
-    <p>47호기</p>
+    <p>현재: <?=$mb_name?> (<?=$bom_part_no?>)</p>
 </div>
 
 <script>
 $(document).on('click','.btn_reload',function(){
     self.location.reload();
 });
+// 10분에 한번 재로딩
+setTimeout(function(e){
+    self.location.reload();
+},1000*600);
 </script>
 
 <?php

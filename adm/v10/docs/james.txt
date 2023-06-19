@@ -2693,7 +2693,49 @@ ORDER BY n DESC, item_name
         ORDER BY ymd_date
 .............
 
+// count is not right?!!
+SELECT (CASE WHEN n='1' THEN ymd_date ELSE 'total' END) AS item_name , SUM(output_total) AS output_total , MAX(output_total) AS output_max , SUM(output_good) AS output_good , SUM(output_defect) AS output_defect FROM ( SELECT ymd_date , SUM(output_total) AS output_total , SUM(output_good) AS output_good , SUM(output_defect) AS output_defect FROM ( ( SELECT CAST(ymd_date AS CHAR) AS ymd_date , 0 AS output_total , 0 AS output_good , 0 AS output_defect FROM g5_5_ymd AS ymd WHERE ymd_date BETWEEN '2023-05-19' AND '2023-06-19' ORDER BY ymd_date ) UNION ALL ( SELECT itm_date AS ymd_date , COUNT(itm_idx) AS output_total , SUM( CASE WHEN itm_status IN ('finish','delivery','check') THEN 1 ELSE 0 END ) AS output_good , SUM( CASE WHEN itm_defect_type = 'defect' THEN 1 ELSE 0 END ) AS output_defect FROM g5_1_item WHERE itm_date >= '2023-05-19' AND itm_date <= '2023-06-19' GROUP BY ymd_date ORDER BY ymd_date ) ) AS db_table GROUP BY ymd_date ) AS db2, g5_5_tally AS db_no WHERE n <= 2 GROUP BY item_name ORDER BY n DESC, item_name
 
-SELECT DATE_ADD(now(), INTERVAL -1 MONTH)
+// current mms status
+SELECT pri_idx, prd_idx, pri_value, pri_status
+FROM g5_1_production_item WHERE mms_idx = '138'
+AND prd_idx IN ( SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-06-19' )
 
+// current production_item_count
+SELECT *
+FROM g5_1_production_item_count
+WHERE pri_idx IN (  SELECT pri_idx
+                    FROM g5_1_production_item WHERE mms_idx = '138'
+                    AND prd_idx IN ( SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-06-19' )
+)
+ORDER BY pic_idx DESC
+
+
+SELECT * 
+FROM g5_1_production_item_count
+WHERE pri_idx IN (  SELECT pri_idx 
+                    FROM g5_1_production_item WHERE mms_idx = '138'
+                    AND prd_idx IN ( SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-06-19' )
+)
+ORDER BY pic_idx DESC
+
+// lets verify right or not.
+SELECT *
+FROM g5_1_production_item WHERE mms_idx = '138'
+AND prd_idx IN ( SELECT prd_idx FROM g5_1_production WHERE prd_start_date = '2023-06-19' )
+
+SELECT pri_idx, pri.bom_idx, mms_idx, mb_id, pri_value, prd_start_date, bom.* 
+FROM g5_1_production_item AS pri 
+    LEFT JOIN g5_1_production AS prd USING(prd_idx) 
+    LEFT JOIN g5_1_bom AS bom ON bom.bom_idx = pri.bom_idx
+WHERE prd_start_date = '2023-06-19' AND pri.com_idx = '13'
+ORDER BY pri_idx DESC LIMIT 0, 200
+.....
+SELECT pri_idx, pri.bom_idx, mms_idx, mb_id, pri_value, prd_start_date
+FROM g5_1_production_item AS pri 
+    LEFT JOIN g5_1_production AS prd USING(prd_idx) 
+WHERE prd_start_date = '2023-06-19' AND pri.com_idx = '13'
+    AND mms_idx = '138'
+ORDER BY pri_idx DESC LIMIT 0, 200
+.....
 

@@ -90,17 +90,34 @@ if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css
 <style>
 </style>
 
-<div class="widget_wrapper">
-    <div class="widget_container">
-        <div id="chart_day"></div>
+<div class="box_header">
+    <div class="top_left">
+        <p class="title_main"><?=$st_date?> ~ <?=$en_date?></p>
     </div>
+    <div class="top_right">
+        <p><a href="javascript:" class="btn_reload"><i class="fa fa-repeat"></i></a></p>
+    </div>
+</div>
+<div class="box_body">
+    <div id="chart_day" style="height:100%;"></div>
 </div>
 
 
+
 <script>
+var dom_height = $('.frame_03', parent.document).height() - 20;
+$('#chart_day').css('height',dom_height+'px');
+
+$(document).on('click','.btn_reload',function(){
+    self.location.reload();
+});
+
 Highcharts.chart('chart_day', {
     chart: {
         type: 'column'
+    },
+    exporting: {
+        enabled: false
     },
     title: {
         text: '',
@@ -150,6 +167,13 @@ Highcharts.chart('chart_day', {
         }
     ]
 });
+setTimeout(function(e){
+    $('.highcharts-credits').remove();
+},10);
+// 10분에 한번 재로딩
+setTimeout(function(e){
+    self.location.reload();
+},1000*600);
 </script>
 
 <?php

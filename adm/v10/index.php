@@ -53,8 +53,11 @@ $cont = str_replace("\n", "", $cont);
 var items = [
   {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/uph.php?w=2&h=1" frameborder="0" scrolling="no"></iframe></div>'},
   {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/production_today.php?w=2&h=1" frameborder="0" scrolling="no"></iframe></div>'},
-  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/mms.php?w=2&h=1" frameborder="0" scrolling="no"></iframe></div>'},
-  {w: 5, h: 2, noResize: true, content: '<?=$cont?>'},
+  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/mms.php?w=2&h=1&mms_idx=138" frameborder="0" scrolling="no"></iframe></div>'},
+  {w: 5, h: 2, noResize: true, content: '<?=$cont_head?><div class="widget_content frame_03"><iframe id="frame_03" src="<?=G5_USER_ADMIN_URL?>/dashboard/production_weekly.php?w=5&h=2" frameborder="0" scrolling="no"></iframe></div>'},
+  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/mms.php?w=2&h=1&mms_idx=139" frameborder="0" scrolling="no"></iframe></div>'},
+  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/mms.php?w=2&h=1&mms_idx=141" frameborder="0" scrolling="no"></iframe></div>'},
+  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/mms.php?w=2&h=1&mms_idx=140" frameborder="0" scrolling="no"></iframe></div>'},
   {w: 1, h: 2, noResize: true, content: '<?=$cont?>'}
 ];
 var options = {
