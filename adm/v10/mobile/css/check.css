@@ -1,3 +1,26 @@
 @charset "utf-8";
 
-.plt_empty{text-align:center;padding:100px 0;}
+.plt_empty{text-align:center;padding:100px 0;border:1px solid #ccc;}
+
+#plt_ttl{height:40px;line-height:40px;}
+.bom_nick{font-weight:600;font-size:1.2em;}
+.bom_nick span{color:darkblue;}
+.bom_nick strong{color:darkorange;}
+.chk_box{margin-top:10px;}
+.chk_box img{width:100%;height:auto;}
+
+.plt_status{margin-top:20px;font-weight:700;font-size:1.15em;}
+
+#radio_box{margin-top:20px;}
+#radio_box:after{display:block;visibility:hidden;clear:both;content:'';}
+.radio{text-align:center;display:block;float:left;width:50%;}
+.radio .radio_tag{width:100%;height:40px;line-height:40px;border:1px solid #ccc;font-size:1.1em !important;font-weight:700;}
+.radio:first-child .radio_tag{border-top-left-radius:5px;border-bottom-left-radius:5px;}
+.radio:last-child .radio_tag{border-top-right-radius:5px;border-bottom-right-radius:5px;margin-left:-1px;}
+.radio .check_yn{display:none;}
+.radio input:checked + .radio_tag{background:darkblue;color:#fff;border:1px solid darkblue;}
+
+#plt_defect_type{width:100%;height:40px;line-height:40px;margin-top:10px;}
+#plt_defect_text{width:100%;margin-top:10px;}
+
+#btn_box{text-align:center;padding:20px 0 20px;}
