@@ -579,16 +579,10 @@ if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css
 
 </form>
 
+
+
+
 <style>
-.box_header {color:#9c9c9c;margin:2px 6px;}
-.box_header:after {display:block;visibility:hidden;clear:both;content:'';}
-.box_header .top_left {float:left;}
-.box_header .top_right {float:right;}
-.box_body {color:white;text-align: center;border:0px solid red;}
-.box_body:after {display:block;visibility:hidden;clear:both;content:'';}
-.box_body p {color:#c3c393;font-size:3.7em;font-weight:550;}
-.box_footer {position:fixed;bottom:0;width:100%;color:#9c9c9c;text-align:center;padding:2px 0px 10px;border:0px solid blue;}
-.box_footer:after {display:block;visibility:hidden;clear:both;content:'';}
 </style>
 <div class="box_header">
     <div class="top_left">

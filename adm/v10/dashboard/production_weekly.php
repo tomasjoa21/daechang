@@ -59,6 +59,25 @@ $sql = "SELECT (CASE WHEN n='1' THEN ymd_date ELSE 'total' END) AS item_name
         ORDER BY n DESC, item_name
 ";
 // echo $sql.BR;
+$result = sql_query($sql,1);
+for ($i=0; $row=sql_fetch_array($result); $i++) {
+    //print_r2($row);
+    // 합계인 경우
+    if($row['item_name'] == 'total') {
+        $row['item_name'] = '합계';
+        $row['tr_class'] = 'tr_stat_total';
+        $output_total = $row['output_total'];
+        $output_max = $row['output_max']; // 값들 중에서 최대값
+    }
+    else {
+        $row['tr_class'] = 'tr_stat_normal';
+        $categories[] = $row['item_name'];
+        $series_ok[] = $row['output_good'];
+        $series_ng[] = $row['output_defect'];
+    }
+    // echo $output_total.'<br>';
+    // echo $output_max.'<br>';
+}
 
 
 if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/style.css')) {
@@ -71,8 +90,67 @@ if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css
 <style>
 </style>
 
+<div class="widget_wrapper">
+    <div class="widget_container">
+        <div id="chart_day"></div>
+    </div>
+</div>
 
 
+<script>
+Highcharts.chart('chart_day', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: '',
+    },
+    xAxis: {
+        // categories: ['2020-10-01', '2020-10-02', '2020-10-03', '2020-10-04']
+        categories: ['<?=implode("','",$categories)?>']
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: ''
+        },
+        stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: ( // theme
+                    Highcharts.defaultOptions.title.style &&
+                    Highcharts.defaultOptions.title.style.color
+                ) || 'gray',
+                textOutline: 'none'
+            }
+        }
+    },
+    legend:{ enabled:false },
+    tooltip: {
+        headerFormat: '<b>{point.x}</b><br/>',
+        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal',
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [
+        {
+            name: 'OK',
+            // data: [30, 50, 10, 130]
+            data: [<?=implode(",",$series_ok)?>]
+        }, {
+            name: 'NG',
+            data: [<?=implode(",",$series_ng)?>]
+        }
+    ]
+});
+</script>
 
 <?php
 include_once ('./_tail.sub.php');
