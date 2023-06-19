@@ -51,10 +51,11 @@ $cont = str_replace("\n", "", $cont);
 
 <script type="text/javascript">
 var items = [
-  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/uph.php?w=1&h=1" frameborder="0" scrolling="no"></iframe></div>'},
-  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/production.php?w=1&h=1" frameborder="0" scrolling="no"></iframe></div>'},
-  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/uph.php?w=1&h=1" frameborder="0" scrolling="no"></iframe></div>'},
-  {w: 5, h: 2, noResize: true, content: '<?=$cont?>'}
+  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/uph.php?w=2&h=1" frameborder="0" scrolling="no"></iframe></div>'},
+  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/production_today.php?w=2&h=1" frameborder="0" scrolling="no"></iframe></div>'},
+  {w: 2, h: 1, noResize: true, content: '<?=$cont_head?><div class="widget_content"><iframe id="frame_02" src="<?=G5_USER_ADMIN_URL?>/dashboard/mms.php?w=2&h=1" frameborder="0" scrolling="no"></iframe></div>'},
+  {w: 5, h: 2, noResize: true, content: '<?=$cont?>'},
+  {w: 1, h: 2, noResize: true, content: '<?=$cont?>'}
 ];
 var options = {
     column:6,

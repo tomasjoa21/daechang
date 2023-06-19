@@ -592,19 +592,24 @@ if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css
 </style>
 <div class="box_header">
     <div class="top_left">
-        <p class="title_main">2023-06-16 (금)</p>
+        <p class="title_main"><?=G5_TIME_YMD?> (<?=$g5['week_names'][date("w",G5_SERVER_TIME)]?>)</p>
     </div>
     <div class="top_right">
-        <p><a href="javascript:"><i class="fa fa-repeat"></i></a></p>
+        <p><a href="javascript:" class="btn_reload"><i class="fa fa-repeat"></i></a></p>
     </div>
 </div>
 <div class="box_body">
-    <p>52.6</p>
+    <p><?=$row['pri_uph_ave']?></p>
 </div>
 <div class="box_footer">
     <p>UPH 시간당 생산량</p>
 </div>
 
+<script>
+$(document).on('click','.btn_reload',function(){
+    self.location.reload();
+});
+</script>
 
 <?php
 include_once ('./_tail.sub.php');

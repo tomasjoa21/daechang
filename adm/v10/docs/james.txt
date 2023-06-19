@@ -2624,13 +2624,76 @@ ORDER BY ori_reg_dt DESC LIMIT 0, 50
 사이클: 3초라고 가정하자.
 ......................................
 
+// 일자별 생산
+SELECT (CASE WHEN n='1' THEN ymd_date ELSE 'total' END) AS item_name
+    , SUM(output_total) AS output_total
+    , MAX(output_total) AS output_max
+    , SUM(output_good) AS output_good
+    , SUM(output_defect) AS output_defect
+FROM
+(
+
+    SELECT 
+        ymd_date
+        , SUM(output_total) AS output_total
+        , SUM(output_good) AS output_good
+        , SUM(output_defect) AS output_defect
+    FROM
+    (
+        (
+        SELECT 
+            CAST(ymd_date AS CHAR) AS ymd_date
+            , 0 AS output_total
+            , 0 AS output_good
+            , 0 AS output_defect
+        FROM g5_5_ymd AS ymd
+        WHERE ymd_date BETWEEN '2023-06-01' AND '2023-06-16'
+        ORDER BY ymd_date
+        )
+        UNION ALL
+        (
+        SELECT 
+            itm_date AS ymd_date
+            , COUNT(itm_idx) AS output_total
+            , SUM( CASE WHEN itm_status IN ('finish','delivery','check') THEN 1 ELSE 0 END ) AS output_good
+            , SUM( CASE WHEN itm_defect_type = 'defect' THEN 1 ELSE 0 END ) AS output_defect
+        FROM g5_1_item
+        WHERE itm_date >= '2023-06-01' AND itm_date <= '2023-06-16'
+        GROUP BY ymd_date
+        ORDER BY ymd_date
+        )
+    ) AS db_table
+    GROUP BY ymd_date
+
+) AS db2, g5_5_tally AS db_no
+WHERE n <= 2
+GROUP BY item_name
+ORDER BY n DESC, item_name
+.............
 
 
+        SELECT 
+            CAST(ymd_date AS CHAR) AS ymd_date
+            , 0 AS output_total
+            , 0 AS output_good
+            , 0 AS output_defect
+        FROM g5_5_ymd AS ymd
+        WHERE ymd_date BETWEEN '2023-06-01' AND '2023-06-16'
+        ORDER BY ymd_date
 
 
+        SELECT 
+            itm_date AS ymd_date
+            , COUNT(itm_idx) AS output_total
+            , SUM( CASE WHEN itm_status IN ('finish','delivery','check') THEN 1 ELSE 0 END ) AS output_good
+            , SUM( CASE WHEN itm_defect_type = 'defect' THEN 1 ELSE 0 END ) AS output_defect
+        FROM g5_1_item
+        WHERE itm_date >= '2023-06-01' AND itm_date <= '2023-06-16'
+        GROUP BY ymd_date
+        ORDER BY ymd_date
+.............
 
 
-
-
+SELECT DATE_ADD(now(), INTERVAL -1 MONTH)
 
 
