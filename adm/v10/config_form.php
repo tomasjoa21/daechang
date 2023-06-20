@@ -678,6 +678,13 @@ yearly,1,10 = 연도별,1년단위,10년치,sum(합계)'); ?>
 			</td>
 		</tr>
 		<tr>
+			<th scope="row">작업자상태</th>
+			<td colspan="3">
+				<?php echo help('작업자 작업상태 pri_ing = pic_ing 둘다 같은 값을 사용합니다.') ?>
+				<input type="text" name="set_pri_ing" value="<?php echo $g5['setting']['set_pri_ing']; ?>" class="frm_input" style="width:60%;">
+			</td>
+		</tr>
+		<tr>
 			<th scope="row">수주상태</th>
 			<td colspan="3">
 				<input type="text" name="set_ori_status" value="<?php echo $g5['setting']['set_ori_status']; ?>" class="frm_input" style="width:60%;">

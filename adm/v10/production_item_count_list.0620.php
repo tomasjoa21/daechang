@@ -4,10 +4,20 @@ include_once('./_common.php');
 
 auth_check($auth[$sub_menu],"r");
 
-$g5['title'] = '생산현황';
+$g5['title'] = '생산제품현황';
 @include_once('./_top_menu_item_status.php');
 include_once('./_head.php');
 echo $g5['container_sub_title'];
+
+// 검색 조건
+$ser_st_date = $ser_st_date ?: G5_TIME_YMD;
+$ser_st_time = $ser_st_time ?: '00:00:00';
+$ser_en_date = $ser_en_date ?: G5_TIME_YMD;
+$ser_en_time = $ser_en_time ?: '23:59:59';
+
+// 통계일 default
+$sfl = $sfl ?: 'pic_date';
+$stx = $stx ?: G5_TIME_YMD;
 
 // 변수 설정, 필드 구조 및 prefix 추출
 $table_name = 'production_item_count';
@@ -43,7 +53,7 @@ $sql_common = " FROM {$g5_table_name} AS ".$pre."
 
 $where = array();
 //$where[] = " (1) ";   // 디폴트 검색조건
-$where[] = " pic_date = '".statics_date(G5_TIME_YMDHIS)."' ";    // 오늘 것만
+// $where[] = " pic_date = '".statics_date(G5_TIME_YMDHIS)."' ";    // 오늘 것만
 
 // 해당 업체만
 $where[] = " pri.com_idx = '".$_SESSION['ss_com_idx']."' ";
@@ -64,10 +74,23 @@ if ($stx && $sfl) {
 
 
 // 기간 검색
-if ($ser_st_date)	// 시작일 있는 경우
-    $where[] .= " pic_reg_dt >= '{$ser_st_date} 00:00:00' ";
-if ($ser_en_date)	// 종료일 있는 경우
-    $where[] .= " pic_reg_dt <= '{$ser_en_date} 23:59:59' ";
+if ($ser_st_date) {
+    if ($ser_st_time) {
+        $where[] = " pic_reg_dt >= '".$ser_st_date.' '.$ser_st_time."' ";
+    }
+    else {
+        $where[] = " pic_reg_dt >= '".$ser_st_date.' 00:00:00'."' ";
+    }
+}
+if ($ser_en_date) {
+    if ($ser_en_time) {
+        $where[] = " pic_reg_dt <= '".$ser_en_date.' '.$ser_en_time."' ";
+    }
+    else {
+        $where[] = " pic_reg_dt <= '".$ser_en_date.' 23:59:59'."' ";
+    }
+}
+
 
 // 고객사
 if ($ser_cst_idx_customer) {
@@ -119,7 +142,7 @@ $sql = " SELECT *
         {$sql_order}
 		LIMIT {$from_record}, {$rows}
 ";
-// echo $sql.BR;
+echo $sql.BR;
 $result = sql_query($sql,1);
 
 // 전체 게시물 수
@@ -130,7 +153,9 @@ $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 
 $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
 
+add_stylesheet('<link rel="stylesheet" href="'.G5_USER_ADMIN_URL.'/js/timepicker/jquery.timepicker.css">', 0);
 ?>
+<script type="text/javascript" src="<?=G5_USER_ADMIN_URL?>/js/timepicker/jquery.timepicker.js"></script>
 <style>
 .td_mng {width:90px;max-width:90px;}
 .td_pic_subject a, .td_mb_name a {text-decoration: underline;}
@@ -148,13 +173,17 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 
 <form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" style="width:100%;">
 <label for="sfl" class="sound_only">검색대상</label>
-기간: 
-<input type="text" name="ser_st_date" value="<?=$ser_st_date ?>" id="ser_st_date" class="frm_input" style="width:90px;"> ~
-<input type="text" name="ser_en_date" value="<?=$ser_en_date ?>" id="ser_en_date" class="frm_input" style="width:90px;">
+등록일:
+<input type="text" name="ser_st_date" value="<?=$ser_st_date?>" id="ser_st_date" class="frm_input" autocomplete="off" style="width:90px;">
+<input type="text" name="ser_st_time" value="<?=$ser_st_time?>" id="ser_st_time" class="frm_input" autocomplete="off" style="width:70px;" placeholder="00:00:00">
+~
+<input type="text" name="ser_en_date" value="<?=$ser_en_date?>" id="ser_en_date" class="frm_input" autocomplete="off" style="width:90px;">
+<input type="text" name="ser_en_time" value="<?=$ser_en_time?>" id="ser_en_time" class="frm_input" autocomplete="off" style="width:70px;" placeholder="00:00:00">
 <select name="sfl" id="sfl">
     <option value="">검색항목</option>
     <option value="bom_part_no" <?=get_selected($sfl, 'bom_part_no')?>>품번</option>
     <option value="bom_name" <?=get_selected($sfl, 'bom_name')?>>품명</option>
+    <option value="pic_date" <?=get_selected($sfl, 'pic_date')?>>통계일</option>
 </select>
 <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 <input type="text" name="stx" value="<?php echo $stx ?>" id="stx" class="frm_input">
@@ -234,6 +263,12 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 	</div>
 </div>
 <script>
+// timepicker 설정
+$("input[name$=_time]").timepicker({
+    'timeFormat': 'H:i:s',
+    'step': 10
+});
+
 // 설비 찾기
 $(document).on('click','.btn_mms',function(e){
     e.preventDefault();
@@ -382,7 +417,7 @@ function search_detail(flag) {
 
 <div class="btn_fixed_top">
     <input type="submit" name="act_button" value="선택복제" onclick="document.pressed=this.value" class="btn btn_02" style="display:none;">
-    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02">
+    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02" style="display:none;">
     <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
     <?php if ($is_admin == 'super') { ?>
     <a href="./<?=$fname?>_form.php" id="member_add" class="btn btn_01">추가하기</a>

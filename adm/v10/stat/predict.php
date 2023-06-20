@@ -8,17 +8,20 @@ $g5['title'] = '예지보고서';
 include_once('./_top_menu_stat.php');
 include_once('./_head.php');
 // echo $g5['container_sub_title'];
-$file_name_css_path = G5_USER_ADMIN_STAT_PATH.'/css/'.$g5['file_name'].'.css';
-$file_name_css_url = G5_USER_ADMIN_STAT_URL.'/css/'.$g5['file_name'].'.css';
 
-include_once('./_top.stat.php');
-
-add_stylesheet('<link rel="stylesheet" href="'.G5_USER_ADMIN_STAT_URL.'/css/stat.css">', 0);
-if(is_file($file_name_css_path)){
-    @add_stylesheet('<link rel="stylesheet" href="'.$file_name_css_url.'">', 0);
+if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/style.css')) {
+    add_stylesheet('<link rel="stylesheet" href="'.G5_USER_ADMIN_URL.'/'.$g5['dir_name'].'/css/style.css">', 2);
 }
-add_javascript('<script src="'.G5_USER_ADMIN_URL.'/js/function.date.js"></script>', 0);
+if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css')) {
+    add_stylesheet('<link rel="stylesheet" href="'.G5_USER_ADMIN_URL.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css">', 2);
+}
 ?>
+
+<?php
+// Serach for at the top
+include_once('./_top_search.php');
+?>
+
 <div id="report_wrapper">
     <!--  start of 예지 -->
     <div class="div_wrapper">
@@ -252,7 +255,7 @@ add_javascript('<script src="'.G5_USER_ADMIN_URL.'/js/function.date.js"></script
 
                         // item_name
                         $row['item_name'] = ($row['item_name']!='합계') ? $g5['mms'][$row['item_name']]['mms_name'] : $row['item_name'];
-                        $row['rate'] = (float)($row['arm_predict_sum'] / $pre_faci_tot) * 100; 
+                        $row['rate'] = $pre_faci_tot ? (float)($row['arm_predict_sum'] / $pre_faci_tot) * 100 : 0; 
                         $row['rate'] = sprintf("%2.2f",$row['rate']); 
                         // First line total skip, start from second line.
                         if($i>0) {

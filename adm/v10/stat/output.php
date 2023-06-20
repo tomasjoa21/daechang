@@ -7,7 +7,7 @@ auth_check($auth[$sub_menu],"r");
 $g5['title'] = '생산보고서';
 include_once('./_top_menu_output.php');
 include_once('./_head.php');
-echo $g5['container_sub_title'];
+// echo $g5['container_sub_title'];
 
 
 if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/style.css')) {
@@ -73,12 +73,12 @@ include_once('./_top_search.php');
                                     UNION ALL
                                     (
                                     SELECT 
-                                        work_date AS ymd_date
-                                        , COUNT(xry_idx) AS output_total
-                                        , SUM( CASE WHEN result = 'OK' THEN 1 ELSE 0 END ) AS output_good
-                                        , SUM( CASE WHEN result = 'NG' THEN 1 ELSE 0 END ) AS output_defect
-                                    FROM g5_1_xray_inspection
-                                    WHERE work_date >= '".$st_date."' AND work_date <= '".$en_date."'
+                                        itm_date AS ymd_date
+                                        , COUNT(itm_idx) AS output_total
+                                        , SUM( CASE WHEN itm_status IN ('finish','delivery','check') THEN 1 ELSE 0 END ) AS output_good
+                                        , SUM( CASE WHEN itm_defect_type = 'defect' THEN 1 ELSE 0 END ) AS output_defect
+                                    FROM {$g5['item_table']}
+                                    WHERE itm_date >= '".$st_date."' AND itm_date <= '".$en_date."'
                                     GROUP BY ymd_date
                                     ORDER BY ymd_date
                                     )

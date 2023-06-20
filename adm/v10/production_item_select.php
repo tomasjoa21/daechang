@@ -1,6 +1,7 @@
 <?php
 // 호출페이지들
 // /adm/v10/material_form.php
+// /adm/v10/production_item_count_form.php
 include_once('./_common.php');
 
 if($member['mb_level']<4)
@@ -83,6 +84,8 @@ $qstr1 = 'stx='.urlencode($stx).'&file_name='.$file_name.'&item='.$item;
         <?php
         for($i=0; $row=sql_fetch_array($result); $i++) {
             // $row['bom'] = get_table('bom','bom_idx',$row['bom_idx']);
+            $row['mms'] = get_table('mms','mms_idx',$row['mms_idx']);
+            // print_r2($row['mms']);
         ?>
         <tr>
             <td class="td_bom_part_name td_left">
@@ -91,6 +94,7 @@ $qstr1 = 'stx='.urlencode($stx).'&file_name='.$file_name.'&item='.$item;
             </td>
             <td class="td_prd_start_ate td_left">
                 <?=get_text($row['prd_start_date'])?>
+                <div class="font_size_7"><?=$row['mms']['mms_name']?></div>
             </td>
             <td class="td_pri_value">
                 <?=number_format($row['pri_value'])?>
@@ -128,7 +132,7 @@ $('.btn_select').click(function(e){
     var pri_value = $(this).attr('pri_value');
 
     <?php
-    if($file_name=='material_form') {
+    if($file_name=='material_form'||$file_name=='production_item_count_form') {
     ?>
         $("input[name=prd_idx]", opener.document).val( prd_idx );
         $("input[name=pri_idx]", opener.document).val( pri_idx );

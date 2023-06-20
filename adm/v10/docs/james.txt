@@ -2739,3 +2739,4 @@ WHERE prd_start_date = '2023-06-19' AND pri.com_idx = '13'
 ORDER BY pri_idx DESC LIMIT 0, 200
 .....
 
+

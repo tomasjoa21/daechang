@@ -7,6 +7,7 @@
 // /adm/v10/bom_jig_form.php
 // /adm/v10/item_today_list.php
 // /adm/v10/alarm_code_form.php
+// /adm/v10/production_item_count_list.php
 include_once('./_common.php');
 
 if($member['mb_level']<4)
@@ -212,7 +213,7 @@ $('.btn_select').click(function(e){
         opener.select_set();
     <?php
     }
-    else if($file_name=='item_today_list') {
+    else if($file_name=='item_today_list'||$file_name=='production_item_count_list') {
     ?>
         $("input[name=ser_mms_idx]", opener.document).val( mms_idx );
         $("input[name=mms_name]", opener.document).val( mms_name );

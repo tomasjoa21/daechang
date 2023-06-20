@@ -17,7 +17,7 @@ $g5['container_sub_title'] = '
     <a href="./pallet_today_list.php" class="btn_top_menu '.$active_pallet_today_list.'" style="display:none;">빠레트조회</a>
     <a href="./item_worker_today_list.php" class="btn_top_menu '.$active_item_worker_today_list.'">작업자별현황</a>
     <a href="./item_customer_today_list.php" class="btn_top_menu '.$active_item_customer_today_list.'">고객사별현황</a>
-    <a href="./item_today_list.php" class="btn_top_menu '.$active_item_today_list.'">생산제품현황</a>
+    <a href="./production_item_count_list.php" class="btn_top_menu '.$active_production_item_count_list.'">생산제품현황</a>
 </h2>
 ';
 ?>

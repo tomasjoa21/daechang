@@ -8,19 +8,20 @@ $g5['title'] = '알람보고서';
 include_once('./_top_menu_stat.php');
 include_once('./_head.php');
 // echo $g5['container_sub_title'];
-$file_name_css_path = G5_USER_ADMIN_STAT_PATH.'/css/'.$g5['file_name'].'.css';
-$file_name_css_url = G5_USER_ADMIN_STAT_URL.'/css/'.$g5['file_name'].'.css';
 
-include_once('./_top.stat.php');
-
-add_stylesheet('<link rel="stylesheet" href="'.G5_USER_ADMIN_STAT_URL.'/css/stat.css">', 0);
-if(is_file($file_name_css_path)){
-    @add_stylesheet('<link rel="stylesheet" href="'.$file_name_css_url.'">', 0);
+if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/style.css')) {
+    add_stylesheet('<link rel="stylesheet" href="'.G5_USER_ADMIN_URL.'/'.$g5['dir_name'].'/css/style.css">', 2);
 }
-add_javascript('<script src="'.G5_USER_ADMIN_URL.'/js/function.date.js"></script>', 0);
-
-// 날짜 선택 영역 (선택 및 각종 기본 변수 설정)
+if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css')) {
+    add_stylesheet('<link rel="stylesheet" href="'.G5_USER_ADMIN_URL.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css">', 2);
+}
 ?>
+
+<?php
+// Serach for at the top
+include_once('./_top_search.php');
+?>
+
 <div id="report_wrapper">
     <?php
 	// 공통통계 영역

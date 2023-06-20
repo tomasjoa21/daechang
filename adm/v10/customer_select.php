@@ -9,6 +9,7 @@
 // /adm/v10/material_stock_list.php
 // /adm/v10/material_list.php
 // /adm/v10/material_form.php
+// /adm/v10/production_item_count_list.php
 include_once('./_common.php');
 
 if($member['mb_level']<4)
@@ -140,7 +141,8 @@ $('.btn_select').click(function(e){
     <?php
 		}
     }
-	else if($file_name=='item_stock_list'||$file_name=='item_today_list'||$file_name=='material_stock_list'||$file_name=='material_list') {
+	else if($file_name=='item_stock_list'||$file_name=='item_today_list'||$file_name=='material_stock_list'||$file_name=='production_item_count_list'
+            ||$file_name=='material_list') {
 		if($item=='customer') {
     ?>
 			$("input[name=ser_cst_idx_customer]", opener.document).val( cst_idx );

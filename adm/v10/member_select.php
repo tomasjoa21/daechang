@@ -11,6 +11,8 @@
 // /adm/v10/item_form.php
 // /adm/v10/material_form.php
 // /adm/v10/material_list.php
+// /adm/v10/production_item_count_form.php
+// /adm/v10/production_item_count_list.php
 include_once('./_common.php');
 
 if($member['mb_level']<4)
@@ -140,14 +142,17 @@ $('.btn_select').click(function(e){
     var mb_positions = $(this).attr('mb_positions');
 
     <?php
-    if($file_name=='mms_worker_form'||$file_name=='shipment_form'||$file_name=='item_form'||$file_name=='material_form') {
+    if($file_name=='mms_worker_form'||$file_name=='shipment_form'
+        ||$file_name=='item_form'||$file_name=='production_item_count_form'
+        ||$file_name=='material_form') {
     ?>
         $("input[name=mb_id]", opener.document).val( mb_id );
         $("input[name=mb_name]", opener.document).val( mb_name );
     <?php
     }
     // 지원자관리
-    else if($file_name=='applicant_list'||$file_name=='item_stock_list'||$file_name=='item_today_list'||$file_name=='material_list') {
+    else if($file_name=='applicant_list'||$file_name=='item_stock_list'||$file_name=='item_today_list'||$file_name=='production_item_count_list'
+            ||$file_name=='material_list') {
     ?>
         $("input[name=ser_mb_id]", opener.document).val( mb_id );
         $("input[name=ser_mb_name]", opener.document).val( mb_name );

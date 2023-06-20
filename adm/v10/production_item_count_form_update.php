@@ -1,5 +1,5 @@
 <?php
-$sub_menu = "922130";
+$sub_menu = "922120";
 include_once("./_common.php");
 
 auth_check($auth[$sub_menu], 'w');
@@ -7,7 +7,7 @@ auth_check($auth[$sub_menu], 'w');
 //exit;
 
 // 변수 설정, 필드 구조 및 prefix 추출
-$table_name = 'material';
+$table_name = 'production_item_count';
 $g5_table_name = $g5[$table_name.'_table'];
 $fields = sql_field_names($g5_table_name);
 $pre = substr($fields[0],0,strpos($fields[0],'_'));
@@ -23,16 +23,13 @@ for($i=0;$i<sizeof($fields);$i++) {
 }
 
 // 변수 재설정
-$bom = get_table('bom','bom_idx',$_POST['bom_idx']);
 $_POST['com_idx'] = $_SESSION['ss_com_idx'];
-$_POST['mtr_part_no'] = $bom['bom_part_no'];
-$_POST['mtr_name'] = $bom['bom_name'];
 $_POST[$pre.'_update_dt'] = G5_TIME_YMD;
 
 
 // 공통쿼리
 $skips[] = $pre.'_idx';	// 건너뛸 변수 배열
-$skips[] = $pre.'_reg_dt';
+// $skips[] = $pre.'_reg_dt';
 
 //$adds[] = $pre.'_sort';	// 포함할 변수 배열
 //$adds[] = $pre.'_memo';
@@ -57,7 +54,6 @@ if ($w == '' || $w == 'c') {
 
     $sql = " INSERT INTO {$g5_table_name} SET
                 {$sql_common}
-                , ".$pre."_reg_dt = '".G5_TIME_YMDHIS."'
 	";
     sql_query($sql,1);
 	${$pre."_idx"} = sql_insert_id();
@@ -73,7 +69,7 @@ else if ($w == 'u') {
 					{$sql_common}
 				WHERE ".$pre."_idx = '".${$pre."_idx"}."'
 	";
-    //echo $sql.'<br>';
+    // echo $sql.'<br>';
     sql_query($sql,1);
 
 }
@@ -88,11 +84,12 @@ else if ($w == 'd') {
 
 	//파일만 삭제
 	${$pre} = get_table_meta($table_name, $pre.'_idx', ${$pre."_idx"});
-	delete_jt_files(array("fle_db_table"=>$table_name, "fle_db_id"=>${$pre}[$pre.'_idx'], "fle_delete_file"=>1));
+	delete_jt_files(array("fle_db_table"=>$table_name, "fle_db_id"=>${$pre}['apc_idx'], "fle_delete_file"=>1));
 
 }
-else
+else {
     alert('제대로 된 값이 넘어오지 않았습니다.');
+}
     
 
 //-- 체크박스 값이 안 넘어오는 현상 때문에 추가, 폼의 체크박스는 모두 배열로 선언해 주세요.
@@ -113,7 +110,7 @@ for ($i=0;$i<sizeof($checkbox_array);$i++) {
 //	}
 //}
 
-//$qstr .= '&ser_department='.$ser_department.'&ser_mb_name_saler='.$ser_mb_name_saler.'&ser_mb_id_worker='.$ser_mb_id_worker;
+$qstr .= "&st_date=$st_date&en_date=$en_date";
 // 추가 변수 생성
 foreach($_REQUEST as $key => $value ) {
     if(substr($key,0,4)=='ser_') {
