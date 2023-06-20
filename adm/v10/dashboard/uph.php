@@ -589,7 +589,10 @@ if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css
         <p class="title_main"><?=G5_TIME_YMD?> (<?=$g5['week_names'][date("w",G5_SERVER_TIME)]?>)</p>
     </div>
     <div class="top_right">
-        <p><a href="javascript:" class="btn_reload"><i class="fa fa-repeat"></i></a></p>
+        <p>
+            <a href="../item_worker_today_list.php" class="btn_detail" style="margin-right:10px;"><i class="fa fa-list-alt"></i></a>
+            <a href="javascript:" class="btn_reload"><i class="fa fa-repeat"></i></a>
+        </p>
     </div>
 </div>
 <div class="box_body">
@@ -600,6 +603,10 @@ if(is_file(G5_USER_ADMIN_PATH.'/'.$g5['dir_name'].'/css/'.$g5['file_name'].'.css
 </div>
 
 <script>
+$(document).on('click','.btn_detail',function(e){
+    e.preventDefault();
+    parent.location.href = $(this).attr('href');
+});
 $(document).on('click','.btn_reload',function(){
     self.location.reload();
 });
