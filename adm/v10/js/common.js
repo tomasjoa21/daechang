@@ -7,14 +7,14 @@ $(function(e) {
     $('#container_title').append( $('.local_ov').addClass('display_inline_block ml_20 visibility_unset') );
 
     // 마우스 hover 설정
-    $(".tbl_head01 tbody tr").on({
-        mouseenter: function () {
-            $('tr[tr_id='+$(this).attr('tr_id')+']').addClass('tr_hover');            
-        },
-        mouseleave: function () {
-            $('tr[tr_id='+$(this).attr('tr_id')+']').removeClass('tr_hover');
-        }    
-    });
+    // $(".tbl_head01 tbody tr").on({
+    //     mouseenter: function () {
+    //         $('tr[tr_id='+$(this).attr('tr_id')+']').addClass('tr_hover');            
+    //     },
+    //     mouseleave: function () {
+    //         $('tr[tr_id='+$(this).attr('tr_id')+']').removeClass('tr_hover');
+    //     }    
+    // });
     // 테이블 항목 체크되면
     $(document).on("change",".tbl_head01 tbody input[name^=chk]",function(e){
         if( $(this).prop('checked') ) {
