@@ -29,7 +29,7 @@ $_POST['count'] => 20
 // print_r2($_POST);
 // echo $is_admin;
 // exit;
-if(!$oop_idx || !$bom_part_no || !$bom_idx || !$bom_name){alert('생산계획을 선택해 주세요.');}
+if(!$pri_idx || !$bom_part_no || !$bom_idx || !$bom_name){alert('생산계획을 선택해 주세요.');}
 if($plus_modify == 'modify'){
     if(!$from_status){alert('기존상태값을 선택해 주세요.');}
     if(!$to_status){alert('목표상태값을 선택해 주세요.');}
@@ -39,7 +39,7 @@ else{
 }
 if(!$count){alert('갯수를 입력해 주세요.');}
 /*
-$_POST['oop_idx'] => 44
+$_POST['pri_idx'] => 44
 $_POST['bom_part_no'] => 2004340
 $_POST['bom_idx'] => 1034
 $_POST['bom_name'] => 외륜
@@ -56,28 +56,45 @@ $error_search = (preg_match('/^error_/', $_POST['itm_status'][$itm_idx_v])) ? ",
 $delivery_search = ($_POST['itm_status'][$itm_idx_v] == 'delivery') ? ", itm_delivery = '1' " : ", itm_delivery = '0' ";
 
 */
-$itm_delivery = ($to_status == 'delivery') ? 1 : 0;
-$itm_defect = (preg_match('/^error_/', $to_status)) ? 1 : 0;
-$itm_defect_type = (preg_match('/^error_/', $to_status)) ? $g5['set_itm_status_ng2_reverse'][$to_status] : 0;
+// print_r2($_POST);exit;
+if($to_status == 'delivery'){
+    $itm_delivery_dt = ($itm_delivery_dt != '0000-00-00 00:00:00') ? $itm_delivery_dt : $itm_update_dt;
+}
+$itm_delivery_dt2 = ($to_status == 'delivery') ? $itm_delivery_dt : '0000-00-00 00:00:00';
+$itm_defect_type = (preg_match('/^error_/', $to_status)) ? preg_replace('/^error_/','',$to_status) : '';
+$to_status = (preg_match('/^error_/', $to_status)) ? 'defect' : $to_status;
+
+
 
 if($plus_modify == 'plus'){
 
     $sql = " INSERT INTO {$g5['item_table']}
-    (com_idx,mms_idx,bom_idx,oop_idx,bom_part_no,itm_name,itm_weight,itm_heat,itm_defect,itm_defect_type,itm_delivery,itm_status,itm_date,itm_reg_dt,itm_update_dt) VALUES ";
-    $vals = " ('{$_SESSION['ss_com_idx']}','{$cut_mms_idx}','{$bom_idx}','{$oop_idx}','{$bom_part_no}','{$bom_name}','{$itm_weight}','{$itm_heat}','{$itm_defect}','{$itm_defect_type}',{$itm_delivery},'{$to_status}','".G5_TIME_YMD."','".G5_TIME_YMDHIS."','".G5_TIME_YMDHIS."') ";
+    (com_idx,mms_idx,bom_idx,prd_idx,pri_idx,itm_part_no,itm_name,itm_defect_type,itm_delivery_dt,itm_status,itm_date,itm_reg_dt,itm_update_dt) VALUES ";
+    $vals = " ('{$_SESSION['ss_com_idx']}','{$mms_idx}','{$bom_idx}','{$prd_idx}','{$pri_idx}','{$bom_part_no}','{$bom_name}','{$itm_defect_type}','{$itm_delivery_dt2}','{$to_status}','".$itm_date."','".$itm_reg_dt."','".$itm_update_dt."') ";
     for($i=0;$i<$count;$i++){
         $sql .= ($i==0)?$vals:','.$vals;
     }
 }
 else if($plus_modify == 'modify'){
-    $condition = " WHERE oop_idx = '{$oop_idx}'
-                    AND bom_part_no = '{$bom_part_no}'
+    $defect_where = '';
+    
+    if(preg_match('/^error_/', $from_status)){
+        $from_status = preg_replace('/^error_/','',$from_status);
+        $defect_where .= " AND itm_defect_type = '{$from_status}'  ";
+    }
+    else{
+        $defect_where .= " AND itm_status = '{$from_status}' ";
+    }
+
+    $condition = " WHERE pri_idx = '{$pri_idx}'
+                    AND itm_part_no = '{$bom_part_no}'
                     AND bom_idx = '{$bom_idx}'
-                    AND itm_status = '{$from_status}' ";
+                    {$defect_where} ";
                     
-                    //변경할 기존 절단재 재고가 있는지 확인
-                    $exist = sql_fetch(" SELECT COUNT(*) AS cnt FROM {$g5['item_table']}
-            {$condition} ");
+    //변경할 기존 절단재 재고가 있는지 확인
+    $exist_sql = " SELECT COUNT(*) AS cnt FROM {$g5['item_table']} {$condition} ";
+    // echo $exist_sql;exit;
+    $exist = sql_fetch($exist_sql);
 
     if(!$exist['cnt']) 
         alert('변경할 재고데이터가 없습니다.');
@@ -85,9 +102,9 @@ else if($plus_modify == 'modify'){
     $mod_cnt = ($exist['cnt'] < $count) ? $exist['cnt'] : $count;
 
 
-    $sql = " UPDATE {$g5['item_table']} SET itm_defect = '{$itm_defect}'
-            , itm_defect_type = '{$itm_defect_type}'
-            , itm_delivery = '{$itm_delivery}'
+    $sql = " UPDATE {$g5['item_table']} SET
+            itm_defect_type = '{$itm_defect_type}'
+            , itm_delivery_dt = '{$itm_delivery_dt2}'
             , itm_status = '{$to_status}'
         {$condition} 
         LIMIT {$mod_cnt}
@@ -96,4 +113,4 @@ else if($plus_modify == 'modify'){
 sql_query($sql,1);
 
 // $qstr .= '&forge_mms_idx='.$forge_mms_idx; // 추가로 확장해서 넘겨야 할 변수들
-goto_url('./item_oop_list.php?'.$qstr);
+goto_url('./item_status_list.php?'.$qstr);

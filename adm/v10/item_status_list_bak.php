@@ -224,7 +224,7 @@ $('.data_blank').on('click',function(e){
         <input type="hidden" name="bom_idx" value="">
         <input type="text" name="bom_name" value="" class="frm_input pri_select" link="./pri_itm_select.php?fname=<?=$g5['file_name']?>" readonly placeholder="품명" style="width:300px;">
         <select name="plus_modify" class="plus_modify">
-            <!-- <option value="plus">추가하기</option> -->
+            <option value="plus">추가하기</option>
             <option value="modify">변경하기</option>
         </select>
         <span class="sp_from">
@@ -246,7 +246,6 @@ $('.data_blank').on('click',function(e){
     </form>
 </div>
 <script>
-/*
 $('.sp_from').hide();
 $('.plus_modify').on('change',function(){
     if($(this).val()=='plus'){
@@ -256,7 +255,6 @@ $('.plus_modify').on('change',function(){
         $('.sp_from').show();
     }
 });
-*/
 //숫자만 입력
 $('.count').on('keyup',function(){
     $(this).val($(this).val().replace(/[^0-9|-]/g,""));

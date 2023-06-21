@@ -4,19 +4,23 @@ include_once('./_common.php');
 if($member['mb_level']<4)
 	alert_close('접근할 수 없는 메뉴입니다.');
 
-
+/*
 $sql_common = " FROM {$g5['production_item_table']} pri
                     LEFT JOIN {$g5['production_table']} prd ON pri.prd_idx = prd.prd_idx
                     LEFT JOIN {$g5['bom_table']} bom ON pri.bom_idx = bom.bom_idx
                     INNER JOIN {$g5['bom_item_table']} boi ON bom.bom_idx = boi.bom_idx
                     INNER JOIN {$g5['bom_table']} itm ON boi.bom_idx_child = itm.bom_idx
 ";
-
+*/
+$sql_common = " FROM {$g5['item_table']} itm
+                    LEFT JOIN {$g5['bom_table']} bom ON itm.bom_idx = bom.bom_idx
+                    LEFT JOIN {$g5['production_item_table']} pri ON itm.pri_idx = pri.pri_idx
+                    LEFT JOIN {$g5['production_table']} prd ON pri.prd_idx = prd.prd_idx
+";
 
 $where = array();
-// $where[] = " oop_status NOT IN ('trash','delete','del','cancel') ";
-$where[] = " pri_status IN ('confirm','done') ";
-$where[] = " prd.com_idx = '".$_SESSION['ss_com_idx']."' ";
+$where[] = " itm.itm_status NOT IN ('delete','del','trash') ";
+$where[] = " itm.com_idx = '".$_SESSION['ss_com_idx']."' ";
 
 
 // 검색어 설정
@@ -35,6 +39,7 @@ if ($stx != "") {
 if ($where)
     $sql_search = ' WHERE '.implode(' AND ', $where);
 
+$sql_group = " GROUP BY pri.pri_idx,itm.bom_idx ";
 
 if (!$sst) {
     $sst = "prd.prd_start_date";
@@ -48,7 +53,10 @@ if (!$sst2) {
 
 $sql_order = " ORDER BY {$sst} {$sod} {$sst2} {$sod2} ";
 
-$sql = " select count(*) as cnt {$sql_common} {$sql_search} ";
+// $sql = " select count(*) as cnt {$sql_common} {$sql_search} {$sql_group} ";
+$sql = " SELECT COUNT(c.bom_idx) AS cnt FROM (
+    SELECT itm.bom_idx {$sql_common} {$sql_search} {$sql_group}
+) c ";
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
 
@@ -59,13 +67,18 @@ if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이�
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 //mms_idx,bom_idx_parent,mtr_weight,mtr_heat,mtr_lot,mtr_bundle
 $sql = "SELECT pri.pri_idx
+            ,prd.prd_idx
             ,prd.prd_start_date
             ,pri.mms_idx
             ,pri.bom_idx
             ,pri.pri_value
             ,bom.bom_part_no
             ,bom.bom_name
-        {$sql_common} {$sql_search} {$sql_order}
+            ,MAX(itm_date) AS itm_date
+            ,MAX(itm_delivery_dt) AS itm_delivery_dt
+            ,MAX(itm_reg_dt) AS itm_reg_dt
+            ,MAX(itm_update_dt) AS itm_update_dt
+        {$sql_common} {$sql_search} {$sql_group} {$sql_order}
         LIMIT {$from_record}, {$rows}
 ";
 // print_r2($sql);
@@ -145,11 +158,16 @@ include_once('./_head.sub.php');
             </td>
             <td class="td_mng td_mng_s">
                 <button type="button" class="btn btn_03 btn_select"
+                    prd_idx="<?=$row[$i]['prd_idx']?>"
                     pri_idx="<?=$row[$i]['pri_idx']?>"
                     mms_idx="<?=$row[$i]['mms_idx']?>"
                     bom_idx="<?=$row[$i]['bom_idx']?>"
                     bom_name="<?=$row[$i]['bom_name']?>"
                     bom_part_no="<?=$row[$i]['bom_part_no']?>"
+                    itm_delivery_dt="<?=$row[$i]['itm_delivery_dt']?>"
+                    itm_date="<?=$row[$i]['itm_date']?>"
+                    itm_reg_dt="<?=$row[$i]['itm_reg_dt']?>"
+                    itm_update_dt="<?=$row[$i]['itm_update_dt']?>"
                 >선택</button>
             </td>
         </tr>
@@ -176,19 +194,29 @@ var i = <?=$i?>;
 // }
 $('.btn_select').click(function(e){
     e.preventDefault();
+    var prd_idx = $(this).attr('prd_idx');
     var pri_idx = $(this).attr('pri_idx');
     var mms_idx = $(this).attr('mms_idx');
     var bom_idx = $(this).attr('bom_idx');
     var bom_name = $(this).attr('bom_name');
     var bom_part_no = $(this).attr('bom_part_no');
+    var itm_delivery_dt = $(this).attr('itm_delivery_dt');
+    var itm_date = $(this).attr('itm_date');
+    var itm_reg_dt = $(this).attr('itm_reg_dt');
+    var itm_update_dt = $(this).attr('itm_update_dt');
     // alert(fname);return false;
     if(fname == 'item_status_list'){
         // alert(oop_idx);return false;
+        $("input[name=prd_idx]", opener.document).val( prd_idx );
         $("input[name=pri_idx]", opener.document).val( pri_idx );
         $("input[name=mms_idx]", opener.document).val( mms_idx );
         $("input[name=bom_part_no]", opener.document).val( bom_part_no );
         $("input[name=bom_idx]", opener.document).val( bom_idx );
         $("input[name=bom_name]", opener.document).val( bom_name );
+        $("input[name=itm_delivery_dt]", opener.document).val( itm_delivery_dt );
+        $("input[name=itm_date]", opener.document).val( itm_date );
+        $("input[name=itm_reg_dt]", opener.document).val( itm_reg_dt );
+        $("input[name=itm_update_dt]", opener.document).val( itm_update_dt );
     }
     
 
