@@ -185,7 +185,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style2.css">', 
         <div class="towhom_info">
             <ul>
                 <?php
-                for($i=0;$i<sizeof($towhom_li);$i++) {
+                for($i=0;$i<@sizeof($towhom_li);$i++) {
                     echo '<li>
                             <span><i class="fa fa-remove"></i></span>
                             <span class="r_name">'.$towhom_li[$i]['r_name'].'</span>

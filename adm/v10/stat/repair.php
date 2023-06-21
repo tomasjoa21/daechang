@@ -292,9 +292,9 @@ include_once('./_top_search.php');
 </div><!-- #report_wrapper -->
 <script>
 $(function(e) {
-    $(document).tooltip({
-        track: true
-    });
+    // $(document).tooltip({
+    //     track: true
+    // });
 });
 </script>
 <?php

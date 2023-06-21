@@ -391,23 +391,6 @@ $(function(e) {
         //maxDate: "+0d"
     });
 
-    // 마우스 hover 설정
-    $(".tbl_head01 tbody tr").on({
-        mouseenter: function () {
-            //stuff to do on mouse enter
-            //console.log($(this).attr('od_id')+' mouseenter');
-            //$(this).find('td').css('background','red');
-            $('tr[tr_id='+$(this).attr('tr_id')+']').find('td').css('background','#e6e6e6 ');
-            
-        },
-        mouseleave: function () {
-            //stuff to do on mouse leave
-            //console.log($(this).attr('od_id')+' mouseleave');
-            //$(this).find('td').css('background','unset');
-            $('tr[tr_id='+$(this).attr('tr_id')+']').find('td').css('background','unset');
-        }    
-    });
-
     // 엑셀등록 버튼
     $( "#btn_excel_upload" ).on( "click", function(e) {
         e.preventDefault();
