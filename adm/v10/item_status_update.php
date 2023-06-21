@@ -86,7 +86,8 @@ else if($plus_modify == 'modify'){
         $defect_where .= " AND itm_status = '{$from_status}' ";
     }
 
-    $condition = " WHERE pri_idx = '{$pri_idx}'
+    $condition = " WHERE com_idx = '{$_SESSION['ss_com_idx']}' 
+                    AND pri_idx = '{$pri_idx}'
                     AND itm_part_no = '{$bom_part_no}'
                     AND bom_idx = '{$bom_idx}'
                     {$defect_where} ";
@@ -109,6 +110,7 @@ else if($plus_modify == 'modify'){
         {$condition} 
         LIMIT {$mod_cnt}
     ";
+    // echo $sql;exit;
 }
 sql_query($sql,1);
 
