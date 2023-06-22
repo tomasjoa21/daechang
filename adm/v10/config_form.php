@@ -434,6 +434,20 @@ yearly,1,10 = 연도별,1년단위,10년치,sum(합계)'); ?>
             </td>
         </tr>
         <tr>
+            <th scope="row">공급처 메뉴권한</th>
+			<td colspan="3">
+                <?php echo help('공급처이며 "기사"직함이 아닌 담당자일때 디폴트 메뉴 접근권한입니다.') ?>
+                <textarea name="set_provider_auth" id="set_provider_auth" style="width:50%;"><?php echo get_text($g5['setting']['set_provider_auth']); ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">기사님 메뉴권한</th>
+			<td colspan="3">
+                <?php echo help('"기사"직함 담당자일때 디폴트 메뉴 접근권한입니다.') ?>
+                <textarea name="set_driver_auth" id="set_driver_auth" style="width:50%;"><?php echo get_text($g5['setting']['set_driver_auth']); ?></textarea>
+            </td>
+        </tr>
+        <tr>
             <th scope="row">품질정보입력시차</th>
             <td>
 				<?php echo help('교대 시간이 바뀌어도 시차 간격을 두고 품질 정보를 입력합니다.'); ?>

@@ -66,6 +66,7 @@ include_once('./_head.sub.php');
 	<input type="hidden" name="w" value="<?php echo $w ?>">
 	<input type="hidden" name="cst_idx" value="<?php echo $cst_idx ?>">
 	<input type="hidden" name="ctm_idx" value="<?php echo $ctm_idx ?>">
+	<input type="hidden" name="cst_type" value="<?php echo $cst['cst_type'] ?>">
 	<input type="hidden" name="token" value="">
 	<input type="hidden" name="ex_page" value="<?=$ex_page?>">
     <div class=" new_win_con">

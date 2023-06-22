@@ -91,6 +91,7 @@ if($mtyp == 'moi'){
     $column_list = " moi_idx
                     , moi.mto_idx
                     , moi.bom_idx
+                    , bom.bct_idx
                     , bom.bom_part_no
                     , bom.bom_name
                     , mto.cst_idx
@@ -139,7 +140,7 @@ if($sch_from_date){
 if($sch_to_date){
     $qstr .= '&sch_to_date='.$sch_to_date; 
 }
-$colspan = ($mtyp == 'moi') ? 13 : 12;
+$colspan = ($mtyp == 'moi') ? 14 : 12;
 ?>
 <div class="local_ov01 local_ov">
     <?php echo $listall ?>
@@ -212,6 +213,7 @@ $colspan = ($mtyp == 'moi') ? 13 : 12;
         <th scope="col">ID</th>
         <th scope="col">공급업체</th>
         <?php if($mtyp == 'moi'){ ?>
+        <th scope="col">차종</th>
         <th scope="col">품번/품명</th>
         <th scope="col">메모</th>
         <th scope="col">발주ID</th>
@@ -278,6 +280,7 @@ $colspan = ($mtyp == 'moi') ? 13 : 12;
         <td class="td_<?=$mtyp?>_idx"><?=$row[$mtyp.'_idx']?></td><!--ID-->
         <td class="td_com_name"><?=$row['cst_name']?></td><!--공급업체-->
         <?php if($mtyp == 'moi'){ ?>
+        <td class="td_bct_idx"><?=$g5['cats_key_val'][$row['bct_idx']]?></td>
         <td class="td_bom_name"><span style="color:orange;"><?=$row['bom_part_no']?></span><br><?=$row['bom_name']?></td><!--제품명-->
         <td class="td_<?=$mtyp?>_memo">
             <?php

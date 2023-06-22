@@ -104,6 +104,38 @@ else if ($w == 'd') {
 else
     alert('제대로 된 값이 넘어오지 않았습니다.');
 
+//업체 담당자권한
+if($w == '' || $w == 'u'){
+    $auth_type = '';
+    // 공급업체 && 직함"기사"아니면 : 915900=r=대시보드, 922150=r,w=발주관리
+    if($cst_type == 'provider' && $ctm_title != '13') $auth_type = 'provider';
+    // 직함"기사"이면 : 915900=r=대시보드
+    else if($ctm_title == '13') $auth_type = 'driver';
+
+    // 메뉴 접근 권한 설정
+    if($auth_type != ''){
+        // 기존 정보 삭제(초기화)
+        $sql = "DELETE FROM {$g5['auth_table']} WHERE mb_id = '".$mb_id."' ";
+        sql_query($sql,1);
+
+        $set_values = explode("\n", $g5['setting']['set_'.$auth_type.'_auth']);
+        foreach ($set_values as $set_value) {
+            list($key, $value) = explode('=', trim($set_value));
+            if($key&&$value) {
+                $sql = "INSERT INTO {$g5['auth_table']} SET
+                            mb_id = '".$mb_id."'
+                            , au_menu = '".$key."'
+                            , au_auth = '".$value."'
+                ";
+                //echo $sql.'<br>';
+                sql_query($sql,1);
+            }
+        }
+    }
+}
+else if($w == 'd'){
+
+}
 
 //exit;
 goto_url('./customer_member_list.php?'.$qstr.'&amp;w=u&cst_idx='.$cst_idx, false);
