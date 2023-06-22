@@ -297,6 +297,7 @@ $(function(e) {
     // });
 });
 </script>
+
 <?php
 include_once ('./_tail.php');
 ?>

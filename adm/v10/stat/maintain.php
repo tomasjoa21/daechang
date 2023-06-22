@@ -221,9 +221,9 @@ include_once('./_top_search.php');
 
 <script>
 $(function(e) {
-    $(document).tooltip({
-        track: true
-    });
+    // $(document).tooltip({
+    //     track: true
+    // });
 });
 </script>
 <?php

@@ -2739,5 +2739,11 @@ WHERE prd_start_date = '2023-06-19' AND pri.com_idx = '13'
 ORDER BY pri_idx DESC LIMIT 0, 200
 .....
 
-
-
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}:</td>' +
+            '<td style="padding-left:5px;"><b>{point.y:.0f}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
