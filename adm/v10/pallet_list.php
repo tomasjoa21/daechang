@@ -111,7 +111,6 @@ $qstr .= '&sca='.$sca.'&ser_cod_type='.$ser_cod_type; // 추가로 확장해서 
     <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
     <input type="text" name="stx" value="<?php echo $stx ?>" placeholder="파레트ID" id="stx" class="frm_input">
     <label for="plt_status" class="sch_label">
-        <span>상태<i class="fa fa-times data_blank" aria-hidden="true"></i></span>
         <select name="plt_status" id="plt_status">
             <option value="">::상태선택::</option>
             <?=$g5['set_plt_status_value_options']?>
