@@ -11,6 +11,14 @@ echo $g5['container_sub_title'];
 
 $mtyp = ($mtyp) ? $mtyp:'moi'; //moi OR mto
 
+$ctm_sql = " SELECT cst_idx, ctm_title FROM {$g5['customer_member_table']}
+                WHERE mb_id = '{$member['mb_id']}'
+                    AND ctm_title != '13'
+";    
+$cst = sql_fetch($ctm_sql);
+//협력업체idx != 대창공업idx && 업체직함 != '기사' => '공급업체담당자'
+$provider_member_yn = ($member['mb_8'] && $member['mb_8'] != $_SESSION['ss_com_idx'] && $cst['ctm_title'] != '13') ? true : false;
+
 if($mtyp == 'mto'){
     $sql_common = " FROM {$g5['material_order_table']} mto
                         LEFT JOIN {$g5['customer_table']} cst ON mto.cst_idx = cst.cst_idx
@@ -31,7 +39,11 @@ else{
                         LEFT JOIN {$g5['customer_table']} cst ON mto.cst_idx = cst.cst_idx
     ";
     //디폴트 검색조건
-    $where[] = " moi_status NOT IN ('trash','delete') ";
+    if($provider_member_yn){
+        $where[] = " moi_status NOT IN ('trash','delete','pending','cancel','reject') ";
+    }else{
+        $where[] = " moi_status NOT IN ('trash','delete') ";
+    }
     $where[] = " mto.com_idx = '{$_SESSION['ss_com_idx']}' ";
 
     
@@ -41,8 +53,8 @@ else{
     }
 }
 //협력업체 회원이면 해당업체 목록만 보여주자
-if($member['mb_8'] && $member['mb_8'] != $_SESSION['ss_com_idx']){
-    $where[] = " mto.com_idx = '{$member['mb_8']}' ";
+if($provider_member_yn){
+    $where[] = " mto.cst_idx = '{$cst['cst_idx']}' ";
 }
 
 //검색어 설정
@@ -58,14 +70,14 @@ if($stx != '') {
 }
 
 if($sch_from_date && !$sch_to_date){
-    $where[] = " {$mtyp}_input_date >= ".$sch_from_date."' ";
+    $where[] = " {$mtyp}_input_date >= '".$sch_from_date."' ";
 }
 else if(!$sch_from_date && $sch_to_date){
-    $where[] = " {$mtyp}_input_date <= ".$sch_to_date."' ";
+    $where[] = " {$mtyp}_input_date <= '".$sch_to_date."' ";
 }
 else if($sch_from_date && $sch_to_date){
-    $where[] = " {$mtyp}_input_date >= ".$sch_from_date."' ";
-    $where[] = " {$mtyp}_input_date <= ".$sch_to_date."' ";
+    $where[] = " {$mtyp}_input_date >= '".$sch_from_date."' ";
+    $where[] = " {$mtyp}_input_date <= '".$sch_to_date."' ";
 }
 
 //최종 WHERE 생성
@@ -141,7 +153,12 @@ if($sch_to_date){
     $qstr .= '&sch_to_date='.$sch_to_date; 
 }
 $colspan = ($mtyp == 'moi') ? 14 : 12;
+$colspan = ($provider_member_yn) ? $colspan - 1 : $colspan;
 ?>
+<style>
+.td_orange_bold{color:orange !important;font-weight:700;}
+.td_skyblue_bold{color:skyblue !important;font-weight:700;}
+</style>
 <div class="local_ov01 local_ov">
     <?php echo $listall ?>
     <span class="btn_ov01"><span class="ov_txt">총 </span><span class="ov_num"> <?php echo number_format($total_count) ?>건 </span></span>
@@ -232,12 +249,14 @@ $colspan = ($mtyp == 'moi') ? 14 : 12;
         <?php } ?>
         <th scope="col">납기일</th>
         <th scope="col">상태</th>
-        <th scope="col">관리</th>
+        <?php if(!$provider_member_yn) { ?><th scope="col">관리</th><?php } ?>
     </tr>
     </thead>
     <tbody>
     <?php
     // print_r2($g5);
+    $status_arr = $g5['set_'.$mtyp.'_status_value'];
+    $status_skips = array('pending','input','cancel','reject');
     for($i=0;$row=sql_fetch_array($result);$i++){
         // print_r2($row);
         if($mtyp == 'moi'){
@@ -297,8 +316,13 @@ $colspan = ($mtyp == 'moi') ? 14 : 12;
             <input type="hidden" name="mto_idx[<?=$row[$mtyp.'_idx']?>]" value="<?=$row['mto_idx']?>">
             <?=$row['mto_idx']?>
         </td><!--발주ID-->
-        <td class="td_moi_count">
-            <input type="text" name="moi_count[<?=$row[$mtyp.'_idx']?>]" value="<?=number_format($row['moi_count'])?>" class="frm_input moi_count" onclick="javascript:numtoprice(this)">
+        <td class="td_moi_count<?=(($provider_member_yn)?' td_orange_bold':'')?>">
+            <?php if($provider_member_yn){ ?>
+                <input type="hidden" name="moi_count[<?=$row[$mtyp.'_idx']?>]" value="<?=number_format($row['moi_count'])?>">
+                <?=number_format($row['moi_count'])?>
+            <?php } else { ?>
+                <input type="text" name="moi_count[<?=$row[$mtyp.'_idx']?>]" value="<?=number_format($row['moi_count'])?>" class="frm_input moi_count" onclick="javascript:numtoprice(this)">
+            <?php } ?>
         </td><!--발주량-->
         <td class="td_input_cnt"><?=number_format($row['input_cnt'])?></td><!--입고-->
         <td class="td_no_input_cnt"><?=number_format($row['no_input_cnt'])?></td><!--미입고-->
@@ -340,12 +364,28 @@ $colspan = ($mtyp == 'moi') ? 14 : 12;
         <td class="td_mb_id" mb_id="<?=$row['mb_id']?>"><?=$row['mb_name']?></td><!--발주자ID-->
         <td class="td_mto_price"><?=number_format($row['mto_price'])?></td><!--발주총가격-->
         <?php } ?>
-        <td class="td_<?=$mtyp?>_input_date">
-            <input type="text" name="<?=$mtyp?>_input_date[<?=$row[$mtyp.'_idx']?>]" value="<?=$row[$mtyp.'_input_date']?>" readonly class="frm_input <?=$mtyp?>_input_date">
+        <td class="td_<?=$mtyp?>_input_date<?=(($provider_member_yn)?' td_skyblue_bold':'')?>">
+            <?php if($provider_member_yn){ ?>
+                <input type="hidden" name="<?=$mtyp?>_input_date[<?=$row[$mtyp.'_idx']?>]" value="<?=$row[$mtyp.'_input_date']?>">
+                <?=$row[$mtyp.'_input_date']?>
+            <?php } else { ?>
+                <input type="text" name="<?=$mtyp?>_input_date[<?=$row[$mtyp.'_idx']?>]" value="<?=$row[$mtyp.'_input_date']?>" readonly class="frm_input <?=$mtyp?>_input_date">
+            <?php } ?>
         </td><!--입고예정일-->
         <td class="td_<?=$mtyp?>_status">
             <select name="<?=$mtyp?>_status[<?=$row[$mtyp.'_idx']?>]" id="<?=$mtyp?>_status_<?=$i?>">
-                <?=$g5['set_'.$mtyp.'_status_value_options']?>
+                <?php 
+                if($provider_member_yn){
+                    foreach($status_arr as $sk => $sv){ 
+                        if(in_array($sk, $status_skips)) continue;
+                ?>
+                <option value="<?=$sk?>"><?=$sv?></option>
+                <?php 
+                    }
+                } else {
+                    echo $g5['set_'.$mtyp.'_status_value_options'];
+                }
+                ?>
             </select>
             <?php if($row[$mtyp.'_status']){ ?>
             <script>
@@ -353,7 +393,9 @@ $colspan = ($mtyp == 'moi') ? 14 : 12;
             </script>
             <?php } ?>
         </td><!--상태-->
+        <?php if(!$provider_member_yn) { ?>
         <td class="td_mng"><?=$s_mod?></td><!--관리-->
+        <?php } ?>
     </tr>
     <?php
     }
@@ -371,6 +413,8 @@ $colspan = ($mtyp == 'moi') ? 14 : 12;
         <?php if($mtyp == 'moi'){ ?>
         <a href="./material_order_form.php?mtyp=<?=$mtyp?>" id="order_add" class="btn btn_01">추가하기</a>
         <?php } ?>
+    <?php } else if($provider_member_yn) { ?>
+        <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02">
     <?php } ?>
 </div>
 

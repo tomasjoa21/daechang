@@ -25,6 +25,8 @@ $cont = '
 // $cont = trim($cont, "\n");
 $cont_head = str_replace("\n", "", $cont_head);
 $cont = str_replace("\n", "", $cont);
+
+$customer_member_yn = (!$member['mb_8']) ? false : true;
 ?>
 <script src="<?=G5_USER_URL?>/temp/node_modules/gridstack/dist/gridstack-all.js"></script>
 <link href="<?=G5_USER_URL?>/temp/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
@@ -42,7 +44,81 @@ $cont = str_replace("\n", "", $cont);
 .grid-stack-item[gs-h="5"] .widget_content {height:97.1%;}
 .grid-stack-item[gs-h="6"] .widget_content {height:97.5%;}
 .widget_content iframe {width:100%;height:100%;}
+<?php if($customer_member_yn){ ?>
+.grid-stack{display:none;}
+.customer_dash{display:block;height:800px;text-align:center;background:#000;}
+.customer_dash:before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#000;
+  /* background:linear-gradient(to right,#f00,#f00,#0f0,#0ff,#ff0,#0ff); */
+  mix-blend-mode:color;
+  pointer-events:none;
+}
+.customer_dash video{
+  object-fit:cover;
+}
+.customer_dash h1{
+  margin:0;
+	padding:0;
+	position:absolute;
+	top:40%;
+	transform:translateY(-50%);
+	width:100%;
+	text-align:center;
+	color:#ddd;
+	font-size:2em;
+	font-family:sans-serif;
+	letter-spacing:1em;
+}
+.customer_dash h1 span{
+  opacity:0;
+	display:inline-block;
+	animation:animate 1s linear forwards;
+}
+.customer_dash h1 span:nth-child(1){animation-delay:1s;}
+.customer_dash h1 span:nth-child(2){animation-delay:1.8s;}
+.customer_dash h1 span:nth-child(3){animation-delay:2.5s;}
+.customer_dash h1 span:nth-child(4){animation-delay:3.3s;}
+.customer_dash h1 span:nth-child(5){animation-delay:4s;}
+.customer_dash h1 span:nth-child(6){animation-delay:4.6s;}
+.customer_dash h1 span:nth-child(7){animation-delay:5.3s;}
+.customer_dash h1 span:nth-child(8){animation-delay:6s;}
+
+@keyframes animate{
+  0%{
+    opacity:0;
+    transform:rotateY(90deg);
+    filter:blur(10px);
+  }
+  100%{
+    opacity:1;
+    transform:rotateY(0deg);
+    filter:blur(0);
+  }
+}
+<?php } else { ?>
+.customer_dash{display:none;}
+<?php } ?>
 </style>
+
+<div class="customer_dash">
+  <video src="<?=G5_USER_ADMIN_IMG_URL?>/smoke.mp4" autoplay muted></video>
+	<h1>
+		<span>D</span>
+		<span>A</span>
+		<span>E</span>
+		<span>C</span>
+		<span>H</span>
+		<span>A</span>
+		<span>N</span>
+		<span>G</span>
+	</h1>
+</div>
 
 <div class="grid-stack">
 </div>

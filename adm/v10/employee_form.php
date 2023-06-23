@@ -274,11 +274,11 @@ this.form.mb_intercept_date.value=this.form.mb_intercept_date.defaultValue; }">
     <tr>
         <th scope="row">메뉴권한</th>
         <td colspan="3">
-            <select name="mb_8" id="mb_8" title="권한선택">
+            <select name="mb_9" id="mb_9" title="권한선택">
                 <option value="">권한선택</option>
-                <?php echo $g5['set_mb_auth_options'];//echo get_set_options_select('set_mb_auth',1, 200, $mb['mb_8'], $sub_menu) ?>
+                <?php echo $g5['set_mb_auth_options'];//echo get_set_options_select('set_mb_auth',1, 200, $mb['mb_9'], $sub_menu) ?>
             </select>
-            <script>$('select[name=mb_8]').val('<?=$mb['mb_8']?>').attr('selected','selected');</script>
+            <script>$('select[name=mb_9]').val('<?=$mb['mb_9']?>').attr('selected','selected');</script>
             <label><input type="checkbox" name="auth_reset" value="1"> 메뉴권한 재설정</label>
         </td>
     </tr>
