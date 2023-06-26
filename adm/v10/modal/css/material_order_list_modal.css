@@ -1,0 +1,9 @@
+@charset "utf-8";
+.mdl_head{}
+.mdl_head .mdl_title{}
+.mdl_head .mdl_title strong{color:darkorange;}
+.mdl_cont{border-bottom:1px solid #294278;padding-bottom:5px;}
+.mdl_cont {padding:20px;text-align:center;}
+.mdl_cont p{margin-top:10px;}
+.mdl_cont .mdl_moi_count{color:darkorange;}
+.mdl_tail{padding:10px 10px;text-align:right;}

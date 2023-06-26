@@ -152,12 +152,13 @@ if($sch_from_date){
 if($sch_to_date){
     $qstr .= '&sch_to_date='.$sch_to_date; 
 }
-$colspan = ($mtyp == 'moi') ? 14 : 12;
+$colspan = ($mtyp == 'moi') ? 15 : 12;
 $colspan = ($provider_member_yn) ? $colspan - 1 : $colspan;
 ?>
 <style>
 .td_orange_bold{color:orange !important;font-weight:700;}
 .td_skyblue_bold{color:skyblue !important;font-weight:700;}
+.td_qr i{font-size:2em;cursor:pointer;}
 </style>
 <div class="local_ov01 local_ov">
     <?php echo $listall ?>
@@ -232,6 +233,7 @@ $colspan = ($provider_member_yn) ? $colspan - 1 : $colspan;
         <?php if($mtyp == 'moi'){ ?>
         <th scope="col">차종</th>
         <th scope="col">품번/품명</th>
+        <th scope="col">QR코드</th>
         <th scope="col">메모</th>
         <th scope="col">발주ID</th>
         <th scope="col">발주량</th>
@@ -301,6 +303,13 @@ $colspan = ($provider_member_yn) ? $colspan - 1 : $colspan;
         <?php if($mtyp == 'moi'){ ?>
         <td class="td_bct_idx"><?=$g5['cats_key_val'][$row['bct_idx']]?></td>
         <td class="td_bom_name"><span style="color:orange;"><?=$row['bom_part_no']?></span><br><?=$row['bom_name']?></td><!--제품명-->
+        <td class="td_qr">
+            <?php if($row['moi_status'] == 'ready'){ //(true){ //($row['moi_status'] == 'ready') { ?>
+                <i class="fa fa-qrcode moi_qr" aria-hidden="true" moi="<?=$row['moi_idx']?>" cnt="<?=$row['moi_count']?>" no="<?=$row['bom_part_no']?>"></i>
+            <?php } else { ?>
+                -
+            <?php } ?>
+        </td>
         <td class="td_<?=$mtyp?>_memo">
             <?php
             if($row[$mtyp.'_memo']){
@@ -433,9 +442,77 @@ $(".mto_input_date").datepicker({ changeMonth: true, changeYear: true, dateForma
 $('.td_moi_memo,.td_mto_memo').on('mouseenter',function(){
     $(this).find('pre').addClass('focus');
 });
+
 $('.td_moi_memo,.td_mto_memo').on('mouseleave',function(){
     $(this).find('pre').removeClass('focus');
 });
+
+//모달관련
+let down_url = '';
+let down_name = '';
+$('.moi_qr').on('click',function(){
+    var moi_idx = $(this).attr('moi');
+    var moi_cnt = $(this).attr('cnt');
+    var chk_url = "<?=G5_USER_ADMIN_MOBILE_URL?>/input_check.php";
+    var qr_url = "https://chart.googleapis.com/chart?chs=140x140&cht=qr&chl="+chk_url+"?moi_cnt="+moi_idx+"_"+moi_cnt;
+    var bom_part_no = $(this).attr('no');
+    var img_tag = '<img src="'+qr_url+'">';
+
+    down_url = qr_url;
+    down_name = bom_part_no+'_moi_'+moi_idx+'_cnt_'+moi_cnt+'.png';
+    
+    $('.mdl_st_ttl').text(bom_part_no);
+    $('.mdl_moi_idx').text(moi_idx);
+    $('.mdl_bom_part_no').text(bom_part_no);
+    $('.mdl_moi_count').text(moi_cnt);
+    $('.mdl_qr_img_box').html(img_tag);
+
+    $('.modal').removeClass('mdl_hide');
+
+    mdl_evt_on();
+});
+
+function mdl_evt_on(){
+    $('.mdl_bg, .mdl_close').on('click',function(){
+        $('.mdl_st_ttl').text('');
+        $('.mdl_moi_idx').text('');
+        $('.mdl_bom_part_no').text('');
+        $('.mdl_moi_count').text('');
+        $('.mdl_qr_img_box').empty();
+        $('.modal').addClass('mdl_hide');
+
+        mdl_evt_off();
+    });
+    $('.mdl_qr_download').on('click',function(){
+        $.ajax({
+            url: down_url,
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function(blob){
+                let url = window.URL.createObjectURL(blob);
+                let link = document.createElement("a");
+                link.href = url;
+                link.download = down_name;
+
+                document.body.appendChild(link);
+                link.click();
+
+                $(link).remove();
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
+    });
+}
+
+function mdl_evt_off(){
+    $('.mdl_bg, .mdl_close').off('click');
+    $('.mdl_qr_download').off('click');
+    down_url = '';
+    down_name = '';
+}
 
 function form01_submit(f){
     if(!is_checked("chk[]")) {

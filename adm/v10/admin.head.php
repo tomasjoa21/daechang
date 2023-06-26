@@ -22,7 +22,8 @@ if (is_array($files)) {
     }
 }
 
-include_once(G5_PATH.'/head.sub.php');
+// include_once(G5_PATH.'/head.sub.php');
+include_once(G5_USER_ADMIN_PATH.'/_head.sub_hook.php');
 
 function print_menu1($key, $no='')
 {
