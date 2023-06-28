@@ -388,24 +388,6 @@ set @@global.sql_mode = 'ONLY_FULL_GROUP_BY,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_F
 출하정보가 없는 수주관리 리스트에서 [출하등록]으로 출하를 일단 생성
 출하가 분산되는 경우가 있음 - 복제하기 기능으로 간단하게 복제
 
-sudo tail -f /var/log/clamav/clamav.log
-systemctl stop clamav-freshclam.service
-systemctl start clamav-freshclam.service
-sudo freshclam
-
-
-sudo lsof /var/log/clamav/freshclam.log 
-sudo pkill -15 -x freshclam 
-sudo /etc/init.d/clamav-freshclam stop
-sudo freshclam 
-sudo /etc/init.d/clamav-freshclam start
-
-sudo clamscan -i -r --move=/home/virus /home/hanjoo/www/php/hanjoo/user
-sudo clamscan -i -r --move=/home/virus /home/hanjoo/www/php/hanjoo/user | grep FOUND >> /home/virus/result.txt
-sudo clamscan -i -r --move=/home/virus /home/hanjoo/www/php/hanjoo/user >> /home/virus/result.txt
-sudo clamscan -i -r --move=/home/virus /home/hanjoo/www/ | grep FOUND >> /home/virus/result.txt
-
-sudo grep clamav /var/log/syslog
 
 
 -1                      
@@ -2200,7 +2182,7 @@ INSERT INTO `g5_1_code` VALUES(NULL, 13, 26, 144, 42, '192.168.0.143', 20480, 47
 * * * * * sleep 20; /path/to/script
 ...
 // 한주에서는 이렇게도 해 봤구나..
-#* *      * * *  root    /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/hanjoo/www/php/hanjoo/user/cron/robot_input_test.php
+#* *      * * *  root    /usr/bin/php /home/daechang/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/daechang/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/daechang/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/daechang/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/daechang/www/php/hanjoo/user/cron/robot_input_test.php; sleep 10; /usr/bin/php /home/daechang/www/php/hanjoo/user/cron/robot_input_test.php
 
 ```
 * * * * * root wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php
@@ -2747,3 +2729,32 @@ ORDER BY pri_idx DESC LIMIT 0, 200
         shared: true,
         useHTML: true
     },
+
+sudo tail -f /var/log/clamav/clamav.log
+systemctl stop clamav-freshclam.service
+systemctl start clamav-freshclam.service
+sudo freshclam
+
+
+sudo lsof /var/log/clamav/freshclam.log 
+sudo pkill -15 -x freshclam 
+sudo /etc/init.d/clamav-freshclam stop
+sudo freshclam 
+sudo /etc/init.d/clamav-freshclam start
+
+sudo clamscan -i -r --move=/home/virus /home/daechang/www/php/hanjoo/user
+sudo clamscan -i -r --move=/home/virus /home/daechang/www/php/hanjoo/user | grep FOUND >> /home/virus/result.txt
+sudo clamscan -i -r --move=/home/virus /home/daechang/www/php/hanjoo/user >> /home/virus/result.txt
+sudo clamscan -i -r --move=/home/virus /home/daechang/www/ | grep FOUND >> /home/virus/result.txt
+
+sudo grep clamav /var/log/syslog
+
+
+cd /home/daechang/www
+# show infected files including sub directories ------------------
+clamscan --infected --recursive /home/daechang/www/
+clamscan -i -r /home/daechang/www/
+# remove infected file including sub dirs. ------------------
+clamscan -i -r --remove /home/daechang/www/
+# move infected files including sub dirs. ------------------
+clamscan -i -r --move=/virus /home/daechang/www/
