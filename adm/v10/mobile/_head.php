@@ -15,8 +15,14 @@ $menu_datas = array(
         , 'me_icon' => 'fa-industry'
     ),
     array(
+        'me_name' => '입고검사'
+        , 'me_link' => G5_USER_ADMIN_MOBILE_URL.'/input_check.php?moi_idx=A'
+        , 'me_target' => '_self'
+        , 'me_icon' => 'fa-shield'
+    ),
+    array(
         'me_name' => '출하검사'
-        , 'me_link' => G5_USER_ADMIN_MOBILE_URL.'/check.php'
+        , 'me_link' => G5_USER_ADMIN_MOBILE_URL.'/check.php?plt_idx=01'
         , 'me_target' => '_self'
         , 'me_icon' => 'fa-tripadvisor'
     )

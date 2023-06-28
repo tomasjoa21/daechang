@@ -35,7 +35,12 @@ else if($w == 'u'){
                         , bom.bom_name
                         , moi_count
                         , moi_price
+                        , mb_id_driver
+                        , mb_id_check
                         , moi_input_date
+                        , moi_input_dt
+                        , moi_check_yn
+                        , moi_check_text
                         , moi_memo
                         , moi_status
                         , moi_reg_dt
@@ -123,7 +128,7 @@ include_once ('./_head.php');
         </td>
     </tr>
     <tr>
-        <th scope="row">납기일</th>
+        <th scope="row">납기예정일</th>
         <td <?=(($w == '')?'colspan="3"':'')?>>
             <input type="text" name="mto_input_date" value="<?=$row['mto_input_date']?>" readonly class="frm_input" id="mto_input_date">
         </td>
@@ -155,7 +160,8 @@ include_once ('./_head.php');
     <tr>
         <th scope="row">발주ID선택</th>
         <td>
-            <input type="text" name="mto_idx" id="mto_idx" value="<?=$row['mto_idx']?>" class="frm_input required readonly" required readonly>
+            <input type="hidden" name="mto_idx" id="mto_idx" value="<?=$row['mto_idx']?>">
+            <input type="text" name="moi_idx" id="moi_idx" value="<?=$row['moi_idx']?>" class="frm_input required readonly" required readonly style="width:90px;">
             <input type="hidden" name="cst_idx" id="cst_idx" value="<?=$row['cst_idx']?>">
             <?php if($w == ''){ ?>
             <a href="./material_order_select.php?file_name=<?=$g5['file_name']?>" class="btn btn_02 btn_material_order">찾기</a>
@@ -176,7 +182,7 @@ include_once ('./_head.php');
         <td>
             <input type="text" name="moi_count" id="moi_count" value="<?=number_format($row['moi_count'])?>" class="frm_input moi_count" onclick="javascript:numtoprice(this)">
         </td>
-        <th scope="row">납기일</th>
+        <th scope="row">납기예정일</th>
         <td>
             <input type="text" name="moi_input_date" value="<?=$row['moi_input_date']?>" readonly class="frm_input" id="moi_input_date">
         </td>
@@ -185,6 +191,48 @@ include_once ('./_head.php');
         <th scope="row">메모</th>
         <td colspan="3">
             <textarea name="moi_memo" rows="5"><?=$row['moi_memo']?></textarea>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">검사자</th>
+        <td>
+            <input type="hidden" name="mb_id_check" value="<?=$row['mb_id_check']?>">
+            <?php
+            $mbr = get_meta('member', $row['mb_id_check']);
+            echo ($mbr['mb_name']) ? $mbr['mb_name'] : '-';
+            ?>
+        </td>
+        <th scope="row">납기완료일시</th>
+        <td>
+            <input type="hidden" name="moi_input_dt" value="<?=$row['moi_input_dt']?>">
+            <?=(($row['moi_input_dt'] != '0000-00-00 00:00:00')?$row['moi_input_dt']:'-')?>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">반려사유</th>
+        <td colspan="3">
+            <textarea name="moi_check_text" rows="5"><?=$row['moi_check_text']?></textarea>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">입고검사완료여부</th>
+        <td>
+            <input type="hidden" name="moi_check_yn" value="<?=($row['moi_check_yn'])?'1':''?>">
+            <label><input type="checkbox" <?=($row['moi_check_yn'])?'checked':''?> id="moi_check_yn"> 입고검사완료</label>
+            <script>
+            $(document).on('click','#moi_check_yn',function(e){
+                if($(this).is(':checked')) {$('input[name=moi_check_yn]').val(1);}
+                else {$('input[name=moi_check_yn]').val(0);}
+            });
+            </script>
+        </td>
+        <th scope="row">입고기사</th>
+        <td>
+            <input type="hidden" name="mb_id_driver" value="<?=$row['mb_id_driver']?>">
+            <?php
+            $mbr = get_meta('member', $row['mb_id_driver']);
+            echo ($mbr['mb_name']) ? $mbr['mb_name'] : '-';
+            ?>
         </td>
     </tr>
     <tr>

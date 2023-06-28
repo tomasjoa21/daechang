@@ -2,7 +2,7 @@
 include_once('./_common.php');
 include_once(G5_LIB_PATH.'/thumbnail.lib.php');
 //http://daechang2.epcs.co.kr/adm/v10/mobile/check.php?plt_idx=116
-if($member['mb_8'] != 'admin_quality'){
+if($member['mb_9'] != 'admin_quality'){
     alert('품질관리권한을 가지고 계신분만 접근 가능합니다.', G5_USER_ADMIN_MOBILE_URL);
 }
 
@@ -90,7 +90,11 @@ include_once('./_head.php');
     </form>
     </div><!--//.plt_cont-->
     <?php } else { ?>
-    <div class="plt_empty">파레트 데이터가 없습니다.</div>
+    <div class="plt_empty">파레트 데이터가 없습니다.<br>라벨의 파레트번호를 입력박스에<br>입력하고 검색해 주세요.</div>
+    <form id="fplt_idx" method="GET">
+        <input type="text" name="plt_idx" value="<?=$plt_idx?>">
+        <input type="submit" value="검색">
+    </form>
     <?php } ?>
 </div><!--//.plt_box-->
 <script>

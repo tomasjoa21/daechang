@@ -12,6 +12,14 @@ $menu_datas = array(
     )
     ,
     array(
+        'me_name' => '입고처리'
+        , 'me_link' => G5_USER_ADMIN_KIOSK_URL.'/input_list.php'
+        , 'me_target' => '_self'
+        , 'me_icon' => 'fa-cubes'
+        , 'me_file' => 'input_list'
+        , 'me_keyword' => 'input'
+    ),
+    array(
         'me_name' => '출하처리'
         , 'me_link' => G5_USER_ADMIN_KIOSK_URL.'/delivery_list.php'
         , 'me_target' => '_self'
@@ -35,6 +43,15 @@ $menu_datas = array(
     //     , 'me_icon' => 'fa-print'
     //     , 'me_file' => 'label_test_form'
     //     , 'me_keyword' => 'label_test'
+    // )
+
+    // array(
+    //     'me_name' => 'READY'
+    //     , 'me_link' => 'javascript:'
+    //     , 'me_target' => '_self'
+    //     , 'me_icon' => 'fa-coffee'
+    //     , 'me_file' => 'ready'
+    //     , 'me_keyword' => 'ready'
     // )
 );
 $main_type_class = ($g5['file_name'] == 'index') ? 'index_main' : 'sub_main';

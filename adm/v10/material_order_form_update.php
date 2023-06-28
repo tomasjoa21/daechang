@@ -3,7 +3,7 @@ $sub_menu = "922150";
 include_once("./_common.php");
 
 auth_check($auth[$sub_menu], 'w');
-
+// print_r2($_POST);exit;
 // 추가로 확장해서 넘겨야 할 변수들
 if($mtyp){
     $qstr .= '&mtyp='.$mtyp; 
@@ -60,6 +60,9 @@ else if($mtyp == 'moi'){
     if(!$moi_input_date)
         alert('납기일을 반드시 설정해 주세요.');
     
+    $bom = sql_fetch(" SELECT * FROM {$g5['bom_table']} WHERE bom_idx = '{$bom_idx}' ");
+    $bom_stock_check_yn = $bom['bom_stock_check_yn'];
+    
     $moi_count = preg_replace("/,/","",$moi_count);
     $moi_memo = addslashes($moi_memo);
     if($w == ''){
@@ -74,13 +77,19 @@ else if($mtyp == 'moi'){
         if($chk['cnt'])
             alert('동일한 발주ID에 동일한 제품이 이미 등록되어 있습니다.');
         $bom = sql_fetch(" SELECT bom_price FROM {$g5['bom_table']} WHERE bom_idx = '{$bom_idx}' ");
+        $moi_checked_yn = ($bom_stock_check_yn) ? '0' : '1';
         $moi_sql = " INSERT INTO {$g5['material_order_item_table']}
                         SET mto_idx = '{$mto_idx}'
                             , bom_idx = '{$bom_idx}'
                             , moi_count = '{$moi_count}'
                             , moi_price = '{$bom['bom_price']}'
+                            , mb_id_driver = '{$mb_id_driver}'
+                            , mb_id_check = '{$mb_id_check}'
                             , moi_input_date = '{$moi_input_date}'
+                            , moi_input_dt = '{$moi_input_dt}'
+                            , moi_check_yn = '{$moi_checked_yn}'
                             , moi_memo = '{$moi_memo}'
+                            , moi_check_text = '{$moi_check_text}'
                             , moi_status = '{$moi_status}'
                             , moi_reg_dt = '".G5_TIME_YMDHIS."'
                             , moi_update_dt = '".G5_TIME_YMDHIS."'
@@ -91,8 +100,14 @@ else if($mtyp == 'moi'){
     else if($w == 'u'){
         $moi_sql = " UPDATE {$g5['material_order_item_table']}
                         SET moi_count = '{$moi_count}'
+                            , mb_id_driver = '{$mb_id_driver}'
+                            , mb_id_check = '{$mb_id_check}' 
                             , moi_input_date = '{$moi_input_date}'
+                            , moi_input_dt = '{$moi_input_dt}'
+                            , moi_check_yn = '{$moi_check_yn}'
                             , moi_memo = '{$moi_memo}'
+                            , moi_history = CONCAT(moi_history,'\n{$moi_status}|".G5_TIME_YMDHIS."')
+                            , moi_check_text = '{$moi_check_text}'
                             , moi_status = '{$moi_status}'
                             , moi_update_dt = '".G5_TIME_YMDHIS."'
                     WHERE moi_idx = '{$moi_idx}'

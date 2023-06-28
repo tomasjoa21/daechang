@@ -1,0 +1,19 @@
+@charset "utf-8";
+#inp_box{text-align:center;border-top:1px solid #bbb;border-bottom:1px solid #bbb;padding:20px 0;}
+#qr_ttl{font-weight:700;font-size:1.5em;}
+#qr_desc{font-weight:700;color:darkorange;}
+#qr_scan{margin-top:10px;width:600px !important;height:100px;line-height:100px;font-size:3em;font-weight:700;text-align:center;border:10px solid #000;}
+#qr_scan.ok{border:10px solid #00f;}
+#qr_scan.error{border:10px solid #f00;}
+#qr_status{display:inline-block;width:600px;height:50px;line-height:50px;border-bottom:3px dotted #777;font-weight:700;}
+#qr_status.ok{color:#00f;}
+#qr_status.error{color:#f00;}
+
+.tbl_wrap{}
+
+.td_moi_idx{}
+.td_bom_info{}
+.td_mb_id_driver{width:110px;text-align:center;}
+.td_moi_count{width:80px;text-align:center;}
+.td_moi_input_dt{width:200px;text-align:center;}
+.td_cancel{width:80px;text-align:center;}

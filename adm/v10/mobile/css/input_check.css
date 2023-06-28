@@ -1,18 +1,20 @@
 @charset "utf-8";
 
-.plt_empty{text-align:center;padding:100px 0;border:1px solid #ccc;}
-#fplt_idx{padding:10px 0;}
-#fplt_idx input[type="text"]{height:34px;line-height:34px;padding-left:5px;}
-#fplt_idx input[type="submit"]{height:34px;line-height:34px;padding:0 10px;}
+.moi_empty{text-align:center;padding:100px 0;border:1px solid #ccc;}
 
-#plt_ttl{height:40px;line-height:40px;}
+#fmoi_idx{padding:10px 0;}
+#fmoi_idx input[type="text"]{height:34px;line-height:34px;padding-left:5px;}
+#fmoi_idx input[type="submit"]{height:34px;line-height:34px;padding:0 10px;}
+
+
+#moi_ttl{height:40px;line-height:40px;}
 .bom_nick{font-weight:600;font-size:1.2em;}
 .bom_nick span{color:darkblue;}
 .bom_nick strong{color:darkorange;}
 .chk_box{margin-top:10px;}
 .chk_box img{width:100%;height:auto;}
 
-.plt_status{margin-top:20px;font-weight:700;font-size:1.15em;}
+.moi_status{margin-top:20px;font-weight:700;font-size:1.15em;}
 
 #radio_box{margin-top:20px;}
 #radio_box:after{display:block;visibility:hidden;clear:both;content:'';}
@@ -23,7 +25,7 @@
 .radio .check_yn{display:none;}
 .radio input:checked + .radio_tag{background:darkblue;color:#fff;border:1px solid darkblue;}
 
-#plt_defect_type{width:100%;height:40px;line-height:40px;margin-top:10px;}
-#plt_defect_text{width:100%;margin-top:10px;}
+#moi_check_type{width:100%;height:40px;line-height:40px;margin-top:10px;}
+#moi_check_text{width:100%;margin-top:10px;}
 
 #btn_box{text-align:center;padding:20px 0 20px;}
