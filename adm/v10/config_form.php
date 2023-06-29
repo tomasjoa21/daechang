@@ -873,6 +873,19 @@ yearly,1,10 = 연도별,1년단위,10년치,sum(합계)'); ?>
             <col>
         </colgroup>
         <tbody>
+		<tr>
+			<th scope="row">Gmail 주소</th>
+            <td colspan="3">
+				<input type="text" name="set_gmail_address" value="<?php echo $g5['setting']['set_gmail_address'] ?>" class="frm_input" style="width:60%;">
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">Gmail 앱 비밀번호</th>
+            <td colspan="3">
+                <?php echo help('구글 계정에서 [앱 비밀번호]를 생성하고 16자리로 된 코드를 입력하세요. <a href="https://myaccount.google.com/security" target="_blank">바로가기</a>'); ?>
+				<input type="text" name="set_gmail_password" value="<?php echo $g5['setting']['set_gmail_password'] ?>" class="frm_input" style="width:60%;">
+			</td>
+		</tr>
         <tr>
             <th scope="row">코드별 전송 메일</th>
             <td colspan="3">

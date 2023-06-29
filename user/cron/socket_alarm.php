@@ -18,6 +18,7 @@
 // 999 글짜 제한이 있어서 파일이름을 줄였습니다.
 // * * * * * root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php; sleep 5; root wget -O - -q http://daechang.epcs.co.kr/user/cron/s.php
 // [root@web-37 user]# wget -O - -q -t 1 http://daechang.epcs.co.kr/user/cron/socket_alarm.php
+// 이것도 5초마다 제대로 실행이 안 되서 shell 프로그램 짜서 돌리게 되었습니다.
 include_once('./_common.php');
 
 $demo = 0;  // 데모모드 = 1

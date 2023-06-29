@@ -2758,3 +2758,23 @@ clamscan -i -r /home/daechang/www/
 clamscan -i -r --remove /home/daechang/www/
 # move infected files including sub dirs. ------------------
 clamscan -i -r --move=/virus /home/daechang/www/
+
+
+sudo grep s.php /var/log/syslog
+
+#!/bin/bash
+
+(sleep 5 && wget -O /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 10 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 15 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 20 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 25 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 30 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 35 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 40 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 45 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 50 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 55 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+(sleep 60 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
+
+

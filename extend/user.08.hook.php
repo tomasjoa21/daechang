@@ -118,14 +118,29 @@ _SCRIPT_;
 }
 
 
-// // 메일 발송이 잘 안 되서 메일을 다음쪽으로 설정함
-// add_replace("mail_options", "u_mail_options", G5_HOOK_DEFAULT_PRIORITY, 10);
-// function u_mail_options($mail, $fname, $fmail, $to, $subject, $content, $type, $file, $cc, $bcc){
-//     $mail->Host = "smtp.daum.net";
-//     $mail->Timeout = 10;
-//     $mail->SMTPAuth = true;
-//     $mail->Username = "jamesjoayo";
-//     $mail->Password = "Anne@@740620";
-//     $mail->SMTPSecure = "ssl";
-//     $mail->Port = 465;
-// }
+// 메일 발송이 잘 안 되서 메일을 다음, Gmail쪽으로 설정함
+add_replace("mail_options", "u_mail_options", G5_HOOK_DEFAULT_PRIORITY, 10);
+function u_mail_options($mail, $fname, $fmail, $to, $subject, $content, $type, $file, $cc, $bcc){
+    global $g5;
+    // daum SMTP 이용
+    // $mail->Host = "smtp.daum.net";
+    // $mail->Timeout = 10;
+    // $mail->SMTPAuth = true;
+    // $mail->Username = "kookple";
+    // $mail->Password = "khp15442549";
+    // $mail->SMTPSecure = "ssl";
+    // $mail->Port = 465;
+
+    // Gmail SMTP
+    $mail->IsHTML(true);
+    // $mail->SMTPDebug = SMTP::DEBUG_CLIENT;
+    $mail->SMTPDebug = 0;
+    $mail->Host = 'smtp.gmail.com'; //Set the hostname of the mail server
+    $mail->Port = 587;  //Set the SMTP port number - likely to be 25, 465 or 587
+    $mail->SMTPAuth = true; //Whether to use SMTP authentication
+    $mail->Username = $g5['setting']['set_gmail_address']; //Gmail Username to use for SMTP authentication
+    $mail->Password = $g5['setting']['set_gmail_password'];   //Gmail Password to use for SMTP authentication
+    $mail->setFrom($fmail, $fname);  //Set who the message is to be sent from (발신메일)
+    $mail->addReplyTo($fmail, $fname);    //Set an alternative reply-to address (받는 메일주소를 다른 서버, 도메인으로 설정 가능)
+}
+

@@ -81,7 +81,7 @@ $sql = " SELECT SQL_CALC_FOUND_ROWS DISTINCT ".$pre.".*
         {$sql_order}
 		LIMIT {$from_record}, {$rows} 
 ";
-// echo $sql;
+// echo $sql.BR;
 $result = sql_query($sql,1);
 $count = sql_fetch_array( sql_query(" SELECT FOUND_ROWS() as total ") ); 
 $total_count = $count['total'];
