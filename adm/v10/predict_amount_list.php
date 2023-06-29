@@ -69,7 +69,14 @@ $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) $page = 1; // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
-$sql = " SELECT *
+$sql = " SELECT bom.bom_idx
+            , cst_idx_provider
+            , cst_name
+            , cst_idx_customer
+            , bom.bct_idx
+            , bom_bct_json
+            , bom_name
+            , bom_part_no
         {$sql_common} {$sql_search} {$sql_group} {$sql_order}
         LIMIT {$from_record}, {$rows}
 ";
@@ -154,16 +161,16 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
         }
 
         // 과거 3일치의 생산된 수량의 평균값을 산출하기 위한 코드
-        $old_sql = " SELECT SUM(itm_value) AS sum, itm_date FROM {$g5['item_table']} itm
-                            INNER JOIN {$g5['bom_table']} bom ON itm.itm_part_no = bom.bom_part_no
+        $old_sql = " SELECT SUM(mtr_value) AS sum, mtr_date FROM {$g5['material_table']} mtr
+                            INNER JOIN {$g5['bom_table']} bom ON mtr.mtr_part_no = bom.bom_part_no
                             INNER JOIN {$g5['bom_category_table']} bct ON bom.bct_idx = bct.bct_idx
-                    WHERE itm_status NOT IN('trash','delivery','error')
-                        AND itm_part_no = '{$row['bom_part_no']}'
+                    WHERE mtr_status NOT IN('trash','delivery','defect','error','scrap')
+                        AND mtr_part_no = '{$row['bom_part_no']}'
                         {$bct_cmd}
                         {$bom_cmd}
-                    GROUP BY itm_date
-                    HAVING itm_date < '".G5_TIME_YMD."'
-                    ORDER BY itm_date DESC
+                    GROUP BY mtr_date
+                    HAVING mtr_date < '".G5_TIME_YMD."'
+                    ORDER BY mtr_date DESC
                     LIMIT 3
         ";
         // echo $old_sql;
@@ -174,6 +181,14 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
             $old_sum += $orow['sum'];
             $old_avg = floor($old_sum / ($j+1));
         }
+
+        //현재고를 추출
+        $cur_sql = " SELECT SUM(mtr_value) AS mtr_stock FROM {$g5['material_table']}
+            WHERE mtr_status IN ('ok','finish','defect')
+                AND bom_idx = '{$row['bom_idx']}'
+        ";
+        $mtr = sql_fetch($cur_sql);
+        $row['bom_stock'] = $mtr['mtr_stock'];
         
         $moi = sql_fetch(" SELECT moi_idx, mto_idx, moi_input_date FROM {$g5['material_order_item_table']}
                 WHERE bom_idx = '{$row['bom_idx']}'
@@ -209,17 +224,17 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
             if(@count($cat_arr)){
                 foreach($cat_arr as $v)
                     $cat_str .= (!$cat_str)?$g5['cats_key_val'][$v]:','.$g5['cats_key_val'][$v];
-                echo '<span class="ml_5 font_size_7">'.$cat_str.'</span>';
+                echo '<span class="ml_5 font_size_7" style="color:yellow;font-weight:700;">'.$cat_str.'</span>';
             }
             ?>
             <span class="font_size_7"><?=$g5['set_bom_type_value'][$row['bom_type']]?></span>
-            <?=$row['cst_name']?>
+            <span style="color:skyblue;"><?=$row['cst_name']?></span>
             <br>
             <?=$row['bom_name']?>
         </td><!-- 품번/품명 -->
-        <td class="td_snp"><?=number_format($row['bom_ship_count'])?></td><!-- SNP -->
+        <td class="td_snp"><?=number_format($row['bom_ship_count'])?></td><!-- SNP(패킹적재량) -->
         <td class="td_safe_stock font_size_7"><?=number_format($row['bom_safe_stock'])?></td><!-- 안전재고량 -->
-        <td class="td_safe_stock"><?=(($row['bom_stock'])?number_format($row['bom_stock']):'-')?></td><!-- 현재재고량 -->
+        <td class="td_current_stock"><?=(($row['bom_stock'])?number_format($row['bom_stock']):'-')?></td><!-- 현재재고량 -->
         <?php 
         $sum_cnt = 0;
         foreach($days as $dk=>$dv){ 
@@ -227,13 +242,18 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
         <td class="td_day_cnt">
             <?php
             // echo $old_avg;
-            $pri = sql_fetch(" SELECT pri_value FROM {$g5['production_item_table']} pri
-                            INNER JOIN {$g5['production_table']} prd ON pri.prd_idx = prd.prd_idx
-                        WHERE pri.bom_idx = '{$row['bom_idx']}'
-                            AND prd.prd_start_date = '{$dv}'
-                            AND pri_status = 'confirm'
-            ");
-            $prdict_cnt = ($pri['pri_value']) ? $pri['pri_value'] : $old_avg;
+            // $pri_sql = " SELECT pri_value
+            //                     , pri.prd_idx
+            //                     , prd.bom_idx
+            //                 FROM {$g5['production_item_table']} pri
+            //                 INNER JOIN {$g5['production_table']} prd ON pri.prd_idx = prd.prd_idx
+            //             WHERE pri.bom_idx = '{$row['bom_idx']}'
+            //                 AND prd.prd_start_date = '{$dv}'
+            //                 AND pri_status = 'confirm'
+            // ";
+            
+            // $pri = sql_fetch($pri_sql);
+            $prdict_cnt = $old_avg; //($pri['pri_value']) ? $pri['pri_value'] : $old_avg;
             $sum_cnt = $sum_cnt + $prdict_cnt;
             // echo $itm['total'].','.$sum_cnt.':'.($itm['total'] < $sum_cnt)."<br>";
             $warning = '';
@@ -249,7 +269,7 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
             <input type="text" name="moi_count[<?=$row['bom_idx']?>]" onclick="javascript:numtoprice(this)" class="frm_input moi_count wg_wdx60 wg_right">
         </td><!-- 발주수량 -->
         <td class="td_mto_idx">
-            <span class="<?=(($past)?'sp_past':'')?>"><?=$moi['mto_idx']?></span>
+            <span class="<?=(($past)?'sp_past':'')?>"><?=$moi['moi_idx']?></span>
         </td><!-- 발주ID -->
         <td class="td_prid_day wg_wdx100 font_size_8">
             <span class="<?=(($past)?'sp_past':'')?>"><?=$moi['moi_input_date']?></span>

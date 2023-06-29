@@ -55,12 +55,16 @@ sql_query($mto_sql,1);
 $mto_idx = sql_insert_id();
 
 foreach($_POST['chk'] as $bom_idx_v){
+    $bom = sql_fetch(" SELECT bom_stock_check_yn FROM {$g5['bom_table']} WHERE bom_idx = '{$bom_idx_v}' ");
+    $bom_stock_check_yn = $bom['bom_stock_check_yn'];
+    $moi_checked_yn = ($bom_stock_check_yn) ? '0' : '1';
     $moi_sql = " INSERT INTO {$g5['material_order_item_table']}
                     SET mto_idx = '{$mto_idx}'
                         , bom_idx = '{$bom_idx_v}'
                         , moi_count = '{$moi_count[$bom_idx_v]}'
                         , moi_price = '{$bom_price[$bom_idx_v]}'
                         , moi_input_date = '{$mto_input_date}'
+                        , mb_id_check = '{$moi_checked_yn}'
                         , moi_status = 'pending'
                         , moi_reg_dt = '".G5_TIME_YMDHIS."'
                         , moi_update_dt = '".G5_TIME_YMDHIS."'
