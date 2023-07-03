@@ -10,12 +10,17 @@ if($member['mb_manager_yn']) {
     //                     <a href="./config_schedule.php" class="btn_top_menu '.$active_config_schedule.'">프로젝트일정</a>
     // ';
 }
-
-$g5['container_sub_title'] = '
+$ex_member_yn = ($member['mb_8'] && $member['mb_8'] != $_SESSION['ss_com_idx']) ? true : false;
+$g5['container_sub_title'] = ($ex_member_yn) ? '
 <h2 id="container_sub_title">
     '.$sub_title_list.'
-    <a href="./material_stock_list.php" class="btn_top_menu '.$active_material_stock_list.'">자재관리</a>
-    <a href="./material_list.php" class="btn_top_menu '.$active_material_list.'">자재현황</a>
+    <a href="./material_order_list.php" class="btn_top_menu '.$active_material_order_list.'">발주관리</a>
+</h2>' :
+'
+<h2 id="container_sub_title">
+    '.$sub_title_list.'
+    <a href="./material_order_list.php" class="btn_top_menu '.$active_material_order_list.'">발주관리</a>
+    <a href="./predict_amount_list.php" class="btn_top_menu '.$active_predict_amount_list.'">자재소요량산출</a>
 </h2>
 ';
 ?>

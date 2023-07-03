@@ -1,11 +1,13 @@
 <?php
-$sub_menu = "922110";
+$sub_menu = "922150";
+// $sub_menu = "922110";
 include_once('./_common.php');
 
 auth_check($auth[$sub_menu], 'r');
 
 $g5['title'] = '자재소요량산출';
-include_once('./_top_menu_production.php');
+include_once('./_top_menu_material_order.php');
+// include_once('./_top_menu_production.php');
 include_once('./_head.php');
 echo $g5['container_sub_title'];
 
@@ -27,6 +29,11 @@ $where[] = " bom_status NOT IN ('trash','delete') ";
 $where[] = " bom.com_idx = '".$_SESSION['ss_com_idx']."' ";
 $where[] = " bom.bom_type != 'product' ";
 $where[] = " bom.bom_type != 'half' ";
+
+//공급처 검색
+if($provider){
+    $where[] = " cst.cst_idx = '".$provider."' ";
+}
 
 // 검색어 설정
 if ($stx != "") {
@@ -94,6 +101,15 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
 
 <form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
     <label for="sfl" class="sound_only">검색대상</label>
+    <select name="provider" id="provider">
+        <option value="">::공급업체::</option>
+        <?php foreach($g5['provider_key_val'] as $pk => $pv){ ?>
+        <option value="<?=$pk?>"><?=$pv?></option>
+        <?php } ?>
+    </select>
+    <?php if($provider){ ?>
+    <script>$('#provider').val('<?=$provider?>');</script>
+    <?php } ?>
     <select name="sfl" id="sfl">
         <option value="bct.bct_name"<?php echo get_selected($_GET['sfl'], "bct.bct_name"); ?>>차종</option>
         <option value="bom.bom_part_no"<?php echo get_selected($_GET['sfl'], "bom.bom_part_no"); ?>>품목코드</option>
@@ -135,7 +151,7 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
             <label for="chkall" class="sound_only">전체</label>
             <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
         </th>
-        <th scope="col">ID</th>
+        <th scope="col">제품ID</th>
         <th scope="col" style="min-width:250px;">품번/품명</th>
         <th scope="col">SNP</th>
         <th scope="col">안전재고</th>
@@ -144,7 +160,7 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
         <th scope="col"><?=substr($dv,5,5).'('.get_yoil($dv).')'?></th>
         <?php } ?>
         <th scope="col">발주수량</th>
-        <th scope="col">최근발주ID</th>
+        <th scope="col">최근발주제품ID</th>
         <th scope="col">입고예정일</th>
     </tr>
     </thead>
