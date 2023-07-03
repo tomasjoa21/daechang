@@ -171,7 +171,7 @@ include_once('./_head.php');
         </li>
         <?php } ?>
         <?php if($i == 0){ ?>
-        <li class="li_empty">데이터가 존재하지 않습니다.<br>설비번호를 입력박스에<br>입력하고 검색해 주세요.</li>
+        <li class="li_empty">데이터가 존재하지 않습니다.<br>설비고유번호를 입력박스에<br>입력하고 검색해 주세요.</li>
         <li>
         <form id="fmms_idx" method="GET">
             <input type="text" name="mms_idx" value="<?=$mms_idx?>">
