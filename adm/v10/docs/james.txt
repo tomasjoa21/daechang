@@ -2778,3 +2778,6 @@ sudo grep s.php /var/log/syslog
 (sleep 60 && wget -o /dev/null -q -t 1 http://daechang.epcs.co.kr/user/cron/s.php > /dev/null) &
 
 
+SELECT * FROM g5_1_alarm WHERE arm_reg_dt >= '2023-07-03 14:55:27' ORDER BY arm_reg_dt
+SELECT * FROM g5_1_alarm WHERE arm_reg_dt >= '2023-07-03 16:34:58' ORDER BY arm_reg_dt
+

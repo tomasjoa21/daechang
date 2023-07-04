@@ -44,8 +44,8 @@ if($one['mta_idx']) {
     $sql_end_dt = date("Y-m-d H:i:s", strtotime($one['mta_reg_dt'])+7);   // 7 seconds from now (5초보다 조금 더 넉넉하게..)
     // echo $sql_end_dt.BR;
     $sql_where = " WHERE sck_idx > '".$one['mta_db_id']."' AND sck_dt <= '".$sql_end_dt."' ";
-    // if time difference is too much(2 hour), start recent ones.
-    if( strtotime($one['mta_reg_dt'])+3600*2 < G5_SERVER_TIME ) {
+    // if time difference is too much(1 hour), start recent ones.
+    if( strtotime($one['mta_reg_dt'])+3600*1 < G5_SERVER_TIME ) {
         $one['mta_idx'] = 0;
     }
 }
@@ -106,7 +106,7 @@ for($i=0;$row=sql_fetch_array_pg($rs);$i++) {
         for($k=0;$k<sizeof($arr[$j]);$k++) {
             // echo $arr[$j][$k].BR;
             if($arr[$j][$k]) {
-                $alarm[$row['sck_ip']][$row['sck_port']][$j][$k] = $row['sck_dt'];
+                $alarm[$i][$row['sck_ip']][$row['sck_port']][$j][$k] = $row['sck_dt'];
             }
         }
     }
@@ -135,33 +135,37 @@ for($i=0;$row=sql_fetch_array_pg($rs);$i++) {
 // 알람데이터 처리 (5초동안 alarm이 있었던 것들만 디비 저장)
 // print_r2($alarm);
 // print_r2($g5['socket_alarm']);
-foreach($alarm as $k1=>$v1) {
+foreach($alarm as $k0=>$v0) {
     $arr = array(); // reset
-    // echo $k1.'/'.$v1.BR; // $k1=sck_ip
-    $arr['sck_ip'] = $k1;
-    foreach($v1 as $k2=>$v2) {
-        // echo $k2.'/'.$v2.BR; // $k2=sck_port
-        $arr['sck_port'] = $k2;
-        foreach($v2 as $k3=>$v3) {
-            // echo $k3.'/'.$v3.BR; // $k3=sck_no
-            foreach($v3 as $k4=>$v4) {
-                // echo $k4.'/'.$v4.BR; // $k4=sck_bit, $v4=sck_value
-                // echo 'ip='.$k1.', port='.$k2.', arrno='.$k3.', bit='.$k4.', dt='.$v4.BR; // $k4=sck_bit, $v4=sck_value
-                // print_r2($g5['socket_alarm'][$k1][$k2][$k3][$k4]);
-                $ar['table']  = 'g5_1_alarm';
-                $ar['com_idx']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['com_idx'];
-                $ar['mms_idx']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['mms_idx'];
-                $ar['cod_idx']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_idx'];
-                $ar['arm_cod_code']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_code'];
-                $ar['arm_cod_type']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_type'];
-                $ar['arm_send_type']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_send_type'];
-                $ar['cod_interval']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_interval'];
-                $ar['cod_count']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_count'];
-                $ar['arm_keys']  = '~mms_idx='.$ar['mms_idx'].'~,~cod_code='.$ar['arm_cod_code'].'~,~cod_interval='.$ar['cod_interval'].'~,~cod_count='.$ar['cod_count'].'~,';
-                $ar['arm_status']  = 'ok';
-                $ar['arm_reg_dt']  = $v4;
-                $arm_idx = update_db($ar);
-                unset($ar);
+    // echo $k0.'/'.$v0.BR; // $k0=일련번호
+    foreach($v0 as $k1=>$v1) {
+        $arr['sck_ip'] = $k1;
+        foreach($v1 as $k2=>$v2) {
+            // echo $k2.'/'.$v2.BR; // $k2=sck_port
+            $arr['sck_port'] = $k2;
+            foreach($v2 as $k3=>$v3) {
+                // echo $k3.'/'.$v3.BR; // $k3=sck_no
+                foreach($v3 as $k4=>$v4) {
+                    // echo $k4.'/'.$v4.BR; // $k4=sck_bit, $v4=sck_value
+                    // print_r2($v4);
+                    // echo 'ip='.$k1.', port='.$k2.', arrno='.$k3.', bit='.$k4.', dt='.$v4.BR; // $k4=sck_bit, $v4=sck_value
+                    // print_r2($g5['socket_alarm'][$k1][$k2][$k3][$k4]);
+                    $ar['table']  = 'g5_1_alarm';
+                    $ar['com_idx']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['com_idx'];
+                    $ar['mms_idx']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['mms_idx'];
+                    $ar['cod_idx']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_idx'];
+                    $ar['arm_cod_code']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_code'];
+                    $ar['arm_cod_type']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_type'];
+                    $ar['arm_send_type']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_send_type'];
+                    $ar['cod_interval']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_interval'];
+                    $ar['cod_count']  = $g5['socket_alarm'][$k1][$k2][$k3][$k4]['cod_count'];
+                    $ar['arm_keys']  = '~mms_idx='.$ar['mms_idx'].'~,~cod_code='.$ar['arm_cod_code'].'~,~cod_interval='.$ar['cod_interval'].'~,~cod_count='.$ar['cod_count'].'~,';
+                    $ar['arm_status']  = 'ok';
+                    $ar['arm_reg_dt']  = $v4;
+                    // print_r2($ar);
+                    $arm_idx = update_db($ar);
+                    unset($ar);
+                }
             }
         }
     }

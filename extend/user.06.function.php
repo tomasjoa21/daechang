@@ -781,6 +781,7 @@ function update_db($arr)
     $row = sql_fetch($sql,1);
 	if($row[$pre."_idx"]) {
 		$sql = " UPDATE {$arr['table']} SET {$sql_common} WHERE ".$pre."_idx = '".$row[$pre."_idx"]."' ";
+        // echo $sql.BR;
 		sql_query($sql,1);
 
         if($arr['table']=='g5_1_bom') {

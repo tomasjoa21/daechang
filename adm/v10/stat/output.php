@@ -143,7 +143,7 @@ include_once('./_top_search.php');
                     ?>
                 </tbody>
                 </table>
-            </div><!-- .div_info_body -->    
+            </div><!-- .div_info_body -->
 
     </div>
     <div class="report_container">

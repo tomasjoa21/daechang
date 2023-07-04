@@ -297,7 +297,7 @@ i.fa-remove {cursor:pointer;}
 		<th scope="row"><label for="cod_memo">알림내용 (메모)</label></th>
 		<td colspan="3">
             <input type="hidden" name="cod_suggest_yn" value="<?=($g5['setting']['cod_suggest_yn'])?'1':''?>">
-            <label style="display:block;margin-bottom:10px;"><input type="checkbox" <?=($cod['cod_suggest_yn'])?'checked':''?> id="cod_suggest_yn"> 조치내용 자동제안</label>
+            <label style="display:block;margin-bottom:10px;display:none;"><input type="checkbox" <?=($cod['cod_suggest_yn'])?'checked':''?> id="cod_suggest_yn"> 조치내용 자동제안</label>
             <script>
             $(document).on('click','#cod_suggest_yn',function(e){
                 if($(this).is(':checked')) {$('input[name=cod_suggest_yn]').val(1);}
