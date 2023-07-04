@@ -232,7 +232,7 @@ $(document).on('input','#qr_scan',function(e){
             
             $('#qr_scan').val('').select().focus();
         }
-    }, 700);
+    }, 900);
 });
 
 //취소버튼 클릭시
