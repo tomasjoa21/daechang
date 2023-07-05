@@ -64,7 +64,7 @@ include_once('./_head.php');
         </li>
     <?php } ?>
     </ul>
-    <p class="plt_status">
+    <p class="plt_status" style="margin-top:20px;">
         파레트상태 : <?=$g5['set_plt_status_value'][$plt['plt_status']]?>
     </p>
     <form name="form01" id="form01" action="./check_update.php" onsubmit="return form01_submit(this);">
