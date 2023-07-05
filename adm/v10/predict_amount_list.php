@@ -27,8 +27,9 @@ $where = array();
 // 디폴트 검색조건 (used 제외)
 $where[] = " bom_status NOT IN ('trash','delete') ";
 $where[] = " bom.com_idx = '".$_SESSION['ss_com_idx']."' ";
-$where[] = " bom.bom_type != 'product' ";
-$where[] = " bom.bom_type != 'half' ";
+// $where[] = " bom.bom_type != 'product' ";
+// $where[] = " bom.bom_type != 'half' ";
+$where[] = " bom.bom_type NOT IN ('half','product') ";
 
 //공급처 검색
 if($provider){
@@ -203,6 +204,7 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
             WHERE mtr_status IN ('ok','finish','defect')
                 AND bom_idx = '{$row['bom_idx']}'
         ";
+        // echo $cur_sql."<br>";
         $mtr = sql_fetch($cur_sql);
         $row['bom_stock'] = $mtr['mtr_stock'];
         

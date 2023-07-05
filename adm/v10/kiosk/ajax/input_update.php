@@ -23,7 +23,7 @@ if($res['ok']){
         //moi_idx번호가 존재하는지 확인
         $chk_sql = " SELECT COUNT(*) AS cnt, bom_idx FROM {$g5['material_order_item_table']} WHERE moi_idx = '{$moi_idx}' AND moi_check_yn = '1' AND moi_status IN ('ok','ready') ";
         $chk = sql_fetch($chk_sql);
-        $bom = sql_fetch(" SELECT * FROM {$g5['bom_table']} WHERE bom_idx = '{$chk['bom_dix']}' ");
+        $bom = sql_fetch(" SELECT * FROM {$g5['bom_table']} WHERE bom_idx = '{$chk['bom_idx']}' ");
         //입고처리 불가능할때
         if(!$chk['cnt']){
             $res['ok'] = false;
