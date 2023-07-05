@@ -76,7 +76,7 @@ include_once('./_head.php');
             </div>
         </li>
     </ul>
-    <p class="mtr_status">
+    <p class="mtr_status" style="margin-top:20px;">
         발주제품상태 : <?=$g5['set_moi_status_value'][$moi['moi_status']]?>
     </p>
     <form name="form01" id="form01" action="./input_check_update.php" onsubmit="return form01_submit(this);">
