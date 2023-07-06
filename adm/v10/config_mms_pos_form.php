@@ -51,11 +51,18 @@ $pg_anchor = '<ul class="anchor">
         </ul>
     </div>	
 </section>
-
-<div class="btn_fixed_top btn_confirm" style="display:none;">
-    <input type="submit" value="확인" class="btn_submit btn" accesskey="s">
+</form>
+<form name="mmsselectform" id="mmsselectform" method="post" onsubmit="return mmsselectform_submit(this);">
+<div class="btn_fixed_top btn_confirm" style="display:no ne;">
+    <select name="mms_idx">
+        <option value="">::설비선택::</option>
+        <?php foreach($g5['mms_arr'] as $mk => $mv){ ?>
+        <option value="<?=$mk?>"><?=$mv?></option>
+        <?php } ?>
+    </select>
+    <input type="submit" name="act_button" value="표시" onclick="document.pressed=this.value" class="btn wg_btn_success">
+    <input type="submit" name="act_button" value="비표시" onclick="document.pressed=this.value" class="btn wg_btn_danger">
 </div>
-
 </form>
 
 <script>
@@ -94,6 +101,15 @@ function fconfigform_submit(f) {
     <?php ;//echo chk_editor_js("mng_msg_content"); ?>
 
     f.action = "./config_mms_pos_form_update.php";
+    return true;
+}
+
+function mmsselectform_submit(f) {
+
+    <?php ;//echo get_editor_js("mng_msg_content"); ?>
+    <?php ;//echo chk_editor_js("mng_msg_content"); ?>
+
+    f.action = "./config_mms_select_form_update.php";
     return true;
 }
 </script>

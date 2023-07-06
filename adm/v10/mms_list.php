@@ -383,7 +383,7 @@ $(function(e) {
             //stuff to do on mouse enter
             //console.log($(this).attr('od_id')+' mouseenter');
             //$(this).find('td').css('background','red');
-            $('tr[tr_id='+$(this).attr('tr_id')+']').find('td').css('background','#e6e6e6 ');
+            $('tr[tr_id='+$(this).attr('tr_id')+']').find('td').css('background','#232323 ');
             
         },
         mouseleave: function () {
