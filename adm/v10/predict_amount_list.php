@@ -170,10 +170,10 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
     for ($i=0; $row=sql_fetch_array($result); $i++) {
         $bct_cmd = '';
         $bom_cmd = '';
-        if($sfl == 'bct.bct_name'){
+        if($sfl == 'bct.bct_name' && $stx){
             $bct_cmd = ' AND json_value(bom_bct_json, "$[*]") = "'.$g5['cats_val_key'][strtoupper($stx)].'" ';
         }
-        if($sfl == 'bom.bom_name'){
+        if($sfl == 'bom.bom_name' && $stx){
             $bom_cmd = ' AND bom.bom_name LIKE "%'.$stx.'%" ';
         }
 
@@ -190,7 +190,7 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
                     ORDER BY mtr_date DESC
                     LIMIT 3
         ";
-        // echo $old_sql;
+        // echo $old_sql."<br>";
         $old_res = sql_query($old_sql,1);
         $old_sum = 0;
         $old_avg = 0;
