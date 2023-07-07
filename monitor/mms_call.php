@@ -18,13 +18,15 @@ $res = sql_query($sql,1);
     <?php for($i=0;$row=sql_fetch_array($res);$i++){ 
         $pri_sql = " SELECT pri_ing FROM {$g5['production_item_table']} pri
                 LEFT JOIN {$g5['production_table']} prd ON pri.prd_idx = prd.prd_idx
-            WHERE com_idx = '{$g5['setting']['set_com_idx']}'
+            WHERE pri.com_idx = '{$g5['setting']['set_com_idx']}'
                 AND prd_status = 'confirm'
                 AND pri_ing = '1'
                 AND mms_idx = '{$row['mms_idx']}'
                 AND prd_start_date = '".G5_TIME_YMD."'
+            ORDER BY pri_idx DESC
             LIMIT 1
         "; 
+        // echo $pri_sql."<br>";
         $pri = sql_fetch($pri_sql);
 
         $row['mms_pos_x'] = $row['mms_pos_x'] * 2;
