@@ -35,7 +35,7 @@ $pg_anchor = '<ul class="anchor">
             <?php for($i=0;$row=sql_fetch_array($res);$i++){
             $pri_sql = " SELECT pri_ing FROM {$g5['production_item_table']} pri
                     LEFT JOIN {$g5['production_table']} prd ON pri.prd_idx = prd.prd_idx
-                WHERE com_idx = '{$_SESSION['ss_com_idx']}'
+                WHERE pri.com_idx = '{$_SESSION['ss_com_idx']}'
                     AND prd_status = 'confirm'
                     AND pri_ing = '1'
                     AND mms_idx = '{$row['mms_idx']}'
