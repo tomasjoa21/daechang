@@ -277,8 +277,10 @@ $qstr .= '&sca='.$sca.'&prd_start_date='.$prd_start_date.'&prd_done_date='.$prd_
             $warning = '';
             if($row['bom_stock']){
                 $warning = ($row['bom_stock'] < $sum_cnt) ? 'sp_warning' : '';
+            }else{
+                $warning = 'sp_warning';
             }
-            $prdict_str = ($prdict_cnt) ? '<span class="'.$warning.'">'.number_format($prdict_cnt).'</span>' : '-';
+            $prdict_str = ($prdict_cnt) ? '<span class="'.$warning.'" t="'.$row['bom_stock'].'">'.number_format($prdict_cnt).'</span>' : '-';
             echo $prdict_str;
             ?>
         </td>
