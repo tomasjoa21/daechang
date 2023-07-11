@@ -76,7 +76,7 @@ include_once('./_head.php');
             </label>
             <label class="radio">
                 <input type="radio" class="check_yn" name="plt_check_yn"<?=(($plt['plt_check_yn'])?' checked':'')?> value="1"> 
-                <p class="radio_tag">검사완료!</p>
+                <p class="radio_tag">검사완료(합격)!</p>
             </label>
         </div>
         <!--select name="plt_defect_type" id="plt_defect_type">
