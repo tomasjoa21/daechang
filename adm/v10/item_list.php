@@ -345,6 +345,7 @@ function search_detail(flag) {
         // print_r2($row);
         $row['cst_customer'] = get_table('customer','cst_idx',$row['cst_idx_customer'],'cst_name');
         $row['mb1'] = get_table('member','mb_id',$row['mb_id'],'mb_name');
+        $row['bct'] = get_table('bom_category','bct_idx',$row['bct_idx'],'bct_name');
         // print_r2($row['cst_customer']);
 
 		$fle_width = '30';
@@ -398,7 +399,7 @@ function search_detail(flag) {
         <td class="td_bom_part_no font_size_7"><?=$row['bom_part_no']?></td><!-- 품번 -->
         <td class="td_itm_name font_size_7"><?=$row['bom_name']?></td><!-- 품명 -->
         <td class="td_itm_type font_size_7"><?=$g5['set_itm_type_value'][$row['itm_type']]?></td><!-- 구분 -->
-        <td class="td_bct_idx"><?=$row['bct_idx']?></td><!-- 차종 -->
+        <td class="td_bct_idx"><?=$row['bct']['bct_name']?></td><!-- 차종 -->
         <td class="td_cst_name_customer font_size_7"><?=$row['cst_customer']['cst_name']?></td><!-- 납품처 -->
         <td class="td_mb_name font_size_7"><?=$row['mb1']['mb_name']?></td><!-- 작업자 -->
         <td class="td_trm_idx_location"><?=$row['trm_idx_location']?></td><!-- 제품위치 -->
