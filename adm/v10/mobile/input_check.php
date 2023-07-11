@@ -96,8 +96,8 @@ include_once('./_head.php');
             <?php //echo $g5['set_defect_type_options']?>
         </select-->
         <p style="color:red;font-weight:700;padding-top:20px;">
-            제품에 문제가 있으면 "검사완료!"는 누르지 말고<br>
-            반려사유만 기입하세요.
+            제품에 문제가 있으면 "검사완료(합격)!"는 누르지 말고<br>
+            반려사유만 기입하고, "확인"버튼을 눌러주세요.
         </p>
         <textarea name="moi_check_text" id="moi_check_text" rows="3" placeholder="반려사유를 기입하세요."><?php echo $moi['moi_check_text']?></textarea>
         <div id="btn_box">
