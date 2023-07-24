@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>대시보드 | EPCS2</title>
+<link rel="stylesheet" href="http://daechang.epcs.co.kr/ecps3/default.css">
+<link rel="stylesheet" href="http://daechang.epcs.co.kr/ecps3/js/font-awesome/css/font-awesome.min.css?ver=210618">
+<link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/ui-darkness/jquery-ui.css?ver=210618">
+<link rel="stylesheet" href="http://daechang.epcs.co.kr/ecps3/js/jquery-ui-1.12.1/jquery-ui.structure.min.css?ver=210618">
+<link rel="stylesheet" href="http://daechang.epcs.co.kr/ecps3/js/datetimepicker/jquery.datetimepicker.min.css?ver=210618">
+<link rel="stylesheet" href="http://daechang.epcs.co.kr/ecps3/css/index.css?ver=210618">
+<script src="http://daechang.epcs.co.kr/ecps3/js/jquery-1.12.4.min.js?ver=210618"></script>
+</head>
+
+<body>
+<header id="hd">
+    <div id="hd_top">
+        <button type="button" id="btn_gnb" class="btn_gnb_close ">메뉴</button>
+       <div id="logo"><a href="http://daechang.epcs.co.kr/adm/"><img src="http://daechang.epcs.co.kr/adm/img/logo.png" alt="EPCS2 관리자"></a></div>
+
+        <div id="tnb">
+            <ul>
+                <li class="tnb_li"><a href="http://daechang.epcs.co.kr/" class="tnb_community" title="홈페이지 바로가기">홈페이지 바로가기</a></li>
+                <li class="tnb_li"><button type="button" class="tnb_mb_btn">관리자<span class="./img/btn_gnb.png">메뉴열기</span></button>
+                    <ul class="tnb_mb_area">
+                        <li><a href="http://daechang.epcs.co.kr/adm/member_form.php?w=u&amp;mb_id=super">관리자정보</a></li>
+                        <li id="tnb_logout"><a href="http://daechang.epcs.co.kr/bbs/logout.php">로그아웃</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <nav id="gnb" class="gnb_large ">
+        <h2>관리자 주메뉴</h2>
+        <ul class="gnb_ul">
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-100 menu-order-1" title="환경설정(100)">환경설정</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>환경설정</h3>
+                        <ul><li data-menu="100100"111><a href="http://daechang.epcs.co.kr/adm/config_form.php" class="gnb_2da" id="dash_cf_basic">기본환경설정</a></li><li data-menu="100200"111><a href="http://daechang.epcs.co.kr/adm/auth_list.php" class="gnb_2da" id="dash_cf_auth">관리권한설정</a></li><li data-menu="100280"111><a href="http://daechang.epcs.co.kr/adm/theme.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_theme">테마설정</a></li><li data-menu="100290"111><a href="http://daechang.epcs.co.kr/adm/menu_list.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_menu">메뉴설정</a></li><li data-menu="100300"111><a href="http://daechang.epcs.co.kr/adm/sendmail_test.php" class="gnb_2da" id="dash_cf_mailtest">메일 테스트</a></li><li data-menu="100310"111><a href="http://daechang.epcs.co.kr/adm/newwinlist.php" class="gnb_2da" id="dash_scf_poplayer">팝업레이어관리</a></li><li data-menu="100800"111><a href="http://daechang.epcs.co.kr/adm/session_file_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_session">세션파일 일괄삭제</a></li><li data-menu="100900"111><a href="http://daechang.epcs.co.kr/adm/cache_file_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_cache">캐시파일 일괄삭제</a></li><li data-menu="100910"111><a href="http://daechang.epcs.co.kr/adm/captcha_file_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_captcha">캡챠파일 일괄삭제</a></li><li data-menu="100920"111><a href="http://daechang.epcs.co.kr/adm/thumbnail_file_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_thumbnail">썸네일파일 일괄삭제</a></li><li data-menu="100500"111><a href="http://daechang.epcs.co.kr/adm/phpinfo.php" class="gnb_2da" id="dash_cf_phpinfo">phpinfo()</a></li><li data-menu="100510"111><a href="http://daechang.epcs.co.kr/adm/browscap.php" class="gnb_2da" id="dash_cf_browscap">Browscap 업데이트</a></li><li data-menu="100520"111><a href="http://daechang.epcs.co.kr/adm/browscap_convert.php" class="gnb_2da" id="dash_cf_visit_cnvrt">접속로그 변환</a></li><li data-menu="100410"111><a href="http://daechang.epcs.co.kr/adm/dbupgrade.php" class="gnb_2da" id="dash_db_upgrade">DB업그레이드</a></li><li data-menu="100400"111><a href="http://daechang.epcs.co.kr/adm/service.php" class="gnb_2da" id="dash_cf_service">부가서비스</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-200 menu-order-2" title="회원관리(200)">회원관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>회원관리</h3>
+                        <ul><li data-menu="200100"111><a href="http://daechang.epcs.co.kr/adm/member_list.php" class="gnb_2da" id="dash_mb_list">회원관리</a></li><li data-menu="200300"111><a href="http://daechang.epcs.co.kr/adm/mail_list.php" class="gnb_2da" id="dash_mb_mail">회원메일발송</a></li><li data-menu="200800"111><a href="http://daechang.epcs.co.kr/adm/visit_list.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_mb_visit">접속자집계</a></li><li data-menu="200810"111><a href="http://daechang.epcs.co.kr/adm/visit_search.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_mb_search">접속자검색</a></li><li data-menu="200820"111><a href="http://daechang.epcs.co.kr/adm/visit_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_mb_delete">접속자로그삭제</a></li><li data-menu="200200"111><a href="http://daechang.epcs.co.kr/adm/point_list.php" class="gnb_2da" id="dash_mb_point">포인트관리</a></li><li data-menu="200900"111><a href="http://daechang.epcs.co.kr/adm/poll_list.php" class="gnb_2da" id="dash_mb_poll">투표관리</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-300 menu-order-3" title="게시판관리(300)">게시판관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>게시판관리</h3>
+                        <ul><li data-menu="300100"111><a href="http://daechang.epcs.co.kr/adm/board_list.php" class="gnb_2da" id="dash_bbs_board">게시판관리</a></li><li data-menu="300200"111><a href="http://daechang.epcs.co.kr/adm/boardgroup_list.php" class="gnb_2da" id="dash_bbs_group">게시판그룹관리</a></li><li data-menu="300300"111><a href="http://daechang.epcs.co.kr/adm/popular_list.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_bbs_poplist">인기검색어관리</a></li><li data-menu="300400"111><a href="http://daechang.epcs.co.kr/adm/popular_rank.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_bbs_poprank">인기검색어순위</a></li><li data-menu="300500"111><a href="http://daechang.epcs.co.kr/adm/qa_config.php" class="gnb_2da" id="dash_qa">1:1문의설정</a></li><li data-menu="300600"111><a href="http://daechang.epcs.co.kr/adm/contentlist.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_scf_contents">내용관리</a></li><li data-menu="300700"111><a href="http://daechang.epcs.co.kr/adm/faqmasterlist.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_scf_faq">FAQ관리</a></li><li data-menu="300820"111><a href="http://daechang.epcs.co.kr/adm/write_count.php" class="gnb_2da" id="dash_scf_write_count">글,댓글 현황</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-400 menu-order-4" title="쇼핑몰관리(400)">쇼핑몰관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>쇼핑몰관리</h3>
+                        <ul><li data-menu="400010"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/" class="gnb_2da" id="dash_shop_index">쇼핑몰현황</a></li><li data-menu="400100"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/configform.php" class="gnb_2da" id="dash_scf_config">쇼핑몰설정</a></li><li data-menu="400400"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/orderlist.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_scf_order">주문내역</a></li><li data-menu="400440"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/personalpaylist.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_scf_personalpay">개인결제관리</a></li><li data-menu="400200"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/categorylist.php" class="gnb_2da" id="dash_scf_cate">분류관리</a></li><li data-menu="400300"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/itemlist.php" class="gnb_2da" id="dash_scf_item">상품관리</a></li><li data-menu="400660"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/itemqalist.php" class="gnb_2da" id="dash_scf_item_qna">상품문의</a></li><li data-menu="400650"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/itemuselist.php" class="gnb_2da" id="dash_scf_ps">사용후기</a></li><li data-menu="400620"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/itemstocklist.php" class="gnb_2da" id="dash_scf_item_stock">상품재고관리</a></li><li data-menu="400610"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/itemtypelist.php" class="gnb_2da" id="dash_scf_item_type">상품유형관리</a></li><li data-menu="400500"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/optionstocklist.php" class="gnb_2da" id="dash_scf_item_option">상품옵션재고관리</a></li><li data-menu="400800"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/couponlist.php" class="gnb_2da" id="dash_scf_coupon">쿠폰관리</a></li><li data-menu="400810"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/couponzonelist.php" class="gnb_2da" id="dash_scf_coupon_zone">쿠폰존관리</a></li><li data-menu="400750"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/sendcostlist.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_scf_sendcost">추가배송비관리</a></li><li data-menu="400410"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/inorderlist.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_scf_inorder">미완료주문</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-500 menu-order-5" title="쇼핑몰현황/기타(500)">쇼핑몰현황/기타</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>쇼핑몰현황/기타</h3>
+                        <ul><li data-menu="500110"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/sale1.php" class="gnb_2da" id="dash_sst_order_stats">매출현황</a></li><li data-menu="500100"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/itemsellrank.php" class="gnb_2da" id="dash_sst_rank">상품판매순위</a></li><li data-menu="500120"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/orderprint.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_sst_print_order">주문내역출력</a></li><li data-menu="500400"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/itemstocksms.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_sst_stock_sms">재입고SMS알림</a></li><li data-menu="500300"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/itemevent.php" class="gnb_2da" id="dash_scf_event">이벤트관리</a></li><li data-menu="500310"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/itemeventlist.php" class="gnb_2da" id="dash_scf_event_mng">이벤트일괄처리</a></li><li data-menu="500500"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/bannerlist.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_scf_banner">배너관리</a></li><li data-menu="500140"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/wishlist.php" class="gnb_2da" id="dash_sst_wish">보관함현황</a></li><li data-menu="500210"111><a href="http://daechang.epcs.co.kr/adm/shop_admin/price.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_sst_compare">가격비교사이트</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-900 menu-order-6" title="SMS 관리(900)">SMS 관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>SMS 관리</h3>
+                        <ul><li data-menu="900100"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/config.php" class="gnb_2da" id="dash_sms5_config">SMS 기본설정</a></li><li data-menu="900200"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/member_update.php" class="gnb_2da" id="dash_sms5_mb_update">회원정보업데이트</a></li><li data-menu="900300"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/sms_write.php" class="gnb_2da" id="dash_sms_write">문자 보내기</a></li><li data-menu="900400"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/history_list.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_sms_history">전송내역-건별</a></li><li data-menu="900410"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/history_num.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_sms_history_num">전송내역-번호별</a></li><li data-menu="900500"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/form_group.php" class="gnb_2da" id="dash_emoticon_group">이모티콘 그룹</a></li><li data-menu="900600"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/form_list.php" class="gnb_2da" id="dash_emoticon_list">이모티콘 관리</a></li><li data-menu="900700"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/num_group.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_hp_group">휴대폰번호 그룹</a></li><li data-menu="900800"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/num_book.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_hp_manage">휴대폰번호 관리</a></li><li data-menu="900900"111><a href="http://daechang.epcs.co.kr/adm/sms_admin/num_book_file.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_hp_file">휴대폰번호 파일</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-910 menu-order-7" title="관리/설정(910)">관리/설정</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>관리/설정</h3>
+                        <ul><li data-menu="910110"111><a href="http://daechang.epcs.co.kr/adm/v10/config_form.php" class="gnb_2da" id="dash_config_form">솔루션설정</a></li><li data-menu="910120"111><a href="http://daechang.epcs.co.kr/adm/v10/term_list.php" class="gnb_2da" id="dash_term_list">분류설정</a></li><li data-menu="910130"111><a href="http://daechang.epcs.co.kr/adm/v10/manager_list.php" class="gnb_2da" id="dash_manager_list">관리자관리</a></li><li data-menu="910140"111><a href="http://daechang.epcs.co.kr/adm/v10/config_manager_form.php" class="gnb_2da" id="dash_config_manager_form">관리자설정</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li on">
+                <button type="button" class="btn_op menu-915 menu-order-8" title="대시보드(915)">대시보드</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>대시보드</h3>
+                        <ul id="ul_dash_submenu"><li data-menu="915110" class="li_dash_submenu" mta_idx="1264" sort="1"><a href="http://daechang.epcs.co.kr/adm/v10/index.php?idx=1264" class="gnb_2da on" id="dash_1">대시보드</a></li><li data-menu="915900" class="li_dash_submenu" mta_idx="" sort="add_dashboard"><a href="javascript:" class="gnb_2da" id="dash_add_dashboard"><span>대시보드추가</span> <i class="fa fa-plus" aria-hidden="true"></i></a></li></ul><ul id='ul_dash_add'></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-918 menu-order-9" title="수주/출하(918)">수주/출하</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>수주/출하</h3>
+                        <ul><li data-menu="918110"111><a href="http://daechang.epcs.co.kr/adm/v10/order_list.php" class="gnb_2da" id="dash_order_list">수주관리</a></li><li data-menu="918120"111><a href="http://daechang.epcs.co.kr/adm/v10/shipment_list.php" class="gnb_2da" id="dash_shipment_list">출하관리</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-922 menu-order-10" title="생산/재고(922)">생산/재고</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>생산/재고</h3>
+                        <ul><li data-menu="922110"111><a href="http://daechang.epcs.co.kr/adm/v10/production_list.php" class="gnb_2da" id="dash_production_list">생산계획</a></li><li data-menu="922120"111><a href="http://daechang.epcs.co.kr/adm/v10/item_worker_today_list.php" class="gnb_2da" id="dash_item_worker_today_list">생산현황</a></li><li data-menu="922130"111><a href="http://daechang.epcs.co.kr/adm/v10/material_stock_list.php" class="gnb_2da" id="dash_material_stock_list">자재관리</a></li><li data-menu="922140"111><a href="http://daechang.epcs.co.kr/adm/v10/item_stock_list.php" class="gnb_2da" id="dash_item_stock_list">재고관리</a></li><li data-menu="922145"111><a href="http://daechang.epcs.co.kr/adm/v10/item_status_list.php" class="gnb_2da" id="dash_item_status_list">제품상태관리</a></li><li data-menu="922150"111><a href="http://daechang.epcs.co.kr/adm/v10/material_order_list.php" class="gnb_2da" id="dash_material_order_list">발주관리</a></li><li data-menu="922160"111><a href="http://daechang.epcs.co.kr/adm/v10/pallet_list.php" class="gnb_2da" id="dash_pallet_list">빠레트관리</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-925 menu-order-11" title="통합설비관리(925)">통합설비관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>통합설비관리</h3>
+                        <ul><li data-menu="925110"111><a href="http://daechang.epcs.co.kr/adm/v10/system/index.php" class="gnb_2da" id="dash_index">실시간모니터링</a></li><li data-menu="925120"111><a href="http://daechang.epcs.co.kr/adm/v10/system/graph.php" class="gnb_2da" id="dash_graph.php">설비측정그래프</a></li><li data-menu="925700"111><a href="http://daechang.epcs.co.kr/adm/v10/system/alarm_data_list.php" class="gnb_2da" id="dash_alarm_data_list">알람리스트</a></li><li data-menu="925710"111><a href="http://daechang.epcs.co.kr/adm/v10/system/pre_data_list.php" class="gnb_2da" id="dash_pre_data_list">예지리스트</a></li><li data-menu="925800"111><a href="http://daechang.epcs.co.kr/adm/v10/system/alarm_code_list.php" class="gnb_2da" id="dash_alarm_code_list">알람코드관리</a></li><li data-menu="925900"111><a href="http://daechang.epcs.co.kr/adm/v10/system/config_form.php" class="gnb_2da" id="dash_config_form">설비관리설정</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-930 menu-order-12" title="정비관리(930)">정비관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>정비관리</h3>
+                        <ul><li data-menu="930110"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=plan" class="gnb_2da" id="dash_bo_table_plan">계획정비관리</a></li><li data-menu="930120"111><a href="http://daechang.epcs.co.kr/adm/v10/maintain_list.php" class="gnb_2da" id="dash_maintain_list">정비조치관리</a></li><li data-menu="930130"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=parts" class="gnb_2da" id="dash_bo_table_parts">부품재고관리</a></li><li data-menu="930140"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=manual" class="gnb_2da" id="dash_bo_table_manual">매뉴얼관리</a></li><li data-menu="930150"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=drawing" class="gnb_2da" id="dash_bo_table_drawing">설비사양서</a></li><li data-menu="930160"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=contact" class="gnb_2da" id="dash_bo_table_contact">A/S연락처</a></li><li data-menu="930170"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=help" class="gnb_2da" id="dash_bo_table_help">헬프데스크</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-935 menu-order-13" title="통계/보고(935)">통계/보고</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>통계/보고</h3>
+                        <ul><li data-menu="935110"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/output.php" class="gnb_2da" id="dash_output">생산보고서</a></li><li data-menu="935120"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/alarm.php" class="gnb_2da" id="dash_alarm">알람보고서</a></li><li data-menu="935130"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/predict.php" class="gnb_2da" id="dash_predict">예지보고서</a></li><li data-menu="935140"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/maintain.php" class="gnb_2da" id="dash_maintain">정비및재고</a></li><li data-menu="935150"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/repair.php" class="gnb_2da" id="dash_repair">조치보고서</a></li><li data-menu="935900"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/config_form.php" class="gnb_2da" id="dash_config_form">통계설정</a></li></ul>                    </div>
+                </div>
+            </li>
+                        <li class="gnb_li">
+                <button type="button" class="btn_op menu-940 menu-order-14" title="기준정보관리(940)">기준정보관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>기준정보관리</h3>
+                        <ul><li data-menu="940110"111><a href="http://daechang.epcs.co.kr/adm/v10/employee_list.php" class="gnb_2da" id="dash_employee_list">사원정보관리</a></li><li data-menu="940115"111><a href="http://daechang.epcs.co.kr/adm/v10/customer_list.php" class="gnb_2da" id="dash_customer_list">거래처관리</a></li><li data-menu="940120"111><a href="http://daechang.epcs.co.kr/adm/v10/bom_list.php" class="gnb_2da" id="dash_bom_list">BOM</a></li><li data-menu="940130"111><a href="http://daechang.epcs.co.kr/adm/v10/mms_list.php" class="gnb_2da" id="dash_mms_list">설비관리</a></li><li data-menu="940135"111><a href="http://daechang.epcs.co.kr/adm/v10/shift_list.php" class="gnb_2da" id="dash_shift_list">작업교대관리</a></li><li data-menu="940160"111><a href="http://daechang.epcs.co.kr/adm/v10/db/pg_socket_list.php" class="gnb_2da" id="dash_pg_socket_list.php">데이터조회</a></li></ul>                    </div>
+                </div>
+            </li>
+                    </ul>
+    </nav>
+</header>
+
+<div id="wrapper">
+
+    <div id="container" class="">
+
+        <h1 id="container_title">
+            <span clas="ds_ttl">대시보드</span><i class="fa fa-cogs ds_edit_btn" aria-hidden="true" style="margin-left:10px;cursor:pointer;display:none;"></i>
+<div id="bs_top_right" class="bs_edit">
+    <span>크기: </span>
+    <select name="pkr_width" id="pkr_width">
+        <option value="">가로</option>
+        <option value="1">1칸</option><option value="2">2칸</option><option value="3">3칸</option><option value="4">4칸</option>    </select>
+    <span id="sp_x">×</span>
+    <select name="pkr_height" id="pkr_height">
+        <option value="">세로</option>
+        <option value="1">1칸</option><option value="2">2칸</option><option value="3">3칸</option><option value="4">4칸</option>    </select>
+    <!--
+    <span>공통패딩: </span>
+    <select name="pkr_padding" id="pkr_padding">
+        </select>
+    -->
+    <button class="btn btn_01" id="grid_add">위젯추가</button>
+</div><!--//#bs_top_right-->
+<script>
+$('#grid_add').on('click',function(){
+    var ajax_url = g5_user_admin_ajax_url+'/grid_add.php';
+    // var sub_menu = '915110';
+    var mta_idx = 1264;
+    var wd = $(this).siblings('#pkr_width').val();
+    var ht = $(this).siblings('#pkr_height').val();
+
+    if(!wd || !ht){
+        alert('[가로 X 세로]크기를 제대로 선택해 주세요.');
+        return false;
+    }
+    // var pd = $(this).siblings('#pkr_padding').val();
+    // console.log('mta_idx:'+mta_idx+', width:'+wd+', height:'+ht);
+    $.ajax({
+        type: 'POST',
+        url: ajax_url,
+        // dataType: 'text'
+        data: {'menu_mta_idx':mta_idx,'grid_width':wd,'grid_height':ht},
+        success: function(res){
+            location.reload();
+        },
+        error: function(req){
+            alert('Status: ' + req.status + ' \n\rstatusText: ' + req.statusText + ' \n\rresponseText: ' + req.responseText);
+        }
+    });
+});
+</script>        </h1>
+        <div class="container_wr">
+
+</div>
+<footer id="ft" style="display:none;">
+    <p>
+        Copyright &copy; daechang.epcs.co.kr. All rights reserved. Version 5.5.8.2.4<br>
+        <button type="button" class="scroll_top"><span class="top_img"></span><span class="top_txt">TOP</span></button>
+    </p>
+</footer>
+</div>
+
+</div>
+
+</body>
+</html>

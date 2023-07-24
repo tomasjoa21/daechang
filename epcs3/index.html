@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>사원관리 | EPCS2</title>
+<!-- <link rel="stylesheet" href="http://daechang.epcs.co.kr/adm/css/admin.css?ver=210618"> -->
+<link rel="stylesheet" href="http://daechang.epcs.co.kr/epcs3/css/adm.css?ver=210618">
+<link rel="stylesheet" href="http://daechang.epcs.co.kr/adm/v10/css/user.css?ver=210618">
+<link rel="stylesheet" href="http://daechang.epcs.co.kr/epcs3/css/default.css">
+</head>
+<body>
+<header id="hd">
+    <div id="hd_top">
+        <button type="button" id="btn_gnb" class="btn_gnb_close ">메뉴</button>
+        <div id="logo"><a href="http://daechang.epcs.co.kr/adm/v10">EPCS ADMIN</a></div>
+        <div id="tnb">
+            <ul>
+                <li class="tnb_li"><a href="http://daechang.epcs.co.kr/" class="tnb_community" title="홈페이지 바로가기">홈페이지 바로가기</a></li>
+                <li class="tnb_li"><button type="button" class="tnb_mb_btn">관리자<span class="./img/btn_gnb.png">메뉴열기</span></button>
+                    <ul class="tnb_mb_area">
+                        <li><a href="http://daechang.epcs.co.kr/adm/member_form.php?w=u&amp;mb_id=super">관리자정보</a></li>
+                        <li id="tnb_logout"><a href="http://daechang.epcs.co.kr/bbs/logout.php">로그아웃</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <nav id="gnb" class="gnb_large ">
+        <ul class="gnb_ul">
+            <li class="gnb_li">
+                <button type="button" class="btn_op menu-100 menu-order-1" title="환경설정(100)">환경설정</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>환경설정</h3>
+                        <ul><li data-menu="100100"111><a href="http://daechang.epcs.co.kr/adm/config_form.php" class="gnb_2da" id="dash_cf_basic">기본환경설정</a></li><li data-menu="100200"111><a href="http://daechang.epcs.co.kr/adm/auth_list.php" class="gnb_2da" id="dash_cf_auth">관리권한설정</a></li><li data-menu="100280"111><a href="http://daechang.epcs.co.kr/adm/theme.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_theme">테마설정</a></li><li data-menu="100290"111><a href="http://daechang.epcs.co.kr/adm/menu_list.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_menu">메뉴설정</a></li><li data-menu="100300"111><a href="http://daechang.epcs.co.kr/adm/sendmail_test.php" class="gnb_2da" id="dash_cf_mailtest">메일 테스트</a></li><li data-menu="100310"111><a href="http://daechang.epcs.co.kr/adm/newwinlist.php" class="gnb_2da" id="dash_scf_poplayer">팝업레이어관리</a></li><li data-menu="100800"111><a href="http://daechang.epcs.co.kr/adm/session_file_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_session">세션파일 일괄삭제</a></li><li data-menu="100900"111><a href="http://daechang.epcs.co.kr/adm/cache_file_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_cache">캐시파일 일괄삭제</a></li><li data-menu="100910"111><a href="http://daechang.epcs.co.kr/adm/captcha_file_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_captcha">캡챠파일 일괄삭제</a></li><li data-menu="100920"111><a href="http://daechang.epcs.co.kr/adm/thumbnail_file_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_cf_thumbnail">썸네일파일 일괄삭제</a></li><li data-menu="100500"111><a href="http://daechang.epcs.co.kr/adm/phpinfo.php" class="gnb_2da" id="dash_cf_phpinfo">phpinfo()</a></li><li data-menu="100510"111><a href="http://daechang.epcs.co.kr/adm/browscap.php" class="gnb_2da" id="dash_cf_browscap">Browscap 업데이트</a></li><li data-menu="100520"111><a href="http://daechang.epcs.co.kr/adm/browscap_convert.php" class="gnb_2da" id="dash_cf_visit_cnvrt">접속로그 변환</a></li><li data-menu="100410"111><a href="http://daechang.epcs.co.kr/adm/dbupgrade.php" class="gnb_2da" id="dash_db_upgrade">DB업그레이드</a></li><li data-menu="100400"111><a href="http://daechang.epcs.co.kr/adm/service.php" class="gnb_2da" id="dash_cf_service">부가서비스</a></li></ul>
+                    </div>
+                </div>
+            </li>
+            <li class="gnb_li">
+                <button type="button" class="btn_op menu-200 menu-order-2" title="회원관리(200)">회원관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>회원관리</h3>
+                        <ul><li data-menu="200100"111><a href="http://daechang.epcs.co.kr/adm/member_list.php" class="gnb_2da" id="dash_mb_list">회원관리</a></li><li data-menu="200300"111><a href="http://daechang.epcs.co.kr/adm/mail_list.php" class="gnb_2da" id="dash_mb_mail">회원메일발송</a></li><li data-menu="200800"111><a href="http://daechang.epcs.co.kr/adm/visit_list.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_mb_visit">접속자집계</a></li><li data-menu="200810"111><a href="http://daechang.epcs.co.kr/adm/visit_search.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_mb_search">접속자검색</a></li><li data-menu="200820"111><a href="http://daechang.epcs.co.kr/adm/visit_delete.php" class="gnb_2da gnb_grp_style gnb_grp_div" id="dash_mb_delete">접속자로그삭제</a></li><li data-menu="200200"111><a href="http://daechang.epcs.co.kr/adm/point_list.php" class="gnb_2da" id="dash_mb_point">포인트관리</a></li><li data-menu="200900"111><a href="http://daechang.epcs.co.kr/adm/poll_list.php" class="gnb_2da" id="dash_mb_poll">투표관리</a></li></ul>
+                    </div>
+                </div>
+            </li>
+            <li class="gnb_li">
+                <button type="button" class="btn_op menu-910 menu-order-7" title="관리/설정(910)">관리/설정</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>관리/설정</h3>
+                        <ul><li data-menu="910110"111><a href="http://daechang.epcs.co.kr/adm/v10/config_form.php" class="gnb_2da" id="dash_config_form">솔루션설정</a></li><li data-menu="910120"111><a href="http://daechang.epcs.co.kr/adm/v10/term_list.php" class="gnb_2da" id="dash_term_list">분류설정</a></li><li data-menu="910130"111><a href="http://daechang.epcs.co.kr/adm/v10/manager_list.php" class="gnb_2da" id="dash_manager_list">관리자관리</a></li><li data-menu="910140"111><a href="http://daechang.epcs.co.kr/adm/v10/config_manager_form.php" class="gnb_2da" id="dash_config_manager_form">관리자설정</a></li></ul>
+                    </div>
+                </div>
+            </li>
+            <li class="gnb_li">
+                <button type="button" class="btn_op menu-915 menu-order-8" title="대시보드(915)">대시보드</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>대시보드</h3>
+                        <ul id="ul_dash_submenu"><li data-menu="915110" class="li_dash_submenu" mta_idx="1264" sort="1"><a href="http://daechang.epcs.co.kr/adm/v10/index.php?idx=1264" class="gnb_2da" id="dash_1">대시보드</a></li></ul><ul id='ul_dash_add'></ul>
+                    </div>
+                </div>
+            </li>
+            <li class="gnb_li">
+                <button type="button" class="btn_op menu-918 menu-order-9" title="수주/출하(918)">수주/출하</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>수주/출하</h3>
+                        <ul><li data-menu="918110"111><a href="http://daechang.epcs.co.kr/adm/v10/order_list.php" class="gnb_2da" id="dash_order_list">수주관리</a></li><li data-menu="918120"111><a href="http://daechang.epcs.co.kr/adm/v10/shipment_list.php" class="gnb_2da" id="dash_shipment_list">출하관리</a></li></ul>
+                    </div>
+                </div>
+            </li>
+            <li class="gnb_li">
+                <button type="button" class="btn_op menu-922 menu-order-10" title="생산/재고(922)">생산/재고</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>생산/재고</h3>
+                        <ul><li data-menu="922110"111><a href="http://daechang.epcs.co.kr/adm/v10/production_list.php" class="gnb_2da" id="dash_production_list">생산계획</a></li><li data-menu="922120"111><a href="http://daechang.epcs.co.kr/adm/v10/item_worker_today_list.php" class="gnb_2da" id="dash_item_worker_today_list">생산현황</a></li><li data-menu="922130"111><a href="http://daechang.epcs.co.kr/adm/v10/material_stock_list.php" class="gnb_2da" id="dash_material_stock_list">자재관리</a></li><li data-menu="922140"111><a href="http://daechang.epcs.co.kr/adm/v10/item_stock_list.php" class="gnb_2da" id="dash_item_stock_list">재고관리</a></li><li data-menu="922145"111><a href="http://daechang.epcs.co.kr/adm/v10/item_status_list.php" class="gnb_2da" id="dash_item_status_list">제품상태관리</a></li><li data-menu="922150"111><a href="http://daechang.epcs.co.kr/adm/v10/material_order_list.php" class="gnb_2da" id="dash_material_order_list">발주관리</a></li><li data-menu="922160"111><a href="http://daechang.epcs.co.kr/adm/v10/pallet_list.php" class="gnb_2da" id="dash_pallet_list">빠레트관리</a></li></ul>
+                    </div>
+                </div>
+            </li>
+            <li class="gnb_li">
+                <button type="button" class="btn_op menu-925 menu-order-11" title="통합설비관리(925)">통합설비관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>통합설비관리</h3>
+                        <ul><li data-menu="925110"111><a href="http://daechang.epcs.co.kr/adm/v10/system/index.php" class="gnb_2da" id="dash_index">실시간모니터링</a></li><li data-menu="925120"111><a href="http://daechang.epcs.co.kr/adm/v10/system/graph.php" class="gnb_2da" id="dash_graph.php">설비측정그래프</a></li><li data-menu="925700"111><a href="http://daechang.epcs.co.kr/adm/v10/system/alarm_data_list.php" class="gnb_2da" id="dash_alarm_data_list">알람리스트</a></li><li data-menu="925710"111><a href="http://daechang.epcs.co.kr/adm/v10/system/pre_data_list.php" class="gnb_2da" id="dash_pre_data_list">예지리스트</a></li><li data-menu="925800"111><a href="http://daechang.epcs.co.kr/adm/v10/system/alarm_code_list.php" class="gnb_2da" id="dash_alarm_code_list">알람코드관리</a></li><li data-menu="925900"111><a href="http://daechang.epcs.co.kr/adm/v10/system/config_form.php" class="gnb_2da" id="dash_config_form">설비관리설정</a></li></ul>                    </div>
+                </div>
+            </li>
+            <li class="gnb_li">
+                <button type="button" class="btn_op menu-930 menu-order-12" title="정비관리(930)">정비관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>정비관리</h3>
+                        <ul><li data-menu="930110"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=plan" class="gnb_2da" id="dash_bo_table_plan">계획정비관리</a></li><li data-menu="930120"111><a href="http://daechang.epcs.co.kr/adm/v10/maintain_list.php" class="gnb_2da" id="dash_maintain_list">정비조치관리</a></li><li data-menu="930130"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=parts" class="gnb_2da" id="dash_bo_table_parts">부품재고관리</a></li><li data-menu="930140"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=manual" class="gnb_2da" id="dash_bo_table_manual">매뉴얼관리</a></li><li data-menu="930150"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=drawing" class="gnb_2da" id="dash_bo_table_drawing">설비사양서</a></li><li data-menu="930160"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=contact" class="gnb_2da" id="dash_bo_table_contact">A/S연락처</a></li><li data-menu="930170"111><a href="http://daechang.epcs.co.kr/adm/v10/bbs/board.php?bo_table=help" class="gnb_2da" id="dash_bo_table_help">헬프데스크</a></li></ul>
+                    </div>
+                </div>
+            </li>
+            <li class="gnb_li">
+                <button type="button" class="btn_op menu-935 menu-order-13" title="통계/보고(935)">통계/보고</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>통계/보고</h3>
+                        <ul><li data-menu="935110"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/output.php" class="gnb_2da" id="dash_output">생산보고서</a></li><li data-menu="935120"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/alarm.php" class="gnb_2da" id="dash_alarm">알람보고서</a></li><li data-menu="935130"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/predict.php" class="gnb_2da" id="dash_predict">예지보고서</a></li><li data-menu="935140"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/maintain.php" class="gnb_2da" id="dash_maintain">정비및재고</a></li><li data-menu="935150"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/repair.php" class="gnb_2da" id="dash_repair">조치보고서</a></li><li data-menu="935900"111><a href="http://daechang.epcs.co.kr/adm/v10/stat/config_form.php" class="gnb_2da" id="dash_config_form">통계설정</a></li></ul>
+                    </div>
+                </div>
+            </li>
+            <li class="gnb_li on">
+                <button type="button" class="btn_op menu-940 menu-order-14" title="기준정보관리(940)">기준정보관리</button>
+                <div class="gnb_oparea_wr">
+                    <div class="gnb_oparea">
+                        <h3>기준정보관리</h3>
+                        <ul><li data-menu="940110"111><a href="http://daechang.epcs.co.kr/adm/v10/employee_list.php" class="gnb_2da on" id="dash_employee_list">사원정보관리</a></li><li data-menu="940115"111><a href="http://daechang.epcs.co.kr/adm/v10/customer_list.php" class="gnb_2da" id="dash_customer_list">거래처관리</a></li><li data-menu="940120"111><a href="http://daechang.epcs.co.kr/adm/v10/bom_list.php" class="gnb_2da" id="dash_bom_list">BOM</a></li><li data-menu="940130"111><a href="http://daechang.epcs.co.kr/adm/v10/mms_list.php" class="gnb_2da" id="dash_mms_list">설비관리</a></li><li data-menu="940135"111><a href="http://daechang.epcs.co.kr/adm/v10/shift_list.php" class="gnb_2da" id="dash_shift_list">작업교대관리</a></li><li data-menu="940160"111><a href="http://daechang.epcs.co.kr/adm/v10/db/pg_socket_list.php" class="gnb_2da" id="dash_pg_socket_list.php">데이터조회</a></li></ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div id="wrapper">
+<div id="container">
+    <div id="container_title">사원관리
+        <div class="container_title_brief">
+            <a href="/adm/v10/employee_list.php" class="ov_listall">전체목록</a>
+            <span class="btn_ov01"><span class="ov_txt">총 </span><span class="ov_num"> 140건 </span></span>
+        </div>
+    </div>
+    <div class="container_wr">
+        <div class="local_desc01 local_desc">
+            <p>업체명이 변경되는 경우 기존 정보와 혼란이 생길 수 있으므로 업체명이 바뀌면 히스토리에 저장됩니다. (히스토리 항목은 수정할 수 없습니다.)</p>
+        </div>
+        
+        <form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
+            <label for="sfl" class="sound_only">검색대상</label>
+            <select name="sfl" id="sfl">
+                <option value="mb_name">이름</option>
+                <option value="mb.mb_id">아이디</option>
+                <option value="mb_email">E-MAIL</option>
+                <option value="mb_hp">휴대폰번호</option>
+            </select>
+            <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+            <input type="text" name="stx" value="" id="stx" required class="required frm_input">
+            <input type="submit" class="btn_submit" value="검색">
+        </form>
+
+        <form name="fmemberlist" id="fmemberlist" action="./employee_list_update.php" onsubmit="return fmemberlist_submit(this);" method="post">
+        <div class="tbl_head01 tbl_wrap">
+            <table>
+            <caption>사원관리 목록</caption>
+            <thead>
+                <tr>
+                    <th scope="col" id="mb_list_chk">
+                        <label for="chkall" class="sound_only">회원 전체</label>
+                        <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+                    </th>
+                    <th scope="col"><a href="/adm/v10/employee_list.php?&amp;sst=mb_name&amp;sod=asc&amp;sfl=&amp;stx=&amp;sca=&amp;page=1">이름</a></th>
+                    <th scope="col"><a href="/adm/v10/employee_list.php?&amp;sst=cmm_title&amp;sod=asc&amp;sfl=&amp;stx=&amp;sca=&amp;page=1">직함</a></th>
+                    <th scope="col">업체명</a></th>
+                    <th scope="col"><a href="/adm/v10/employee_list.php?&amp;sst=mb_id&amp;sod=asc&amp;sfl=&amp;stx=&amp;sca=&amp;page=1">아이디</a></th>
+                    <th scope="col">휴대폰</th>
+                    <th scope="col">이메일</th>
+                    <th scope="col" style="width:100px;"><a href="/adm/v10/employee_list.php?&amp;sst=mb_datetime&amp;sod=asc&amp;sfl=&amp;stx=&amp;sca=&amp;page=1">등록일</a></th>
+                    <th scope="col">관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg0" tr_id="1687829207">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[0]" value="1687829207" id="mb_id_0">
+                        <label for="chk_0" class="sound_only">성협테스트기사 1687829207님</label>
+                        <input type="checkbox" name="chk[]" value="0" id="chk_0">
+                    </td>
+                    <td class="td_mb_name">성협테스트기사</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1687829207</td>
+                    <td class="td_hp">01023459871</td>
+                    <td class="td_mb_email">test@test.com</td>
+                    <td class="td_date">23-06-27</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1687829207" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg1" tr_id="01025141739">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[1]" value="01025141739" id="mb_id_1">
+                        <label for="chk_1" class="sound_only">떠이2 떠이2님</label>
+                        <input type="checkbox" name="chk[]" value="1" id="chk_1">
+                    </td>
+                    <td class="td_mb_name">떠이2</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name">(주)대창공업</td>
+                    <td class="td_mb_id">01025141739</td>
+                    <td class="td_hp">010-2514-1739</td>
+                    <td class="td_mb_email">noboru.k1@gmail.com</td>
+                    <td class="td_date">23-06-26</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=01025141739" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg0" tr_id="1687430911">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[2]" value="1687430911" id="mb_id_2">
+                        <label for="chk_2" class="sound_only">성협담당자 1687430911님</label>
+                        <input type="checkbox" name="chk[]" value="2" id="chk_2">
+                    </td>
+                    <td class="td_mb_name">성협담당자</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1687430911</td>
+                    <td class="td_hp">01024632999</td>
+                    <td class="td_mb_email">sunghyub@naver.com</td>
+                    <td class="td_date">23-06-22</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1687430911" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg1" tr_id="1687408603">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[3]" value="1687408603" id="mb_id_3">
+                        <label for="chk_3" class="sound_only">dsc_kj1 1687408603님</label>
+                        <input type="checkbox" name="chk[]" value="3" id="chk_3">
+                    </td>
+                    <td class="td_mb_name">dsc_kj1</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1687408603</td>
+                    <td class="td_hp">010-2222-3333</td>
+                    <td class="td_mb_email">dsc_kj1@hanmail.net</td>
+                    <td class="td_date">23-06-22</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1687408603" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg0" tr_id="01077777777">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[4]" value="01077777777" id="mb_id_4">
+                        <label for="chk_4" class="sound_only">알베리 알베리님</label>
+                        <input type="checkbox" name="chk[]" value="4" id="chk_4">
+                    </td>
+                    <td class="td_mb_name">알베리</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name">(주)대창공업</td>
+                    <td class="td_mb_id">01077777777</td>
+                    <td class="td_hp">010-5936-3040</td>
+                    <td class="td_mb_email">67@naver.com</td>
+                    <td class="td_date">23-05-19</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=01077777777" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg1" tr_id="1684312478">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[5]" value="1684312478" id="mb_id_5">
+                        <label for="chk_5" class="sound_only">이명진 1684312478님</label>
+                        <input type="checkbox" name="chk[]" value="5" id="chk_5">
+                    </td>
+                    <td class="td_mb_name">이명진</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1684312478</td>
+                    <td class="td_hp">010-4149-7311</td>
+                    <td class="td_mb_email">19@naver.com</td>
+                    <td class="td_date">23-05-17</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1684312478" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg0" tr_id="1684312413">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[6]" value="1684312413" id="mb_id_6">
+                        <label for="chk_6" class="sound_only">임종범 1684312413님</label>
+                        <input type="checkbox" name="chk[]" value="6" id="chk_6">
+                    </td>
+                    <td class="td_mb_name">임종범</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1684312413</td>
+                    <td class="td_hp">010-7632-1749</td>
+                    <td class="td_mb_email">18@naver.com</td>
+                    <td class="td_date">23-05-17</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1684312413" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg1" tr_id="1684312365">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[7]" value="1684312365" id="mb_id_7">
+                        <label for="chk_7" class="sound_only">최진영 1684312365님</label>
+                        <input type="checkbox" name="chk[]" value="7" id="chk_7">
+                    </td>
+                    <td class="td_mb_name">최진영</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1684312365</td>
+                    <td class="td_hp">010-2806-6219</td>
+                    <td class="td_mb_email">17@naver.com</td>
+                    <td class="td_date">23-05-17</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1684312365" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg0" tr_id="1684312315">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[8]" value="1684312315" id="mb_id_8">
+                        <label for="chk_8" class="sound_only">이광호 1684312315님</label>
+                        <input type="checkbox" name="chk[]" value="8" id="chk_8">
+                    </td>
+                    <td class="td_mb_name">이광호</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1684312315</td>
+                    <td class="td_hp">010-2063-4320</td>
+                    <td class="td_mb_email">15@naver.com</td>
+                    <td class="td_date">23-05-17</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1684312315" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg1" tr_id="1684312245">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[9]" value="1684312245" id="mb_id_9">
+                        <label for="chk_9" class="sound_only">전억수 1684312245님</label>
+                        <input type="checkbox" name="chk[]" value="9" id="chk_9">
+                    </td>
+                    <td class="td_mb_name">전억수</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1684312245</td>
+                    <td class="td_hp">010-4918-7975</td>
+                    <td class="td_mb_email">16@naver.com</td>
+                    <td class="td_date">23-05-17</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1684312245" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg0" tr_id="1684312192">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[10]" value="1684312192" id="mb_id_10">
+                        <label for="chk_10" class="sound_only">김동민 1684312192님</label>
+                        <input type="checkbox" name="chk[]" value="10" id="chk_10">
+                    </td>
+                    <td class="td_mb_name">김동민</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1684312192</td>
+                    <td class="td_hp">010-9950-4436</td>
+                    <td class="td_mb_email">14@naver.com</td>
+                    <td class="td_date">23-05-17</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1684312192" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg1" tr_id="1684312128">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[11]" value="1684312128" id="mb_id_11">
+                        <label for="chk_11" class="sound_only">정기혁 1684312128님</label>
+                        <input type="checkbox" name="chk[]" value="11" id="chk_11">
+                    </td>
+                    <td class="td_mb_name">정기혁</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1684312128</td>
+                    <td class="td_hp">010-3198-8771</td>
+                    <td class="td_mb_email">13@naver.com</td>
+                    <td class="td_date">23-05-17</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1684312128" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg0" tr_id="1684312010">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[12]" value="1684312010" id="mb_id_12">
+                        <label for="chk_12" class="sound_only">정성주 1684312010님</label>
+                        <input type="checkbox" name="chk[]" value="12" id="chk_12">
+                    </td>
+                    <td class="td_mb_name">정성주</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1684312010</td>
+                    <td class="td_hp">010-2578-3934</td>
+                    <td class="td_mb_email">12@naver.com</td>
+                    <td class="td_date">23-05-17</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1684312010" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg1" tr_id="1684311877">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[13]" value="1684311877" id="mb_id_13">
+                        <label for="chk_13" class="sound_only">이수동 1684311877님</label>
+                        <input type="checkbox" name="chk[]" value="13" id="chk_13">
+                    </td>
+                    <td class="td_mb_name">이수동</td>
+                    <td class="td_cmm_title"></td>
+                    <td class="td_com_name"></td>
+                    <td class="td_mb_id">1684311877</td>
+                    <td class="td_hp">010-4879-0771</td>
+                    <td class="td_mb_email">11@naver.com</td>
+                    <td class="td_date">23-05-17</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=1684311877" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+
+                
+                <tr class="bg0" tr_id="ym100">
+                    <td class="td_chk">
+                        <input type="hidden" name="mb_id[14]" value="ym100" id="mb_id_14">
+                        <label for="chk_14" class="sound_only">김정수 ym100님</label>
+                        <input type="checkbox" name="chk[]" value="14" id="chk_14">
+                    </td>
+                    <td class="td_mb_name">김정수</td>
+                    <td class="td_cmm_title">부사장</td>
+                    <td class="td_com_name">(주)대창공업</td>
+                    <td class="td_mb_id">ym100</td>
+                    <td class="td_hp">010-3813-3855</td>
+                    <td class="td_mb_email"></td>
+                    <td class="td_date">23-04-02</td>
+                    <td class="td_mng td_mng_s">
+                        <a href="./employee_form.php?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;w=u&amp;mb_id=ym100" class="btn btn_03">수정</a><!-- 수정 -->
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+
+        <div class="btn_fixed_top">
+            <a href="javascript:" id="btn_excel_upload2" class="btn btn_02">임직원엑셀등록</a>
+            <a href="javascript:" id="btn_excel_upload" class="btn btn_02" style="margin-right:50px;">작업자엑셀등록</a>
+            <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="btn btn_02" style="display:none;">
+            <input type="submit" name="act_button" value="선택탈퇴" onclick="document.pressed=this.value" class="btn btn_02">
+            <a href="./employee_form.php" id="member_add" class="btn btn_01">추가하기</a>
+        </div>
+        </form>
+
+        <nav class="pg_wrap">
+            <span class="pg">
+                <strong class="pg_current">1</strong><span class="sound_only">페이지</span>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=2" class="pg_page">2<span class="sound_only">페이지</span></a>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=3" class="pg_page">3<span class="sound_only">페이지</span></a>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=4" class="pg_page">4<span class="sound_only">페이지</span></a>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=5" class="pg_page">5<span class="sound_only">페이지</span></a>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=6" class="pg_page">6<span class="sound_only">페이지</span></a>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=7" class="pg_page">7<span class="sound_only">페이지</span></a>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=8" class="pg_page">8<span class="sound_only">페이지</span></a>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=9" class="pg_page">9<span class="sound_only">페이지</span></a>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=10" class="pg_page">10<span class="sound_only">페이지</span></a>
+                <a href="?sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=10" class="pg_page pg_end">맨끝</a>
+            </span>
+        </nav>
+    </div><!-- class="container_wr" -->
+</div><!-- id="container" -->
+</div><!-- id="wrapper" -->
+
+</body>
+</html>
