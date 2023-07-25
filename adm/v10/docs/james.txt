@@ -2781,6 +2781,8 @@ sudo grep s.php /var/log/syslog
 SELECT * FROM g5_1_alarm WHERE arm_reg_dt >= '2023-07-03 14:55:27' ORDER BY arm_reg_dt
 SELECT * FROM g5_1_alarm WHERE arm_reg_dt >= '2023-07-03 16:34:58' ORDER BY arm_reg_dt
 
+DELETE FROM `g5_1_alarm` WHERE arm_idx < 2400000;
+DELETE FROM `g5_1_alarm` WHERE arm_idx < 2480000;
 
 
 

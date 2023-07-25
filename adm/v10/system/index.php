@@ -232,129 +232,128 @@ $st_time = ($st_time) ? $st_time : date("H:i:s",strtotime($en_date.' '.$en_time)
         </div>
     </div>
     <div class="div_container">
-        <div class="div_left">
+        <div class="div_left" style="display:none;">
         <span class="span_title">로봇데이터</span>
             <a href="./robot_list.php" class="more">더보기</a>
             <div id="chart3">
                 <span class="text01"><i class="fa fa-spinner fa-spin"></i></span>
             </div>
             <script>
-            // Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-v.json', function (data) {
-            Highcharts.getJSON('http://hanjoo.epcs.co.kr/user/json/stat_robot.php?token=1099de5drf09&st_date=<?=$st_date?>&en_date=<?=$en_date?>', function (data) {
-                // create the chart
-                Highcharts.setOptions({
-                    lang: {
-                        thousandsSep: ',',
-                        decimalPoint: '.'
-                    }
-                });
-                Highcharts.chart('chart3', {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        type: 'category',
-                        labels: {
-                            style: {
-                                fontSize: '10px',
-                                fontFamily: 'Verdana, sans-serif'
-                            }
-                        }
-                    },
-                    navigation: {
-                        buttonOptions: {
-                            enabled: false, // contextButton (인쇄, 다운로드..) 설정 (기본옵션 사용자들에게는 안 보이게!!)
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    tooltip: {
-                        pointFormat: '<b>{point.y:,.0f}</b>'
-                    },
-                    series: [{
-                        name: 'Population',
-                        data: data,
-                        dataLabels: {
-                            enabled: true,
-                            rotation: -90,
-                            color: '#FFFFFF',
-                            align: 'right',
-                            format: '{point.y:,.0f}', // one decimal
-                            y: 10, // 10 pixels down from the top
-                            style: {
-                                fontSize: '10px',
-                                fontFamily: 'Verdana, sans-serif'
-                            }
-                        }
-                    }]
-                });
-            });
+            // Highcharts.getJSON('http://hanjoo.epcs.co.kr/user/json/stat_robot.php?token=1099de5drf09&st_date=<?=$st_date?>&en_date=<?=$en_date?>', function (data) {
+            //     // create the chart
+            //     Highcharts.setOptions({
+            //         lang: {
+            //             thousandsSep: ',',
+            //             decimalPoint: '.'
+            //         }
+            //     });
+            //     Highcharts.chart('chart3', {
+            //         chart: {
+            //             type: 'column'
+            //         },
+            //         title: {
+            //             text: ''
+            //         },
+            //         xAxis: {
+            //             type: 'category',
+            //             labels: {
+            //                 style: {
+            //                     fontSize: '10px',
+            //                     fontFamily: 'Verdana, sans-serif'
+            //                 }
+            //             }
+            //         },
+            //         navigation: {
+            //             buttonOptions: {
+            //                 enabled: false, // contextButton (인쇄, 다운로드..) 설정 (기본옵션 사용자들에게는 안 보이게!!)
+            //             }
+            //         },
+            //         legend: {
+            //             enabled: false
+            //         },
+            //         tooltip: {
+            //             pointFormat: '<b>{point.y:,.0f}</b>'
+            //         },
+            //         series: [{
+            //             name: 'Population',
+            //             data: data,
+            //             dataLabels: {
+            //                 enabled: true,
+            //                 rotation: -90,
+            //                 color: '#FFFFFF',
+            //                 align: 'right',
+            //                 format: '{point.y:,.0f}', // one decimal
+            //                 y: 10, // 10 pixels down from the top
+            //                 style: {
+            //                     fontSize: '10px',
+            //                     fontFamily: 'Verdana, sans-serif'
+            //                 }
+            //             }
+            //         }]
+            //     });
+            // });
             </script>
         </div>
-        <div class="div_right">
-        <span class="span_title">설비데이터</span>
+        <div class="div_right" style="display:none;">
+            <span class="span_title">설비데이터</span>
             <a href="../intelli/data_measure_list.php" class="more">더보기</a>
             <div id="chart4">
                 <span class="text01"><i class="fa fa-spinner fa-spin"></i></span>
             </div>
             <script>
-            Highcharts.getJSON('http://hanjoo.epcs.co.kr/user/json/stat_facility.php?token=1099de5drf09&st_date=<?=$st_date?>&en_date=<?=$en_date?>', function (data) {
-                // create the chart
-                Highcharts.setOptions({
-                    lang: {
-                        thousandsSep: ',',
-                        decimalPoint: '.'
-                    }
-                });
-                Highcharts.chart('chart4', {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        type: 'category',
-                        labels: {
-                            style: {
-                                fontSize: '10px',
-                                fontFamily: 'Verdana, sans-serif'
-                            }
-                        }
-                    },
-                    navigation: {
-                        buttonOptions: {
-                            enabled: false, // contextButton (인쇄, 다운로드..) 설정 (기본옵션 사용자들에게는 안 보이게!!)
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    tooltip: {
-                        pointFormat: '<b>{point.y:,.0f}</b>'
-                    },
-                    series: [{
-                        name: 'Population',
-                        data: data,
-                        dataLabels: {
-                            enabled: true,
-                            rotation: -90,
-                            color: '#FFFFFF',
-                            align: 'right',
-                            format: '{point.y:,.0f}', // one decimal
-                            y: 10, // 10 pixels down from the top
-                            style: {
-                                fontSize: '10px',
-                                fontFamily: 'Verdana, sans-serif'
-                            }
-                        }
-                    }]
-                });
-            });
+            // Highcharts.getJSON('http://hanjoo.epcs.co.kr/user/json/stat_facility.php?token=1099de5drf09&st_date=<?=$st_date?>&en_date=<?=$en_date?>', function (data) {
+            //     // create the chart
+            //     Highcharts.setOptions({
+            //         lang: {
+            //             thousandsSep: ',',
+            //             decimalPoint: '.'
+            //         }
+            //     });
+            //     Highcharts.chart('chart4', {
+            //         chart: {
+            //             type: 'column'
+            //         },
+            //         title: {
+            //             text: ''
+            //         },
+            //         xAxis: {
+            //             type: 'category',
+            //             labels: {
+            //                 style: {
+            //                     fontSize: '10px',
+            //                     fontFamily: 'Verdana, sans-serif'
+            //                 }
+            //             }
+            //         },
+            //         navigation: {
+            //             buttonOptions: {
+            //                 enabled: false, // contextButton (인쇄, 다운로드..) 설정 (기본옵션 사용자들에게는 안 보이게!!)
+            //             }
+            //         },
+            //         legend: {
+            //             enabled: false
+            //         },
+            //         tooltip: {
+            //             pointFormat: '<b>{point.y:,.0f}</b>'
+            //         },
+            //         series: [{
+            //             name: 'Population',
+            //             data: data,
+            //             dataLabels: {
+            //                 enabled: true,
+            //                 rotation: -90,
+            //                 color: '#FFFFFF',
+            //                 align: 'right',
+            //                 format: '{point.y:,.0f}', // one decimal
+            //                 y: 10, // 10 pixels down from the top
+            //                 style: {
+            //                     fontSize: '10px',
+            //                     fontFamily: 'Verdana, sans-serif'
+            //                 }
+            //             }
+            //         }]
+            //     });
+            // });
             </script>
         </div>
     </div>

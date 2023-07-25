@@ -2,7 +2,9 @@
 
 /* 초기화 */
 html {overflow-y:hidden;height:100%;}
-body {margin:0 0 0 10px;padding:10px;font-size:1.3em;font-family:'Malgun Gothic', dotum, sans-serif;background:#333;color:#ddd;border:0px solid red;height:100%;}
+body {margin:0 0 0 10px;padding:10px;font-size:1.3em;font-family:'Malgun Gothic', dotum, sans-serif;background:#333;color:#ddd;border:0px solid red;height:100%;
+/*transform: scale(1.5);*/
+}
 html, h1, h2, h3, h4, h5, h6, form, fieldset, img {margin:0;padding:0;border:0}
 h1, h2, h3, h4, h5, h6 {font-size:1em;font-family:'Malgun Gothic', dotum, sans-serif}
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block}
