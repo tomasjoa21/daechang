@@ -41,10 +41,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style2.css">', 
         <strong><?=$board['bo_8_key_arr'][$view['wr_5']]?></strong>
         <strong><?=$board['bo_9_key_arr'][$view['wr_6']]?></strong>
         에 
-        <strong><?=count($towhom_li)?></strong>명에게 알림
+        <strong><?=@count($towhom_li)?></strong>명에게 알림
         <ul>
             <?php
-            for($i=0;$i<sizeof($towhom_li);$i++) {
+            for($i=0;$i<@sizeof($towhom_li);$i++) {
                 echo '<li>
                         <span class="r_name">'.$towhom_li[$i]['r_name'].'</span>
                         <span class="r_role">'.$towhom_li[$i]['r_role'].'</span>

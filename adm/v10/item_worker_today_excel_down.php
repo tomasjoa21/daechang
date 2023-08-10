@@ -4,10 +4,7 @@ include_once('./_common.php');
 
 auth_check($auth[$sub_menu],"r");
 
-$g5['title'] = '작업자별현황';
-@include_once('./_top_menu_item_status.php');
-include_once('./_head.php');
-echo $g5['container_sub_title'];
+function column_char($i) { return chr( 65 + $i ); }
 
 // st_date, en_date
 $st_date = $st_date ?: date("Y-m-d",G5_SERVER_TIME);
@@ -136,7 +133,6 @@ if ($ser_mb_id) {
 if ($where)
     $sql_search = ' WHERE '.implode(' AND ', $where);
 
-
 if (!$sst) {
 	$sst = "pri_idx";
     //$sst = "pri_sort, ".$pre."_reg_dt";
@@ -144,15 +140,11 @@ if (!$sst) {
 }
 $sql_order = " ORDER BY {$sst} {$sod} ";
 
-$rows = $g5['setting']['set_'.$g5['file_name'].'_page_rows'] ? $g5['setting']['set_'.$g5['file_name'].'_page_rows'] : $config['cf_page_rows'];
-if (!$page) $page = 1; // 페이지가 없으면 첫 페이지 (1 페이지)
-$from_record = ($page - 1) * $rows; // 시작 열을 구함
 
 $sql = " SELECT pri_idx, pri.bom_idx, mms_idx, mb_id, pri_value, prd_start_date, bom.*
 		{$sql_common}
 		{$sql_search}
         {$sql_order}
-		LIMIT {$from_record}, {$rows}
 ";
 // echo $sql.BR;
 $result = sql_query($sql,1);
@@ -161,109 +153,21 @@ $result = sql_query($sql,1);
 $sql = " SELECT COUNT(*) as cnt {$sql_common} {$sql_search} ";
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
-$total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
+if (!$total_count)
+    alert("출력할 내역이 없습니다.");
 
 
-// 작업자 select list 추출
-$sql1 = " SELECT mb_id {$sql_common} 
-            WHERE prd_start_date = '".$stat_date."' AND pri.com_idx = '".$_SESSION['ss_com_idx']."'
-            GROUP BY mb_id
-";
-// echo $sql1.BR;
-$rs = sql_query($sql1,1);
-for ($i=0; $row=sql_fetch_array($rs); $i++) {
-    $row['mb'] = get_table('member','mb_id',$row['mb_id'],'mb_name');
-    $row['mb_name'] = $row['mb']['mb_name'];
-    // print_r2($row);
-    $mb_selects[$i] = array('mb_id'=>$row['mb_id'],'mb_name'=>$row['mb_name']);
-}
-// print_r2($mb_selects);
+// 각 항목 설정
+$headers = array('품번','품명','구분','차종','작업자','설비','생산시간범위','생산시간(분)','비가동시간(분)','UPH','목표','생산수량','달성율');
+$widths  = array(20   ,40   ,10   , 10  ,20    ,10   ,15        ,10      ,10    ,10    ,10  ,10      ,10);
+$header_bgcolor = 'FFABCDEF';
+$last_char = column_char(count($headers) - 1);
 
+// 엑셀 데이타 출력
+include_once(G5_LIB_PATH.'/PHPExcel.php');
 
-$listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목록</a>';
-?>
-<style>
-.td_mng {width:90px;max-width:90px;}
-.td_pri_subject a, .td_mb_name a {text-decoration: underline;}
-.td_pri_price {width:80px;}
-.td_pic_value a{color:#ff5e5e;}
-.tr_total td {background-color: #162037;}
-</style>
-
-<div class="local_ov01 local_ov">
-    <?php echo $listall ?>
-    <span class="btn_ov01"><span class="ov_txt">총건수 </span><span class="ov_num"> <?php echo number_format($total_count) ?>건</span></span>
-</div>
-
-<div class="local_desc01 local_desc" style="display:no ne;">
-    <p><?=$st_date?> 각 작업자별 생산 현황입니다.</p>
-    <p>10분 정도 시차 Delay(딜레이)를 두고 실시간 반영됩니다. 시스템 부하를 분산시키기 위한 불가피한 지연 시간입니다.</p>
-    <p>항목 중에서 비가동 시간이 의미하는 바는 (<a href="<?=G5_USER_ADMIN_URL?>/system/offwork_list.php">계획정지</a> + <a href="<?=G5_USER_ADMIN_URL?>/system/manual_downtime_list.php">설비비가동</a>)입니다. 해당 페이지에서 설정해 주세요.</p>
-</div>
-
-<form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get" style="width:100%;">
-<label for="sfl" class="sound_only">검색대상</label>
-<input type="text" name="st_date" value="<?=$st_date?>" id="st_date" class="frm_input" autocomplete="off" style="width:90px;">
-<select name="ser_mb_id" id="ser_mb_id">
-    <option value="">작업자전체</option>
-    <?php
-    for ($i=0; $i<sizeof($mb_selects); $i++) {
-        echo '<option value="'.$mb_selects[$i]['mb_id'].'">'.$mb_selects[$i]['mb_name'].' ('.$mb_selects[$i]['mb_id'].')</option>';
-    }
-    ?>
-</select>
-<script>$('#ser_mb_id').val('<?=$ser_mb_id?>');</script>
-<select name="sfl" id="sfl">
-    <option value="">검색항목</option>
-    <option value="bom_part_no" <?=get_selected($sfl, 'bom_part_no')?>>품번</option>
-    <option value="bom_name" <?=get_selected($sfl, 'bom_name')?>>품명</option>
-    <option value="pri.bom_idx" <?=get_selected($sfl, 'pri.bom_idx')?>>BOM번호</option>
-    <option value="mms_idx" <?=get_selected($sfl, 'mms_idx')?>>설비번호</option>
-</select>
-<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-<input type="text" name="stx" value="<?php echo $stx ?>" id="stx" class="frm_input">
-<input type="submit" class="btn_submit btn_submit2" value="검색">
-</form>
-
-
-
-
-<form name="form01" id="form01" action="./<?=$g5['file_name']?>_update.php" onsubmit="return form01_submit(this);" method="post">
-<input type="hidden" name="sst" value="<?php echo $sst ?>">
-<input type="hidden" name="sod" value="<?php echo $sod ?>">
-<input type="hidden" name="sfl" value="<?php echo $sfl ?>">
-<input type="hidden" name="stx" value="<?php echo $stx ?>">
-<input type="hidden" name="page" value="<?php echo $page ?>">
-<input type="hidden" name="token" value="">
-<input type="hidden" name="w" value="">
-<?=$form_input?>
-
-<div class="tbl_head01 tbl_wrap">
-    <table>
-    <caption><?php echo $g5['title']; ?> 목록</caption>
-    <thead>
-    <tr>
-        <th scope="col" id="pri_list_chk" style="display:none;">
-            <label for="chkall" class="sound_only">전체</label>
-            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-        </th>
-        <th scope="col" style="min-width:200px;">품번/품명</th>
-        <th scope="col">구분</th>
-        <th scope="col">차종</th>
-        <th scope="col">작업자</th>
-        <th scope="col">설비</th>
-        <th scope="col">생산시간</th>
-        <th scope="col">비가동</th>
-        <th scope="col">UPH</th>
-        <th scope="col">목표</th>
-        <th scope="col">생산수량</th>
-        <th scope="col" style="width:60px;">달성율</th>
-        <th scope="col" style="width:200px;">그래프</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
-    for ($i=0; $row=sql_fetch_array($result); $i++) {
+// 두번째 줄부터 실제 데이터 입력
+for($i=1; $row=sql_fetch_array($result); $i++) {
         // print_r2($row);
         $row['cst_customer'] = get_table('customer','cst_idx',$row['cst_idx_customer'],'cst_name');
         $row['bct'] = get_table('bom_category','bct_idx',$row['bct_idx'],'bct_name');
@@ -509,131 +413,46 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             $row['rate_percent'] = $row['pic']['pic_sum'] / $row['pri_value'] * 100;
             $row['graph'] = '<img class="graph_output" src="../img/dot.gif" style="width:'.(($row['rate_percent']>100)?100:$row['rate_percent']).'%;background:'.$row['rate_color'].';" height="8px">';
         }
+        
 
-        // 버튼들
-        $s_mod = '<a href="./'.$fname.'_form.php?'.$qstr.'&amp;w=u&'.$pre.'_idx='.$row[$pre.'_idx'].'" class="btn btn_03">수정</a>';
+    // $row['com'] = sql_fetch(" SELECT com_name FROM {$g5['company_table']} WHERE com_idx = '".$row['com_idx']."' ");
+    // $row['mms'] = sql_fetch(" SELECT mms_name FROM {$g5['mms_table']} WHERE mms_idx = '".$row['mms_idx']."' ");
+    // $row['cod'] = sql_fetch(" SELECT cod_name, trm_idx_category FROM {$g5['code_table']} WHERE cod_idx = '".$row['cod_idx']."' ");
+    // // print_r2($row);
 
-        $bg = 'bg'.($i%2);
-    ?>
-    <tr class="<?=$bg?>" tr_id="<?=$row[$pre.'_idx']?>">
-        <td class="td_chk" style="display:none;">
-            <input type="hidden" name="<?=$pre?>_idx[<?=$i?>]" value="<?=$row[$pre.'_idx']?>" id="<?=$pre?>_idx_<?=$i?>">
-            <input type="checkbox" name="chk[]" value="<?=$i?>" id="chk_<?=$i?>">
-        </td>
-        <td class="td_part_no_name td_left"><!-- 품번/품명 -->
-            <?=$row['bom_part_no']?><br><?=$row['bom_name']?>
-        </td>
-        <td class="td_pri_type font_size_7"><?=$g5['set_bom_type_value'][$row['bom_type']]?></td><!-- 구분 -->
-        <td class="td_bct_idx font_size_7"><?=$row['bct']['bct_name']?></td><!-- 차종 -->
-        <td class="td_mb_name"><a href="?ser_mb_id=<?=$row['mb_id']?>"><?=$row['mb1']['mb_name']?></a></td><!-- 작업자 -->
-        <td class="td_mms_name"><a href="?sfl=mms_idx&stx=<?=$row['mms_idx']?>"><?=$g5['mms'][$row['mms_idx']]['mms_name']?></a></td><!-- 설비 -->
-        <td class="td_pri_hours font_size_7"><?=$row['pri_hours']?><?=$row['pri_work_min_text']?></td><!-- 생산시간 -->
-        <td class="td_pri_offdown font_size_7"><?=$row['offdown_text']?></td><!-- 비가동 -->
-        <td class="td_pri_uph"><?=$row['pri_uph']?></td><!-- UPH -->
-        <td class="td_pri_value"><?=$row['pri_value']?></td><!-- 목표 -->
-        <td class="td_pic_value color_red"><a href="./item_today_list.php?ser_mms_idx=<?=$row['mms_idx']?>&ser_mb_id=<?=$row['mb_id']?>"><?=(int)$row['pic']['pic_sum']?></a></td><!-- 수량 -->
-        <td class="td_pri_rate color_yellow font_size_7"><?=number_format($row['rate_percent'],1)?> %</td><!-- 달성율 -->
-        <td class="td_graph td_left"><!-- 그래프 -->
-            <?=$row['graph']?>
-        </td>
-    </tr>
-    <?php
-        // 목표 합계
-        $target_goal += $row['pri_value'];
-        $production_total += (int)$row['pic']['pic_sum'];
-    }
-    if ($i == 0) {
-        echo '<tr><td colspan="20" class="empty_table">자료가 없습니다.</td></tr>';
-    }
-    else {
-        // print_r2($pri_uph_arr);
-        // echo $pri_uph_total.BR;
-        // echo sizeof($pri_uph_arr).BR;
-        $row['pri_uph_ave'] = $pri_uph_arr[0] ? number_format($pri_uph_total/sizeof($pri_uph_arr),1) : 0;
-        $row['rate'] = (!$target_goal||!$production_total) ? 0 : $production_total / $target_goal * 100;
-        if($target_goal && $production_total) {
-            $row['rate_percent'] = $production_total / $target_goal * 100;
-            $row['graph'] = '<img class="graph_output" src="../img/dot.gif" style="width:'.(($row['rate_percent']>100)?100:$row['rate_percent']).'%;background:#ff9f64;" height="8px">';
-        }
-    ?>
-    <tr class="tr_total" tr_id="">
-        <td class="td_chk" style="display:none;"></td>
-        <td colspan="5">합계 (UPH는 평균)</td>
-        <td class="td_pri_hours font_size_7"></td><!-- 생산시간 -->
-        <td class="td_offdown"></td>
-        <td class="td_pri_uph"><?=$row['pri_uph_ave']?></td><!-- UPH -->
-        <td class="td_pri_value"><?=number_format($target_goal)?></td>
-        <td class="td_pic_value color_red"><?=number_format($production_total)?></td>
-        <td class="td_pri_rate color_yellow font_size_7"><?=number_format($row['rate'],1)?> %</td><!-- 달성율 -->
-        <td class="td_graph td_left"><?=$row['graph']?></td>
-    </tr>
-    <?php
-    }
-    ?>
-    </tbody>
-    </table>
-</div>
-
-<div class="btn_fixed_top" style="display:<?=(!$member['mb_manager_yn'])?'none':''?>;">
-    <a href="./item_worker_today_excel_down.php?st_date=<?=$st_date?>&en_date=<?=$en_date?>" class="btn_03 btn">엑셀다운</a>
-    <a href="<?=G5_USER_URL?>/cron/socket_read.php?sync=1" class="btn btn_02 btn_production_sync">생산현황동기화</a>
-</div>
-
-</form>
-
-<?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, '?'.$qstr.'&amp;page='); ?>
-
-<script>
-var posY;
-$(function(e) {
-    // 생산현황동기화
-	$(".btn_production_sync").click(function(e) {
-		e.preventDefault();
-        var href = $(this).attr('href');
-		winProductionSync = window.open(href, "winProductionSync", "left=300,top=150,width=550,height=600,scrollbars=1");
-        winProductionSync.focus();
-	});
-
-    $("input[name$=_date]").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "yy-mm-dd",
-        showButtonPanel: true,
-        yearRange: "c-99:c+99",
-        maxDate: "+0d"
-    });	 
-});
-
-
-function form01_submit(f)
-{
-
-    if (!is_checked("chk[]")) {
-        alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
-        return false;
-    }
-
-	if(document.pressed == "선택수정") {
-		$('input[name="w"]').val('u');
-	}
-	else if(document.pressed == "선택삭제") {
-		if (!confirm("선택한 항목(들)을 정말 삭제 하시겠습니까?\n복구가 어려우니 신중하게 결정 하십시오.")) {
-			return false;
-		}
-		// else {
-		// 	$('input[name="w"]').val('d');
-		// }
-	}
-	else if(document.pressed == "선택복제") {
-		if (!confirm("선택한 항목(들)을 정말 복제 하시겠습니까?")) {
-			return false;
-		}
-	}
-
-    return true;
+    $rows[] = array($row['bom_part_no']
+                  , $row['bom_name']
+                  , $g5['set_bom_type_value'][$row['bom_type']]
+                  , $row['bct']['bct_name']
+                  , $row['mb1']['mb_name']
+                  , $g5['mms'][$row['mms_idx']]['mms_name']
+                  , $row['pri_hours']
+                  , $row['pri_work_min']
+                  , $row['offdown_min']
+                  , $row['pri_uph']
+                  , $row['pri_value']
+                  , (int)$row['pic']['pic_sum']
+                  , number_format($row['rate_percent'],1)
+              );
 }
-</script>
+// print_r2($rows);
+// exit;
 
-<?php
-include_once ('./_tail.php');
+
+$data = array_merge(array($headers), $rows);
+
+$excel = new PHPExcel();
+$excel->setActiveSheetIndex(0)->getStyle( "A1:${last_char}1" )->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB($header_bgcolor);
+$excel->setActiveSheetIndex(0)->getStyle( "A:$last_char" )->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setWrapText(true);
+foreach($widths as $i => $w) $excel->setActiveSheetIndex(0)->getColumnDimension( column_char($i) )->setWidth($w);
+$excel->getActiveSheet()->fromArray($data,NULL,'A1');
+
+header("Content-Type: application/octet-stream");
+// header("Content-Disposition: attachment; filename=\"today-".date("ymdHi", time()).".xls\"");
+header("Content-Disposition: attachment; filename=\"today-".$st_date.".xls\"");
+header("Cache-Control: max-age=0");
+
+$writer = PHPExcel_IOFactory::createWriter($excel, 'Excel5');
+$writer->save('php://output');
+
 ?>

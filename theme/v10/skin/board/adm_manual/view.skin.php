@@ -38,7 +38,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style2.css">', 
 
         <?php
         // 파일 출력
-        $v_img_count = count($view['file']);
+        $v_img_count = @count($view['file']);
         if($v_img_count) {
             echo "<div id=\"bo_v_img\">\n";
 

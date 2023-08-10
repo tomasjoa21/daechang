@@ -140,8 +140,10 @@ function conv_rich_content($matches)
 }
 $view['rich_content'] = preg_replace_callback("/{이미지\:([0-9]+)[:]?([^}]*)}/i", "conv_rich_content", $view['content']);
 
+// print_r2($view);
 // 기존 $view 배열 값에 meta_bale에서 추출한 값을 병합한다.
-$view = @array_merge($view,get_meta('board/'.$bo_table,$wr_id));
+// $view = @array_merge($view,get_meta('board/'.$bo_table,$wr_id));
+// print_r2($view);
 
 $is_signature = false;
 $signature = '';

@@ -5,10 +5,8 @@
 <meta http-equiv="imagetoolbar" content="no">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <title>사원관리 | EPCS2</title>
-<!-- <link rel="stylesheet" href="http://daechang.epcs.co.kr/adm/css/admin.css?ver=210618"> -->
-<link rel="stylesheet" href="http://daechang.epcs.co.kr/epcs3/css/adm.css?ver=210618">
-<link rel="stylesheet" href="http://daechang.epcs.co.kr/adm/v10/css/user.css?ver=210618">
-<link rel="stylesheet" href="http://daechang.epcs.co.kr/epcs3/css/default.css">
+<link rel="stylesheet" href="./css/default.css">
+<link rel="stylesheet" href="./js/font-awesome/css/font-awesome.min.css?ver=210618">
 </head>
 <body>
 <header id="hd">
@@ -130,20 +128,23 @@
             <span class="btn_ov01"><span class="ov_txt">총 </span><span class="ov_num"> 140건 </span></span>
         </div>
     </div>
+    <h2 id="container_sub_title">
+        <a href="./config_form.php" class="btn_top_menu ">설비관리설정</a>
+        <a href="./offwork_list.php" class="btn_top_menu  btn_top_menu_active">계획정지관리</a>
+        <a href="./manual_downtime_list.php" class="btn_top_menu ">비가동관리</a>
+    </h2>    
     <div class="container_wr">
         <div class="local_desc01 local_desc">
             <p>업체명이 변경되는 경우 기존 정보와 혼란이 생길 수 있으므로 업체명이 바뀌면 히스토리에 저장됩니다. (히스토리 항목은 수정할 수 없습니다.)</p>
         </div>
         
         <form id="fsearch" name="fsearch" class="local_sch01 local_sch" method="get">
-            <label for="sfl" class="sound_only">검색대상</label>
             <select name="sfl" id="sfl">
                 <option value="mb_name">이름</option>
                 <option value="mb.mb_id">아이디</option>
                 <option value="mb_email">E-MAIL</option>
                 <option value="mb_hp">휴대폰번호</option>
             </select>
-            <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
             <input type="text" name="stx" value="" id="stx" required class="required frm_input">
             <input type="submit" class="btn_submit" value="검색">
         </form>
