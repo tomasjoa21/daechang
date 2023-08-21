@@ -6,7 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <title>사원관리 | EPCS2</title>
 <link rel="stylesheet" href="./css/default.css">
+<!-- <link rel="stylesheet" href="./css/adm.css"> -->
 <link rel="stylesheet" href="./js/font-awesome/css/font-awesome.min.css?ver=210618">
+<script src="./js/jquery-1.12.4.min.js?ver=210618"></script>
 </head>
 <body>
 <header id="hd">
@@ -484,6 +486,22 @@
     </div><!-- class="container_wr" -->
 </div><!-- id="container" -->
 </div><!-- id="wrapper" -->
+
+<script>
+$(document).on('click','.btn_gnb_close',function(e){
+    if($(this).hasClass('btn_gnb_open')) {
+        $(this).removeClass('btn_gnb_open');
+        $('#gnb').addClass('gnb_small');
+        $('#container').addClass('container-small');
+    }
+    else {
+        $(this).addClass('btn_gnb_open');
+        $('#gnb').removeClass('gnb_small');
+        $('#container').removeClass('container-small');
+    }
+});
+</script>
+
 
 </body>
 </html>
