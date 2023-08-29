@@ -163,7 +163,7 @@ admin.menu910.php
 $menu["menu910"] = array (
     .......
     .......
-    array('910150', '사용자로그통계', ''.G5_USER_ADMIN_URL.'/stat_user_log.php', 'stat_user_log')
+    array('910150', '사용로그통계', ''.G5_USER_ADMIN_URL.'/stat_user_log.php', 'stat_user_log')
 );
 
 ###################################################################################
@@ -183,7 +183,7 @@ $pre = substr($fields[0],0,strpos($fields[0],'_'));
 $fname = $g5['file_name'];
 
 
-$g5['title'] = '사용자로그통계';
+$g5['title'] = '사용로그통계';
 include_once('./_top_menu_setting.php');
 include_once('./_head.php');
 echo $g5['container_sub_title'];

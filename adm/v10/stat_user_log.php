@@ -12,7 +12,7 @@ $pre = substr($fields[0],0,strpos($fields[0],'_'));
 $fname = $g5['file_name'];
 
 
-$g5['title'] = '사용자로그통계';
+$g5['title'] = '사용로그통계';
 // include_once('./_top_menu_setting.php');
 include_once('./_head.php');
 // echo $g5['container_sub_title'];
