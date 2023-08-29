@@ -39,6 +39,8 @@ define('G5_USER_ADMIN_SET_PATH',   		    G5_ADMIN_PATH.'/'.G5_USER_ADMIN_DIR.'/s
 define('G5_USER_ADMIN_SET_URL',   		    G5_ADMIN_URL.'/'.G5_USER_ADMIN_DIR.'/set');
 define('G5_USER_ADMIN_SQL_PATH',   		    G5_ADMIN_PATH.'/'.G5_USER_ADMIN_DIR.'/sql');
 define('G5_USER_ADMIN_SQL_URL',   		    G5_ADMIN_URL.'/'.G5_USER_ADMIN_DIR.'/sql');
+define('G5_USER_ADMIN_SQLS_PATH',   		G5_ADMIN_PATH.'/'.G5_USER_ADMIN_DIR.'/sqls');
+define('G5_USER_ADMIN_SQLS_URL',   		    G5_ADMIN_URL.'/'.G5_USER_ADMIN_DIR.'/sqls');
 define('G5_USER_ADMIN_SVG_PATH',   		    G5_ADMIN_PATH.'/'.G5_USER_ADMIN_DIR.'/svg');
 define('G5_USER_ADMIN_SVG_URL',   		    G5_ADMIN_URL.'/'.G5_USER_ADMIN_DIR.'/svg');
 define('G5_USER_ADMIN_SVG_PHP_PATH',   		G5_ADMIN_PATH.'/'.G5_USER_ADMIN_DIR.'/svg_php');
@@ -126,6 +128,7 @@ $g5['file_table']                   = USER_TABLE_PREFIX . 'file';
 $g5['banner_table']                 = USER_TABLE_PREFIX . 'banner';
 $g5['history_table']                = USER_TABLE_PREFIX . 'history';
 $g5['comment_table']                = USER_TABLE_PREFIX . 'comment';
+$g5['user_log_table']               = USER_TABLE_PREFIX . 'user_log';
 /*
 $g5['wdg_table']                    = USER_TABLE_PREFIX . 'wdg';
 $g5['wdg_config_table']             = USER_TABLE_PREFIX . 'wdg_config';

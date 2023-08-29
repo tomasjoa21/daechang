@@ -61,6 +61,13 @@ if ($config['cf_sms_use'] && $config['cf_icode_id'] && $config['cf_icode_pw']) {
 			<col>
 		</colgroup>
 		<tbody>
+        <tr>
+            <th scope="row">스마트공장<br>사후관리로그 API Key값</th>
+            <td colspan="3">
+                <?php echo help('ex) $5$API$eBJE.VCD.ogyP2p/zLpQfytqFgcixS6fJhSdTGy2qkB') ?>
+                <input type="text" name="mng_userlog_crtfckey" value="<?php echo $g5['setting']['mng_userlog_crtfckey'] ?>" id="mng_userlog_crtfckey" required class="required frm_input" style="width:60%;">
+            </td>
+        </tr>
 		<tr>
 			<th scope="row">로그인실패 횟수</th>
 			<td colspan="3">

@@ -291,7 +291,7 @@ if(defined('G5_IS_ADMIN')){
 		}
 	}
 	function u_tail_sub(){
-        global $g5,$member,$default,$config,$board,$menu,$w,$print_version;
+        global $g5,$member,$default,$config,$board,$menu,$sub_menu,$w,$print_version;
 
         // 관리자 디버깅 메시지 (있는 경우만 나타남)
         if( is_array($g5['debug_msg']) ) {
@@ -382,6 +382,13 @@ if(defined('G5_IS_ADMIN')){
 
         // 후킹 추가
         @include_once($g5['hook_file_path'].'/'.$g5['file_name'].'.tail.php');
+
+        $kosmolog_key = $g5['setting']['mng_userlog_crtfckey'];
+        echo "==============";
+        echo $sub_menu;
+        if($kosmolog_key)
+            @include_once(G5_USER_ADMIN_PATH.'/_kosmolog.php');
+
         // 페이지 제일 하단에 공통으로 반영되어야 할 자바스크립트 php 파일
         @include_once(G5_USER_ADMIN_PATH.'/_tail_common_js.php');
 	}
@@ -672,3 +679,8 @@ $g5['week_names'] = array(
 	,"6"=>"토"
 );
 
+//사용자 로그 테이블(g5_5_user_log)이 존재하는지 확인하고 없으면 설치
+$user_log_tbl = @sql_query(" DESC ".$g5['user_log_table']." ", false);
+if(!$user_log_tbl){
+	include_once(G5_USER_ADMIN_SQLS_PATH.'/create_user_log.php');
+}
