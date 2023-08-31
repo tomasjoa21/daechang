@@ -384,8 +384,7 @@ if(defined('G5_IS_ADMIN')){
         @include_once($g5['hook_file_path'].'/'.$g5['file_name'].'.tail.php');
 
         $kosmolog_key = $g5['setting']['mng_userlog_crtfckey'];
-        echo "==============";
-        echo $sub_menu;
+        
         if($kosmolog_key)
             @include_once(G5_USER_ADMIN_PATH.'/_kosmolog.php');
 
